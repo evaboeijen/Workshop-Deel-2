@@ -5,6 +5,7 @@ package business;
  * and open the template in the editor.
  */
 
+import java.util.Map;
 import java.util.Objects;
 import java.util.Scanner;
 import org.apache.commons.validator.routines.EmailValidator;
@@ -22,7 +23,8 @@ public class Klant {
 	private Set<Bestelling> bestellingSet;
 	private Set<Factuur> factuurSet;
 	private Set<Account> accountSet;
-
+	private Map<Adres, AdresType> adresMap;
+	
 	public Klant() {}
 
 	public long getId() {
@@ -96,7 +98,15 @@ public class Klant {
 	public Set<Factuur> getFactuurSet(){
 		return factuurSet;
 	}
-
+	
+	public void setAdresMap(Map<Adres, AdresType> adresMap){
+		this.adresMap = adresMap;
+	}
+	
+	public Map<Adres, AdresType> getAdresMap(){
+		return adresMap;
+	}
+	
 	@Override 
 	public String toString(){
 		return  "\n\tKlant_id: " 	+ id +
