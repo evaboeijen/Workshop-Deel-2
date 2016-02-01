@@ -1,8 +1,9 @@
 package business;
 
 import java.util.Objects;
+import java.io.Serializable;
 
-public class Artikel {
+public class Artikel implements Serializable {
 
 	private long id;
 	private String artikel_nummer;

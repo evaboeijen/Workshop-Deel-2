@@ -10,6 +10,7 @@ public class Bestelling {
 	private Date bestelDatum;
 	private Set<BestelArtikel> bestelArtikelSet;
 	private Set<Factuur> factuurSet;
+	private Klant klant;
 	
 	
 	public Bestelling() {		
@@ -55,6 +56,14 @@ public class Bestelling {
     public void setFactuurSet(Set<Factuur> factuurSet) {
     	this.factuurSet = factuurSet;
     }
+    
+    public Klant getKlant() {
+		return klant;
+	}
+
+	public void setKlant(Klant klant) {
+		this.klant = klant;
+	}
     
     @Override
     public String toString(){

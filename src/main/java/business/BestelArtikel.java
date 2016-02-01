@@ -1,8 +1,9 @@
 package business;
 
 import java.util.Objects;
+import java.io.Serializable;
 
-public class BestelArtikel {
+public class BestelArtikel implements Serializable {
 
 	private long id;
 	private Artikel artikel;

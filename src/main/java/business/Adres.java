@@ -1,8 +1,9 @@
 package business;
 
 import java.util.Objects;
+import java.io.Serializable;
 
-public class Adres {
+public class Adres implements Serializable {
 	
 	private long id;
 	private String straatnaam;

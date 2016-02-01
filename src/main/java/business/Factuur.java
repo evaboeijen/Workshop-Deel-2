@@ -1,10 +1,11 @@
 package business;
 
 import java.util.Date;
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 
-public class Factuur {
+public class Factuur implements Serializable {
 
 	private long id;
 	private String factuurNummer;

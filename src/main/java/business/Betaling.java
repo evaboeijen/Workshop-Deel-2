@@ -1,9 +1,10 @@
 package business;
 
 import java.util.Date;
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Betaling {
+public class Betaling implements Serializable{
 
 	private long id;
 	private Date betaalDatum;

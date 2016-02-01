@@ -6,27 +6,50 @@ package business;
  */
 
 import java.util.Map;
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Scanner;
 import org.apache.commons.validator.routines.EmailValidator;
-import java.lang.annotation.*;
 import java.util.Set;
+import javax.persistence.*;
 
-
-public class Klant {
+@Entity
+@Table(name = "Klant")
+public class Klant implements Serializable{
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "klant_id")
 	private long id;
+	
+	@Column
 	private String voornaam;
+	
+	@Column
 	private String achternaam;
+	
+	@Column
 	private String tussenvoegsel;
+	
+	@Column
 	private String email;
+	
+	@Column(name = "bestellingset")
 	private Set<Bestelling> bestellingSet;
+	
+	@Column(name = "factuurset")
 	private Set<Factuur> factuurSet;
+	
+	@Column(name = "accountset")
 	private Set<Account> accountSet;
+	
+	@Column(name = "adresmap")
 	private Map<Adres, AdresType> adresMap;
 	
+	
 	public Klant() {}
-
+	
+	
 	public long getId() {
 		return id;
 	}
@@ -165,5 +188,6 @@ public class Klant {
         return true;
 	}
 }
+
 
 
