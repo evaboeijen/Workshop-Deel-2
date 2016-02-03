@@ -1,14 +1,29 @@
 package business;
 
 import java.util.Objects;
+import javax.persistence.*;
 import java.io.Serializable;
 
-public class Artikel implements Serializable {
 
+@Entity
+@Table
+public class Artikel implements Serializable {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "artikel_id")
 	private long id;
+	
+	@Column
 	private String artikel_nummer;
+	
+	@Column
 	private String artikel_naam;
+	
+	@Column
 	private String omschrijving;
+	
+	@Column
 	private double artikel_prijs;
 	
 	

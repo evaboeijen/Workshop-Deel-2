@@ -5,12 +5,27 @@ import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 
-public class Factuur implements Serializable {
+import javax.persistence.*;
 
+@Entity
+@Table
+public class Factuur implements Serializable {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "factuur_id")
 	private long id;
+	
+	@Column(name = "factuurnummer")
 	private String factuurNummer;
+	
+	@Column
 	private Date bestelDatum;
+	
+	@OneToMany
 	private Set<Betaling> betalingSet;
+	
+	@OneToOne
 	private Bestelling bestelling;
 	
 	public Factuur(){

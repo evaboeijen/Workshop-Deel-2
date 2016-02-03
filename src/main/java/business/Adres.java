@@ -1,16 +1,36 @@
 package business;
 
 import java.util.Objects;
+
+import javax.persistence.*;
+
 import java.io.Serializable;
 
+@Entity
+@Table
 public class Adres implements Serializable {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "adres_id")
 	private long id;
+	
+	@Column
 	private String straatnaam;
+	
+	@Column
 	private String postcode;
+	
+	@Column
 	private String toevoeging;
+	
+	@Column
 	private int huisnummer;
+	
+	@Column
 	private String woonplaats;
+	
+	@OneToOne
 	private AdresType adresType;
 
 	public Adres(){}

@@ -32,7 +32,7 @@ public class TestHibernate {
 			
 			
 			System.out.println("*** Persist - start ***");
-			
+			logger.info("klant is: " + klant1);
 			service.persist(klant1);
 			
 			List<Klant> klanten = service.findAll();

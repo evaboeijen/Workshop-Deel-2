@@ -4,13 +4,26 @@ import java.util.Date;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Betaling implements Serializable{
+import javax.persistence.*;
 
+public class Betaling implements Serializable{
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "betaling_id")
 	private long id;
+	
+	@Column
 	private Date betaalDatum;
+	
+	@Enumerated(EnumType.STRING)
 	private Betaalwijze betalingswijze;
+	
 	private Klant klant;
+	
 	private Factuur factuur;
+	
+	@Column
 	private String betalingsGegevens;
 	
 	

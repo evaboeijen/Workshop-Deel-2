@@ -3,7 +3,7 @@ package dao;
 import java.sql.*;
 import java.util.*;
 
-import business.Klant;
+import business.*;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -66,6 +66,15 @@ public class KlantDaoImpl implements KlantDao<Klant, String> {
 
 			Configuration configuration = new Configuration()
 					.addAnnotatedClass(Klant.class)
+					.addAnnotatedClass(Account.class)
+					.addAnnotatedClass(Bestelling.class)
+					.addAnnotatedClass(Factuur.class)
+					.addAnnotatedClass(Adres.class)
+					.addAnnotatedClass(AdresType.class)
+					.addAnnotatedClass(BestelArtikel.class)
+					.addAnnotatedClass(Betaalwijze.class)
+					.addAnnotatedClass(Betaling.class)
+					.addAnnotatedClass(Artikel.class)
 					.configure();
 			
 			StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()

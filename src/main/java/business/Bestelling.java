@@ -4,12 +4,30 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.*;
+
+@Entity
+@Table
 public class Bestelling {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "bestelling_id")
 	private long id;
+	
+	@Column(name = "bestelnummer")
 	private String bestelNummer;
+	
+	@Column
 	private Date bestelDatum;
+	
+	@ElementCollection
 	private Set<BestelArtikel> bestelArtikelSet;
+	
+	@ElementCollection
 	private Set<Factuur> factuurSet;
+	
+	@OneToOne
 	private Klant klant;
 	
 	

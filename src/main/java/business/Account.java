@@ -4,11 +4,24 @@ import java.util.Date;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Account implements Serializable {
+import javax.persistence.*;
 
+@Entity
+@Table
+public class Account implements Serializable {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "account_id")
 	private long id;
+	
+	@Column(name = "accountnaam")
 	private String accountNaam;
+	
+	@Column
 	private Klant klant;
+	
+	@Column
 	private Date dateCreated;
 	
 	public Account(){

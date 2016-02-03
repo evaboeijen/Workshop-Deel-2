@@ -10,11 +10,14 @@ import java.io.Serializable;
 import java.util.Objects;
 import java.util.Scanner;
 import org.apache.commons.validator.routines.EmailValidator;
+
 import java.util.Set;
+
 import javax.persistence.*;
 
+
 @Entity
-@Table(name = "Klant")
+@Table
 public class Klant implements Serializable{
 	
 	@Id
@@ -34,16 +37,17 @@ public class Klant implements Serializable{
 	@Column
 	private String email;
 	
-	@Column(name = "bestellingset")
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="bestelnummer")
 	private Set<Bestelling> bestellingSet;
 	
-	@Column(name = "factuurset")
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="factuurnummer") 
 	private Set<Factuur> factuurSet;
 	
-	@Column(name = "accountset")
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="accountnaam")  
 	private Set<Account> accountSet;
 	
-	@Column(name = "adresmap")
+	@OneToMany(mappedBy="A")
+	@MapKey(name="type")
 	private Map<Adres, AdresType> adresMap;
 	
 	
