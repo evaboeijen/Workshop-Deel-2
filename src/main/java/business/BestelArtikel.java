@@ -15,10 +15,10 @@ public class BestelArtikel implements Serializable {
 	@Column(name = "bestelartikel_id")
 	private long id;
 	
-	@OneToMany
+	@ManyToOne
 	private Artikel artikel;
 	
-	@OneToMany
+	@ManyToOne
 	private Bestelling bestelling;
 	
 	@Column

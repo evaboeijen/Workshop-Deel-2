@@ -22,10 +22,10 @@ public class Factuur implements Serializable {
 	@Column
 	private Date bestelDatum;
 	
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="betaling_id")
 	private Set<Betaling> betalingSet;
 	
-	@OneToOne
+	@ManyToOne
 	private Bestelling bestelling;
 	
 	public Factuur(){

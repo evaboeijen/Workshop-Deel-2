@@ -16,11 +16,14 @@ public class Betaling implements Serializable{
 	@Column
 	private Date betaalDatum;
 	
+	@Column
 	@Enumerated(EnumType.STRING)
 	private Betaalwijze betalingswijze;
 	
+	@ManyToOne
 	private Klant klant;
 	
+	@ManyToOne
 	private Factuur factuur;
 	
 	@Column

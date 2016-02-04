@@ -21,13 +21,13 @@ public class Bestelling {
 	@Column
 	private Date bestelDatum;
 	
-	@ElementCollection
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="bestelArtikel_id")
 	private Set<BestelArtikel> bestelArtikelSet;
 	
-	@ElementCollection
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="factuurNummer")
 	private Set<Factuur> factuurSet;
 	
-	@OneToOne
+	@ManyToOne
 	private Klant klant;
 	
 	

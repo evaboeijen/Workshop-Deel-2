@@ -18,7 +18,7 @@ public class Account implements Serializable {
 	@Column(name = "accountnaam")
 	private String accountNaam;
 	
-	@Column
+	@ManyToOne
 	private Klant klant;
 	
 	@Column

@@ -30,7 +30,8 @@ public class Adres implements Serializable {
 	@Column
 	private String woonplaats;
 	
-	@OneToOne
+	@Column
+	@Enumerated(EnumType.STRING)
 	private AdresType adresType;
 
 	public Adres(){}
