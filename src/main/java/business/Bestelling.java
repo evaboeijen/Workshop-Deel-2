@@ -21,7 +21,7 @@ public class Bestelling {
 	@Column
 	private Date bestelDatum;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="bestelArtikel_id")
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="id")//maar is dit wel de goede id? bestelling og bestelartikel???
 	private Set<BestelArtikel> bestelArtikelSet;
 	
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="factuurNummer")

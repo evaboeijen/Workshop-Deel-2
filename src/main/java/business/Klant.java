@@ -5,6 +5,7 @@ package business;
  * and open the template in the editor.
  */
 
+import java.util.HashMap;
 import java.util.Map;
 import java.io.Serializable;
 import java.util.Objects;
@@ -46,9 +47,9 @@ public class Klant implements Serializable{
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="accountNaam")  
 	private Set<Account> accountSet;
 	
-	@OneToMany(mappedBy="A")
-	@MapKey(name="type")
-	private Map<Adres, AdresType> adresMap;
+	@ElementCollection
+	@MapKeyColumn(name="adres_id")
+	private Map<Adres, AdresType> adresMap = new HashMap<>();
 	
 	
 	public Klant() {}
