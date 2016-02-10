@@ -1,8 +1,14 @@
 package business;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-public enum AdresType {
-	Postadres,
-	Factuuradres,
-	Bezoekadres
-}
+@Entity
+public enum AdresType{
+		Postadres,
+		Factuuradres,
+		Bezoekadres
+	}
