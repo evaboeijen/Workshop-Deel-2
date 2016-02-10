@@ -47,9 +47,15 @@ public class Klant implements Serializable{
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="accountNaam")  
 	private Set<Account> accountSet;
 	
+	
 	@ElementCollection
 	@MapKeyColumn(name="adres_id")
-	private Map<Adres, AdresType> adresMap = new HashMap<>();
+	@JoinTable(
+		name = "klant_adres", 
+		joinColumns = @JoinColumn(name = "klant_id", referencedColumnName= "id"), 
+		inverseJoinColumns = {@JoinColumn(name = "adres_id", referencedColumnName= "id"),
+		@JoinColumn(name = "adrestype", referencedColumnName= "adrestype")})
+	private Map<Adres, AdresType> adresMap = new HashMap <Adres, AdresType>();
 	
 	
 	public Klant() {}

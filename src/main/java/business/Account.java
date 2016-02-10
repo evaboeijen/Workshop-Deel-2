@@ -18,7 +18,7 @@ public class Account implements Serializable {
 	@Column(name = "accountnaam")
 	private String accountNaam;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	private Klant klant;
 	
 	@Column

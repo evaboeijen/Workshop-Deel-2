@@ -6,6 +6,8 @@ import java.util.Objects;
 
 import javax.persistence.*;
 
+@Entity
+@Table
 public class Betaling implements Serializable{
 	
 	@Id
@@ -20,10 +22,10 @@ public class Betaling implements Serializable{
 	@Enumerated(EnumType.STRING)
 	private Betaalwijze betalingswijze;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Klant klant;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Factuur factuur;
 	
 	@Column
