@@ -7,7 +7,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table
 public class Adres implements Serializable {
 	
 	@Id
@@ -32,7 +31,7 @@ public class Adres implements Serializable {
 	
 	@Column
 	@Enumerated(EnumType.STRING)
-	private AdresType adresType;
+	private AdresType adrestype_id;
 
 	public Adres(){}
 	
@@ -96,12 +95,12 @@ public class Adres implements Serializable {
 	}
 	
 	
-	public AdresType getAdresType(){
-		return adresType;
+	public AdresType getAdresType_ID(){
+		return adrestype_id;
 	}
 	
-	public void setAdresType(AdresType adresType){
-		this.adresType = adresType;
+	public void setAdresType_ID(AdresType adrestype_id){
+		this.adrestype_id = adrestype_id;
 	}
 
 	@Override

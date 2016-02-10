@@ -54,7 +54,7 @@ public class Klant implements Serializable{
 		name = "klant_adres", 
 		joinColumns = @JoinColumn(name = "klant_id", referencedColumnName= "id"), 
 		inverseJoinColumns = {@JoinColumn(name = "adres_id", referencedColumnName= "id"),
-		@JoinColumn(name = "adrestype", referencedColumnName= "adrestype")})
+		@JoinColumn(name = "adrestype_id", referencedColumnName= "adrestype_id")})
 	private Map<Adres, AdresType> adresMap = new HashMap <Adres, AdresType>();
 	
 	

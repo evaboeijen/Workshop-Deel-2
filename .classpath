@@ -22,16 +22,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Jesse/Downloads/external jars/Jaybird-2.2.9-JDK_1.8/jaybird-2.2.9.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Jesse/Downloads/external jars/Jaybird-2.2.9-JDK_1.8/jaybird-full-2.2.9.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Jesse/Downloads/external jars/HikariCP-2.4.3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Jesse/Downloads/external jars/mysql-connector-java-5.1.37-bin.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Jesse/Downloads/external jars/commons-validator-1.5.0-bin/commons-validator-1.5.0/commons-validator-1.5.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Jesse/Downloads/external jars/commons-validator-1.5.0-bin/commons-validator-1.5.0/commons-validator-1.5.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Jesse/Downloads/external jars/commons-validator-1.5.0-bin/commons-validator-1.5.0/commons-validator-1.5.0-sources.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Jesse/Downloads/external jars/commons-validator-1.5.0-bin/commons-validator-1.5.0/commons-validator-1.5.0-tests.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Jesse/Downloads/external jars/commons-validator-1.5.0-bin/commons-validator-1.5.0/commons-validator-1.5.0-test-sources.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Jesse/Downloads/external jars/c3p0-0.9.5.1.bin/c3p0-0.9.5.1/src/c3p0-0.9.5.1-sources.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Jesse/Downloads/external jars/c3p0-0.9.5.1.bin/c3p0-0.9.5.1/src/mchange-commons-java-0.2.10-sources.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Overige Jar&apos;s"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
