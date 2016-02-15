@@ -38,23 +38,32 @@ public class Klant implements Serializable{
 	@Column
 	private String email;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="bestelNummer")
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="id")//bestelling_id
 	private Set<Bestelling> bestellingSet;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="factuurNummer") 
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="id")//factuur_id
 	private Set<Factuur> factuurSet;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="accountNaam")  
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="id")//account_id
 	private Set<Account> accountSet;
 	
 	
 	@ElementCollection
-	@MapKeyColumn(name="adres_id")
+	/*@CollectionTable(name="klant_adres") // use default join column name
+    @AttributeOverrides({
+       @AttributeOverride(name="klant_id",
+                          column= @Column(name="klant_id")),
+       @AttributeOverride(name="adres_id",
+                          column=@Column(name="adres_id")),
+       @AttributeOverride(name="adrestype_id",
+                          column=@Column(name="adrestype_id"))
+     })*/
 	@JoinTable(
 		name = "klant_adres", 
-		joinColumns = @JoinColumn(name = "klant_id", referencedColumnName= "id"), 
-		inverseJoinColumns = {@JoinColumn(name = "adres_id", referencedColumnName= "id"),
-		@JoinColumn(name = "adrestype_id", referencedColumnName= "adrestype_id")})
+		 joinColumns = @JoinColumn(name = "klant_id"), 
+				inverseJoinColumns = {@JoinColumn(name = "adres_id"), 
+						@JoinColumn(name = "adrestype_id")})
+	@MapKeyJoinColumn(name="adres_id", referencedColumnName="adres_id")
 	private Map<Adres, AdresType> adresMap = new HashMap <Adres, AdresType>();
 	
 	

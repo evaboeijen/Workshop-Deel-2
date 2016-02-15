@@ -22,11 +22,11 @@ public class Factuur implements Serializable {
 	@Column
 	private Date bestelDatum;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy= "id")
+	@OneToMany(cascade=CascadeType.ALL, mappedBy= "id")// betaling_id
 	private Set<Betaling> betalingSet;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	//@JoinColumn(name = "id") // bestelling_id
+	@JoinColumn(name = "bestelling_id") // bestelling_id
 	private Bestelling bestelling;
 	
 	public Factuur(){

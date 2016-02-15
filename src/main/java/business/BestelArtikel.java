@@ -15,9 +15,11 @@ public class BestelArtikel implements Serializable {
 	private long id;
 	
 	@ManyToOne
+	@JoinColumn(name = "artikel_id")
 	private Artikel artikel;
 	
 	@ManyToOne
+	@JoinColumn(name = "bestelling_id")
 	private Bestelling bestelling;
 	
 	@Column

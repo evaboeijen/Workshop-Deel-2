@@ -27,6 +27,7 @@ public class TestHibernate {
 			KlantDaoService service = new KlantDaoService();
 			Klant klant1 = new Klant();
 			klant1.setVoornaam("Hibernate");
+			klant1.setTussenvoegsel("de");
 			klant1.setAchternaam("Test");
 			klant1.setEmail("hibernate@email.com");
 			
@@ -35,6 +36,7 @@ public class TestHibernate {
 			logger.info("klant is: " + klant1);
 			service.persist(klant1);
 			
+			logger.info("findall klanten aangeroepen");
 			List<Klant> klanten = service.findAll();
 			
 			System.out.println("Books Persisted are :");

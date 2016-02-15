@@ -18,16 +18,17 @@ public class Bestelling {
 	@Column(name = "bestelnummer")
 	private String bestelNummer;
 	
-	@Column
+	@Column(name = "besteldatum")
 	private Date bestelDatum;
 	
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="id")// refereert naar bestelArtikel_id maar is dit wel de goede id? bestelling og bestelartikel???
 	private Set<BestelArtikel> bestelArtikelSet;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="factuurNummer")// factuur_id, kan dit zo? 
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="id")// factuur_id, kan dit zo? 
 	private Set<Factuur> factuurSet;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "klant_id")
 	private Klant klant;
 	
 	

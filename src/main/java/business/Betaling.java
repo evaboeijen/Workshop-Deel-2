@@ -18,14 +18,16 @@ public class Betaling implements Serializable{
 	@Column
 	private Date betaalDatum;
 	
-	@Column
-	@Enumerated(EnumType.STRING)
-	private Betaalwijze betalingswijze;
+	@ManyToOne
+	@JoinColumn(name = "betaalwijze_id")
+	private Betaalwijze betaalwijze;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "klant_id")
 	private Klant klant;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "factuur_id")
 	private Factuur factuur;
 	
 	@Column
@@ -51,12 +53,12 @@ public class Betaling implements Serializable{
 		this.betaalDatum = betaalDatum;
 	}
 	
-	public Betaalwijze getBetalingswijze(){
-		return betalingswijze;
+	public Betaalwijze getBetaalwijze(){
+		return betaalwijze;
 	}
 	
-	public void setBetalingswijze(Betaalwijze betalingswijze){
-		this.betalingswijze = betalingswijze;
+	public void setBetaalwijze(Betaalwijze betaalwijze){
+		this.betaalwijze = betaalwijze;
 	}
 	
 	public Klant getKlant(){
@@ -79,7 +81,7 @@ public class Betaling implements Serializable{
 	public String toString(){
 		return "\n betaling id: " + id +
 			   "\n datum van betaling: " + betaalDatum +
-			   "\n betalingswijze: " + betalingswijze +
+			   "\n betalingswijze: " + betaalwijze +
 			   "\n van klant: " + klant +
 			   "\n met betalinggegevens: " + betalingsGegevens;
 	}
@@ -89,7 +91,7 @@ public class Betaling implements Serializable{
 			int hash = 7;
 	       //hash = 89  hash + (this.name != null ? this.name.hashCode() : 0);
 	        hash = 67 * hash + (int) (this.id ^ (this.id >>> 32));
-	        hash = 67 * hash + Objects.hashCode(this.betalingswijze);
+	        hash = 67 * hash + Objects.hashCode(this.betaalwijze);
 	        hash = 67 * hash + Objects.hashCode(this.klant);
 	        hash = 67 * hash + Objects.hashCode(this.betalingsGegevens);
 	        return hash;
@@ -104,7 +106,7 @@ public class Betaling implements Serializable{
             return false;
         }
         final Betaling other = (Betaling) obj;
-        if (!Objects.equals(this.betalingswijze, other.betalingswijze)) {
+        if (!Objects.equals(this.betaalwijze, other.betaalwijze)) {
             return false;
         }
         if (!Objects.equals(this.klant, other.klant)) {

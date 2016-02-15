@@ -29,9 +29,9 @@ public class Adres implements Serializable {
 	@Column
 	private String woonplaats;
 	
-	@Column
-	@Enumerated(EnumType.STRING)
-	private AdresType adrestype_id;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "adrestype_id")
+	private AdresType adrestype;
 
 	public Adres(){}
 	
@@ -95,12 +95,12 @@ public class Adres implements Serializable {
 	}
 	
 	
-	public AdresType getAdresType_ID(){
-		return adrestype_id;
+	public AdresType getAdresType(){
+		return adrestype;
 	}
 	
-	public void setAdresType_ID(AdresType adrestype_id){
-		this.adrestype_id = adrestype_id;
+	public void setAdresType(AdresType adrestype){
+		this.adrestype = adrestype;
 	}
 
 	@Override
