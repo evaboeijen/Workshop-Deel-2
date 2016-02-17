@@ -48,22 +48,12 @@ public class Klant implements Serializable{
 	private Set<Account> accountSet;
 	
 	
-	@ElementCollection
-	/*@CollectionTable(name="klant_adres") // use default join column name
-    @AttributeOverrides({
-       @AttributeOverride(name="klant_id",
-                          column= @Column(name="klant_id")),
-       @AttributeOverride(name="adres_id",
-                          column=@Column(name="adres_id")),
-       @AttributeOverride(name="adrestype_id",
-                          column=@Column(name="adrestype_id"))
-     })*/
-	@JoinTable(
-		name = "klant_adres", 
-		 joinColumns = @JoinColumn(name = "klant_id"), 
-				inverseJoinColumns = {@JoinColumn(name = "adres_id"), 
-						@JoinColumn(name = "adrestype_id")})
-	@MapKeyJoinColumn(name="adres_id", referencedColumnName="adres_id")
+	@ManyToMany
+	@JoinTable(name = "klant_adres")
+	@JoinColumns({
+			@JoinColumn(name = "klant_id", referencedColumnName = "klant_id"), 
+			@JoinColumn(name = "adrestype_id", referencedColumnName = "adrestype_id"), 
+			@JoinColumn(name = "adres_id", referencedColumnName = "adres_id")})
 	private Map<Adres, AdresType> adresMap = new HashMap <Adres, AdresType>();
 	
 	
