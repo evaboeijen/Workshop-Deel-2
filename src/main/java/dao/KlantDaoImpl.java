@@ -14,7 +14,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 	
 
-public class KlantDaoImpl implements KlantDao<Klant, String> {
+//public class KlantDaoImpl implements KlantDao<Klant, String> {
+
+public class KlantDaoImpl implements KlantDao<Klant, Long> {
 
 	private static final Logger logger =  LoggerFactory.getLogger(KlantDaoImpl.class);
 	
@@ -108,7 +110,8 @@ public class KlantDaoImpl implements KlantDao<Klant, String> {
 			getCurrentSession().update(entity);
 		}
 	
-		public Klant findById(String id) {
+		//public Klant findById(String id) {
+		public Klant findById(Long id) {
 			Klant klant = (Klant) getCurrentSession().get(Klant.class, id);
 			return klant;
 		}
@@ -130,5 +133,8 @@ public class KlantDaoImpl implements KlantDao<Klant, String> {
 				delete(entity);
 			}
 		}
+
+
+		
 	}
 

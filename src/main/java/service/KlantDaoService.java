@@ -26,16 +26,19 @@ public class KlantDaoService {
 		klantDaoImpl.closeCurrentSessionwithTransaction();
 	}
 	
-	public Klant findById(String id) {
+	//public Klant findById(String id) {
+	public Klant findById(Long id) {
 		klantDaoImpl.openCurrentSession();
 		Klant klant = klantDaoImpl.findById(id);
 		klantDaoImpl.closeCurrentSession();
 		return klant;
 	}
 	
-	public void delete(String id) {
+	//public void delete(String id) {
+	public void delete(Long id) {
 		klantDaoImpl.openCurrentSessionwithTransaction();
 		Klant klant = klantDaoImpl.findById(id);
+		System.out.println(klant + "will be deleted.");
 		klantDaoImpl.delete(klant);
 		klantDaoImpl.closeCurrentSessionwithTransaction();
 	}
