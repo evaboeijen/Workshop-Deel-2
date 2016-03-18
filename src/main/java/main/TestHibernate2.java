@@ -106,8 +106,6 @@ public class TestHibernate2 {
 				System.out.print("Voer het ID in van de klant die je wil deleten: ");				
 				id2 = input.nextLong();				
 				service.delete(id2);
-
-
 				break;
 
 			case 5:
