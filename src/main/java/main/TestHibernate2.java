@@ -40,9 +40,10 @@ public class TestHibernate2 {
 			switch (keuze) {
 			case 1:
 				System.out.println("*** Persist - start ***");
-				Klant nieuweKlant = new Klant();						
+				Klant nieuweKlant = new Klant();
+				input.nextLine();
 				System.out.print("Voer voornaam in: ");
-				String voornaam = input.nextLine();
+				String voornaam = input.nextLine();		
 				System.out.print("Voer tussenvoegsel in: ");
 				String tussenvoegsel = input.nextLine();
 				System.out.print("Voer achternaam in: ");
@@ -55,13 +56,42 @@ public class TestHibernate2 {
 				nieuweKlant.setAchternaam(achternaam);
 				nieuweKlant.setEmail(email);
 
-				
-				logger.info("klant is: " + nieuweKlant);
+				System.out.println("Toe te voegen nieuwe klant: " + nieuweKlant);
+				//logger.info("klant is: " + nieuweKlant);
 				service.persist(nieuweKlant);
-
+				System.out.println("Klant toegevoegd: " + nieuweKlant);
+				
+				
 				break;
 
 			case 2:
+				/* System.out.println("*** Update - start ***");
+				Klant bestaandeKlant = new Klant();	
+				Scanner input2 = new Scanner(System.in);
+				System.out.print("Voer het ID in van de klant die je wil aanpassen: ");				
+				long id = input2.nextLong();
+				input2.nextLine();
+				System.out.println("Te updaten klant: " + service.findById(id));
+				System.out.println();
+				System.out.println();
+				System.out.print("Voer nieuwe voornaam in: ");
+				voornaam = input2.nextLine();
+				System.out.print("Voer nieuwe tussenvoegsel in: ");
+				tussenvoegsel = input2.nextLine();
+				System.out.print("Voer nieuwe achternaam in: ");
+				achternaam = input2.nextLine();
+				System.out.print("Voer nieuwe email in: ");
+				email = input2.nextLine();
+
+				bestaandeKlant.setId(id);
+				bestaandeKlant.setVoornaam(voornaam);						
+				bestaandeKlant.setTussenvoegsel(tussenvoegsel);
+				bestaandeKlant.setAchternaam(achternaam);
+				bestaandeKlant.setEmail(email);
+				System.out.println("Klant te updaten als volgt: " + bestaandeKlant);
+				//logger.info("klant is: " + bestaandeKlant);
+				service.update(bestaandeKlant); */
+				
 				System.out.println("*** Update - start ***");
 				Klant bestaandeKlant = new Klant();	
 				Scanner input2 = new Scanner(System.in);
@@ -82,12 +112,10 @@ public class TestHibernate2 {
 				bestaandeKlant.setTussenvoegsel(tussenvoegsel);
 				bestaandeKlant.setAchternaam(achternaam);
 				bestaandeKlant.setEmail(email);
-
-
-				
 				logger.info("klant is: " + bestaandeKlant);
-				service.update(bestaandeKlant);
-
+				service.update(bestaandeKlant); 
+				
+				
 				break;
 
 			case 3:
@@ -119,9 +147,10 @@ public class TestHibernate2 {
 				}
 
 				break;
-
+				
 			case 6:
-
+				System.out.println("*** DeleteAll - start ***");
+				service.deleteAll();
 				break;
 
 			default:
