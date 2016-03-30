@@ -2,16 +2,16 @@ package service;
 
 import java.util.List;
 import business.*;
-import dao.KlantDaoImpl;
+import dao.KlantDao;
 
  
 
 public class KlantDaoService {
 	
-	private static KlantDaoImpl klantDaoImpl;
+	private static KlantDao klantDaoImpl;
 
 	public KlantDaoService() {
-		klantDaoImpl = new KlantDaoImpl();
+		klantDaoImpl = new KlantDao();
 	}
 
 	public void persist(Klant entity) {
@@ -56,7 +56,7 @@ public class KlantDaoService {
 		klantDaoImpl.closeCurrentSessionwithTransaction();
 	}
 
-	public KlantDaoImpl klantDaoImpl() {
+	public KlantDao klantDaoImpl() {
 		return klantDaoImpl;
 	}
 }
