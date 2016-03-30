@@ -81,6 +81,7 @@ public class Bestelling {
 
 	public void setBestelDatum() {	    	
 		bestelDatum = new Date();
+		System.out.println("besteldatum is: " + bestelDatum);
 	}
 
 	public Set<BestelArtikel> getBestellingHasArtikelen() {

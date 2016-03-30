@@ -3,6 +3,7 @@ package business;
 import java.util.Date;
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Random;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -22,11 +23,11 @@ public class Factuur implements Serializable {
 	@Column
 	private Date factuurDatum;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy= "id")// betaling_id
-	private Set<Betaling> betalingSet;
+	@OneToMany(cascade=CascadeType.ALL, mappedBy= "factuur")
+	public Set<Betaling> betalingSet;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "bestelling_id") // bestelling_id
+	@JoinColumn(name = "bestelling_id") 
 	private Bestelling bestelling;
 	
 	public Factuur(){
@@ -45,16 +46,33 @@ public class Factuur implements Serializable {
     	return factuurNummer;
     }     
     
-    public void setFactuurNummer(String factuurNummer) {
-    	this.factuurNummer = factuurNummer;
-    }  
+    
+	public void setFactuurNummer() {
+		int lengthOfRandomString = 10;
+		Random rand = new Random();
+		String alphaNumericCharacters = "abcdefghijklmnopqrstuvwxyz"
+				+ "ABCDEFGHIJLMNOPQRSTUVWXYZ"
+				+ "1234567890";
+
+		StringBuilder result = new StringBuilder();
+
+		for (int i =0; i< lengthOfRandomString ; i++) {
+			result.append(
+					alphaNumericCharacters.
+					charAt(rand.nextInt(alphaNumericCharacters.length())));
+		}
+		factuurNummer = result.toString();           
+		System.out.println("factuurnummer is: " + factuurNummer);
+	}  
+    
+    
     
     public Date getFactuurDatum() {
     	return factuurDatum;
     }
    
-    public void setFactuurDatum(Date factuurDatum) {
-    	this.factuurDatum = factuurDatum;
+    public void setFactuurDatum() {
+    	factuurDatum = new Date();
     }
     
     public Set<Betaling> getBetalingSet() {

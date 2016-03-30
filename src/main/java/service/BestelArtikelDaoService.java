@@ -8,56 +8,56 @@ import dao.BestelArtikelDao;
 
 public class BestelArtikelDaoService {
 	
-	private static BestelArtikelDao BestelArtikelDao;
+	private static BestelArtikelDao bestelArtikelDao;
 
 	public BestelArtikelDaoService() {
-		BestelArtikelDao = new BestelArtikelDao();
+		bestelArtikelDao = new BestelArtikelDao();
 	}
 
 	public void persist(BestelArtikel entity) {
-		BestelArtikelDao.openCurrentSessionwithTransaction();
-		BestelArtikelDao.persist(entity);
-		BestelArtikelDao.closeCurrentSessionwithTransaction();
+		bestelArtikelDao.openCurrentSessionwithTransaction();
+		bestelArtikelDao.persist(entity);
+		bestelArtikelDao.closeCurrentSessionwithTransaction();
 	}
 
 	public void update(BestelArtikel entity) {
-		BestelArtikelDao.openCurrentSessionwithTransaction();
-		BestelArtikelDao.update(entity);
-		BestelArtikelDao.closeCurrentSessionwithTransaction();
+		bestelArtikelDao.openCurrentSessionwithTransaction();
+		bestelArtikelDao.update(entity);
+		bestelArtikelDao.closeCurrentSessionwithTransaction();
 	}
 	
 	//public BestelArtikel findById(String id) {
 	public BestelArtikel findById(Long id) {
-		BestelArtikelDao.openCurrentSession();
-		BestelArtikel BestelArtikel = BestelArtikelDao.findById(id);
-		BestelArtikelDao.closeCurrentSession();
+		bestelArtikelDao.openCurrentSession();
+		BestelArtikel BestelArtikel = bestelArtikelDao.findById(id);
+		bestelArtikelDao.closeCurrentSession();
 		return BestelArtikel;
 	}
 	
 	//public void delete(String id) {
 	public void delete(Long id) {
-		BestelArtikelDao.openCurrentSessionwithTransaction();
-		BestelArtikel BestelArtikel = BestelArtikelDao.findById(id);
+		bestelArtikelDao.openCurrentSessionwithTransaction();
+		BestelArtikel BestelArtikel = bestelArtikelDao.findById(id);
 		System.out.println(BestelArtikel + "will be deleted.");
-		BestelArtikelDao.delete(BestelArtikel);
-		BestelArtikelDao.closeCurrentSessionwithTransaction();
+		bestelArtikelDao.delete(BestelArtikel);
+		bestelArtikelDao.closeCurrentSessionwithTransaction();
 	}
 	
 	public List<BestelArtikel> findAll() {
-		BestelArtikelDao.openCurrentSession();
-		List<BestelArtikel> Bestellingen = BestelArtikelDao.findAll();
-		BestelArtikelDao.closeCurrentSession();
-		return Bestellingen;
+		bestelArtikelDao.openCurrentSession();
+		List<BestelArtikel> bestellingen = bestelArtikelDao.findAll();
+		bestelArtikelDao.closeCurrentSession();
+		return bestellingen;
 	}
 
 	public void deleteAll() {
-		BestelArtikelDao.openCurrentSessionwithTransaction();
-		BestelArtikelDao.deleteAll();
-		BestelArtikelDao.closeCurrentSessionwithTransaction();
+		bestelArtikelDao.openCurrentSessionwithTransaction();
+		bestelArtikelDao.deleteAll();
+		bestelArtikelDao.closeCurrentSessionwithTransaction();
 	}
 
-	public BestelArtikelDao BestelArtikelDao() {
-		return BestelArtikelDao;
+	public BestelArtikelDao bestelArtikelDao() {
+		return bestelArtikelDao;
 	}
 }
 

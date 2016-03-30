@@ -8,56 +8,56 @@ import dao.BestellingDao;
 
 public class BestellingDaoService {
 	
-	private static BestellingDao BestellingDao;
+	private static BestellingDao bestellingDao;
 
 	public BestellingDaoService() {
-		BestellingDao = new BestellingDao();
+		bestellingDao = new BestellingDao();
 	}
 
 	public void persist(Bestelling entity) {
-		BestellingDao.openCurrentSessionwithTransaction();
-		BestellingDao.persist(entity);
-		BestellingDao.closeCurrentSessionwithTransaction();
+		bestellingDao.openCurrentSessionwithTransaction();
+		bestellingDao.persist(entity);
+		bestellingDao.closeCurrentSessionwithTransaction();
 	}
 
 	public void update(Bestelling entity) {
-		BestellingDao.openCurrentSessionwithTransaction();
-		BestellingDao.update(entity);
-		BestellingDao.closeCurrentSessionwithTransaction();
+		bestellingDao.openCurrentSessionwithTransaction();
+		bestellingDao.update(entity);
+		bestellingDao.closeCurrentSessionwithTransaction();
 	}
 	
 	//public Bestelling findById(String id) {
 	public Bestelling findById(Long id) {
-		BestellingDao.openCurrentSession();
-		Bestelling Bestelling = BestellingDao.findById(id);
-		BestellingDao.closeCurrentSession();
+		bestellingDao.openCurrentSession();
+		Bestelling Bestelling = bestellingDao.findById(id);
+		bestellingDao.closeCurrentSession();
 		return Bestelling;
 	}
 	
 	//public void delete(String id) {
 	public void delete(Long id) {
-		BestellingDao.openCurrentSessionwithTransaction();
-		Bestelling Bestelling = BestellingDao.findById(id);
+		bestellingDao.openCurrentSessionwithTransaction();
+		Bestelling Bestelling = bestellingDao.findById(id);
 		System.out.println(Bestelling + "will be deleted.");
-		BestellingDao.delete(Bestelling);
-		BestellingDao.closeCurrentSessionwithTransaction();
+		bestellingDao.delete(Bestelling);
+		bestellingDao.closeCurrentSessionwithTransaction();
 	}
 	
 	public List<Bestelling> findAll() {
-		BestellingDao.openCurrentSession();
-		List<Bestelling> Bestellingen = BestellingDao.findAll();
-		BestellingDao.closeCurrentSession();
+		bestellingDao.openCurrentSession();
+		List<Bestelling> Bestellingen = bestellingDao.findAll();
+		bestellingDao.closeCurrentSession();
 		return Bestellingen;
 	}
 
 	public void deleteAll() {
-		BestellingDao.openCurrentSessionwithTransaction();
-		BestellingDao.deleteAll();
-		BestellingDao.closeCurrentSessionwithTransaction();
+		bestellingDao.openCurrentSessionwithTransaction();
+		bestellingDao.deleteAll();
+		bestellingDao.closeCurrentSessionwithTransaction();
 	}
 
-	public BestellingDao BestellingDao() {
-		return BestellingDao;
+	public BestellingDao bestellingDao() {
+		return bestellingDao;
 	}
 }
 

@@ -18,7 +18,7 @@ public class Betaling implements Serializable{
 	@Column
 	private Date betaalDatum;
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "betaalwijze_id")
 	private Betaalwijze betaalwijze;
 	

@@ -112,7 +112,9 @@ public class KlantDao implements KlantDaoInterface<Klant, Long> {
 	
 		//public Klant findById(String id) {
 		public Klant findById(Long id) {
+			logger.info("Klant.findByID method starts");
 			Klant klant = (Klant) getCurrentSession().get(Klant.class, id);
+			logger.info("Klant.findByID method about to end");
 			return klant;
 		}
 	

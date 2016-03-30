@@ -6,6 +6,7 @@ package business;
  */
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.io.Serializable;
 import java.util.Objects;
@@ -38,22 +39,27 @@ public class Klant implements Serializable{
 	@Column
 	private String email;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="id")//bestelling_id
-	private Set<Bestelling> bestellingSet;
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="klant", orphanRemoval=true, fetch = FetchType.EAGER)
+	private Set<Bestelling> bestellingSet ;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="id")//factuur_id
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="id", orphanRemoval=true, fetch = FetchType.EAGER)
 	private Set<Factuur> factuurSet;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="id")//account_id
-	private Set<Account> accountSet;
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="klant", orphanRemoval=true, fetch = FetchType.EAGER)
+	private Set<Account> accountSet ;
 	
 	
-	@ManyToMany
+	/* @ManyToMany
 	@JoinTable(name = "klant_adres")
 	@JoinColumns({
 			@JoinColumn(name = "klant_id", referencedColumnName = "klant_id"), 
 			@JoinColumn(name = "adrestype_id", referencedColumnName = "adrestype_id"), 
-			@JoinColumn(name = "adres_id", referencedColumnName = "adres_id")})
+			@JoinColumn(name = "adres_id", referencedColumnName = "adres_id")}) */
+	@ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name="klant_adres",
+    joinColumns=@JoinColumn(name="klant_id"),
+    inverseJoinColumns=@JoinColumn(name="adrestype_id"))
+    @MapKeyJoinColumn(name = "adres_id", table = "klant_adres")
 	private Map<Adres, AdresType> adresMap = new HashMap <Adres, AdresType>();
 	
 	
@@ -149,8 +155,80 @@ public class Klant implements Serializable{
 				"\nEmail: " 		+ email + 
 				"\n";
 	}
-	
+
+
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((accountSet == null) ? 0 : accountSet.hashCode());
+		result = prime * result + ((achternaam == null) ? 0 : achternaam.hashCode());
+		result = prime * result + ((adresMap == null) ? 0 : adresMap.hashCode());
+		result = prime * result + ((bestellingSet == null) ? 0 : bestellingSet.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((factuurSet == null) ? 0 : factuurSet.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((tussenvoegsel == null) ? 0 : tussenvoegsel.hashCode());
+		result = prime * result + ((voornaam == null) ? 0 : voornaam.hashCode());
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Klant other = (Klant) obj;
+		if (accountSet == null) {
+			if (other.accountSet != null)
+				return false;
+		} else if (!accountSet.equals(other.accountSet))
+			return false;
+		if (achternaam == null) {
+			if (other.achternaam != null)
+				return false;
+		} else if (!achternaam.equals(other.achternaam))
+			return false;
+		if (adresMap == null) {
+			if (other.adresMap != null)
+				return false;
+		} else if (!adresMap.equals(other.adresMap))
+			return false;
+		if (bestellingSet == null) {
+			if (other.bestellingSet != null)
+				return false;
+		} else if (!bestellingSet.equals(other.bestellingSet))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (factuurSet == null) {
+			if (other.factuurSet != null)
+				return false;
+		} else if (!factuurSet.equals(other.factuurSet))
+			return false;
+		if (id != other.id)
+			return false;
+		if (tussenvoegsel == null) {
+			if (other.tussenvoegsel != null)
+				return false;
+		} else if (!tussenvoegsel.equals(other.tussenvoegsel))
+			return false;
+		if (voornaam == null) {
+			if (other.voornaam != null)
+				return false;
+		} else if (!voornaam.equals(other.voornaam))
+			return false;
+		return true;
+	}
+	
+	/* @Override
 	public int hashCode(){
 			int hash = 7;
 	       //hash = 89  hash + (this.name != null ? this.name.hashCode() : 0);
@@ -196,7 +274,7 @@ public class Klant implements Serializable{
         	return false;
         }
         return true;
-	}
+	} */
 }
 
 

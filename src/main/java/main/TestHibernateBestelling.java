@@ -23,6 +23,7 @@ public class TestHibernateBestelling {
 		BestelArtikelDaoService bestellingHasArtikelService = new BestelArtikelDaoService();
 		KlantDaoService klantService = new KlantDaoService();
 		ArtikelDaoService artikelService = new ArtikelDaoService();
+		FactuurDaoService factuurService = new FactuurDaoService();
 
 		System.out.println("\t-------------------------");
 		System.out.println("\t Test Bestelling Domain  ");
@@ -45,13 +46,19 @@ public class TestHibernateBestelling {
 				System.out.println("*** Persist - start ***");
 				Bestelling nieuweBestelling = new Bestelling();
 				BestelArtikel nieuweBestellingHasArtikel = new BestelArtikel();
+				Factuur nieuweFactuur = new Factuur();
+				Betaling nieuweBetaling = new Betaling();
 				input.nextLine();
 				System.out.print("Voer ID van klant in waarvoor je een bestelling wil plaatsen: ");
 				long klant_id = input.nextInt();		
 
 				nieuweBestelling.setBestelNummer();				
 				nieuweBestelling.setBestelDatum();
+											
 				nieuweBestelling.setKlant(klantService.findById(klant_id));
+				
+				//System.out.print("Klant :" + nieuweBestelling.getKlant());
+			
 				
 				System.out.print("Voer ID van artikel in die je wil bestellen: ");
 				long artikel_id = input.nextInt();	
@@ -68,6 +75,14 @@ public class TestHibernateBestelling {
 				nieuweBestellingHasArtikel.getId();
 						
 				nieuweBestelling.bestellingHasArtikelen.add(nieuweBestellingHasArtikel);
+				
+				nieuweFactuur.setFactuurDatum();
+				nieuweFactuur.setFactuurNummer();
+				nieuweFactuur.setBestelling(nieuweBestelling);
+				nieuweFactuur.betalingSet.add(nieuweBetaling);
+				
+				
+				
 				
 
 				System.out.println("Toe te voegen nieuwe Bestelling: " + nieuweBestelling);
