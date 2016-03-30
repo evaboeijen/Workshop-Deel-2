@@ -13,9 +13,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class TestHibernate2 { 
+public class TestHibernateKlant { 
 
-	private static final Logger logger =  LoggerFactory.getLogger(TestHibernate2.class);
+	private static final Logger logger =  LoggerFactory.getLogger(TestHibernateKlant.class);
 
 	public static void main(String[] args){
 

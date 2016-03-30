@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Table
 public class BestelArtikel implements Serializable {
 	
 	@Id
@@ -28,11 +29,11 @@ public class BestelArtikel implements Serializable {
 	public BestelArtikel(){
 	}
 	
-	public long setId(){
+	public long getId(){
 		return id;
 	}
 	
-	public void getId(long id){
+	public void setId(long id){
 		this.id = id;
 	}
 	

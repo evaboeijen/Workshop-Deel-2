@@ -26,7 +26,7 @@ public class TestHibernate {
 		
 			KlantDaoService service = new KlantDaoService();
 			Klant klant1 = new Klant();
-			klant1.setVoornaam("Hibernate");
+			klant1.setVoornaam("Hibernate3");
 			klant1.setTussenvoegsel("de");
 			klant1.setAchternaam("Test");
 			klant1.setEmail("hibernate@email.com");

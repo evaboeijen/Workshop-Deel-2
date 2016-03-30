@@ -20,7 +20,7 @@ public class Factuur implements Serializable {
 	private String factuurNummer;
 	
 	@Column
-	private Date bestelDatum;
+	private Date factuurDatum;
 	
 	@OneToMany(cascade=CascadeType.ALL, mappedBy= "id")// betaling_id
 	private Set<Betaling> betalingSet;
@@ -49,12 +49,12 @@ public class Factuur implements Serializable {
     	this.factuurNummer = factuurNummer;
     }  
     
-    public Date getBestelDatum() {
-    	return bestelDatum;
+    public Date getFactuurDatum() {
+    	return factuurDatum;
     }
    
-    public void setBEstelDatum(Date bestelDatum) {
-    	this.bestelDatum = bestelDatum;
+    public void setFactuurDatum(Date factuurDatum) {
+    	this.factuurDatum = factuurDatum;
     }
     
     public Set<Betaling> getBetalingSet() {
@@ -78,7 +78,7 @@ public class Factuur implements Serializable {
     	return 	 
         "\nFactuur id : " + id + ". factuurnummer : " + factuurNummer + 
         "\n-----------------------------------------------------------------" +
-        "\nBestel datum: " + bestelDatum +
+        "\nFactuur datum: " + factuurDatum +
         "\nBestelling: " + bestelling + 
         "\tBetalingen: " + betalingSet +   
        "\n\n";
@@ -114,7 +114,7 @@ public class Factuur implements Serializable {
         if (!Objects.equals(this.betalingSet, other.betalingSet)) {
            return false;
         }
-        if (!Objects.equals(this.bestelDatum, other.bestelDatum)){
+        if (!Objects.equals(this.factuurDatum, other.factuurDatum)){
         	return false;
         }
         return true;

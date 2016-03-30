@@ -31,15 +31,13 @@ CREATE TABLE `klant` (
   `achternaam` varchar(51) NOT NULL,
   `tussenvoegsel` varchar(10) DEFAULT NULL,
   `email` varchar(320) NOT NULL,
-  `bestellingset` bigint(20) DEFAULT NULL,
-  `factuurset` bigint(20) DEFAULT NULL,
-  `accountset` bigint(20) DEFAULT NULL,
+  -- `bestellingset` bigint(20) DEFAULT NULL,
+  -- `factuurset` bigint(20) DEFAULT NULL,
+  -- `accountset` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`klant_id`),
   UNIQUE KEY `klant_constraint` (`voornaam`,`email`,`achternaam`),
   UNIQUE KEY `klant_id_UNIQUE` (`klant_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
-
-
 
 
 CREATE TABLE `account` (
@@ -68,13 +66,12 @@ CREATE TABLE `adres` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-
 CREATE TABLE `bestelling` (
   `bestelling_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `bestelnummer` varchar(45) NOT NULL,
-  `bestelDatum` date NOT NULL,
-  `bestelartikelset` bigint(20) DEFAULT NULL,
-  `factuurset` bigint(20) DEFAULT NULL,
+  `besteldatum` date DEFAULT NULL,
+  `bestelartikel_id` bigint(20) DEFAULT NULL,
+  `factuur_id` bigint(20) DEFAULT NULL,
   `klant_id` bigint(20) NOT NULL,
   PRIMARY KEY (`bestelling_id`),
   UNIQUE KEY `bestelling_id` (`bestelling_id`),
@@ -98,8 +95,8 @@ CREATE TABLE `bestelartikel` (
 CREATE TABLE `factuur` (
   `factuur_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `factuurnummer` varchar(45) NOT NULL,
-  `besteldatum` date NOT NULL,
-  `betalingset` bigint(20) DEFAULT NULL,
+  `factuurdatum` date NOT NULL,
+  `betaling_id` bigint(20) DEFAULT NULL,
   `bestelling_id` bigint(20) NOT NULL,
   PRIMARY KEY (`factuur_id`),
   UNIQUE KEY `factuur_id_UNIQUE` (`factuur_id`),
@@ -139,3 +136,11 @@ CREATE TABLE `klant_adres` (
   CONSTRAINT `fk_adres_id` FOREIGN KEY (`adres_id`) REFERENCES `adres` (`adres_id`),
   CONSTRAINT `klant_id_fk` FOREIGN KEY (`klant_id`) REFERENCES `klant` (`klant_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+INSERT INTO `betaalwijze` (
+`betaalwijze_id`, `betaalwijze`) VALUES ('1', 'Contant'), ('2', 'Pinbetaling'), ('3', 'IDeal'),('4', 'Creditcard');
+
+INSERT INTO `adrestype` (
+`adrestype_id`, `adrestype`) VALUES ('1', 'Postadres'), ('2', 'Factuuradres'), ('3', 'Bezoekadres');
+
