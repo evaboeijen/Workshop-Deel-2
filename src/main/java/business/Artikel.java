@@ -1,6 +1,8 @@
 package business;
 
 import java.util.Objects;
+import java.util.Random;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -43,8 +45,22 @@ public class Artikel implements Serializable {
 		return artikel_nummer;
 	}
 	
-	public void setArtikel_nummer(String artikel_nummer) {
-		this.artikel_nummer = artikel_nummer;
+	public void setArtikel_nummer() {
+		int lengthOfRandomString = 10;
+		Random rand = new Random();
+		String alphaNumericCharacters = "abcdefghijklmnopqrstuvwxyz"
+				+ "ABCDEFGHIJLMNOPQRSTUVWXYZ"
+				+ "1234567890";
+
+		StringBuilder result = new StringBuilder();
+
+		for (int i =0; i< lengthOfRandomString ; i++) {
+			result.append(
+					alphaNumericCharacters.
+					charAt(rand.nextInt(alphaNumericCharacters.length())));
+		}
+		artikel_nummer = result.toString();           
+		System.out.println("artikelnummer is: " + artikel_nummer);
 	}
 	
 	public String getArtikel_naam() {
