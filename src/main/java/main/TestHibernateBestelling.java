@@ -71,11 +71,13 @@ public class TestHibernateBestelling {
 				nieuweBestellingHasArtikel.setAantal(aantal);
 				
 				nieuweBestellingHasArtikel.setBestelling(nieuweBestelling);
-				
+							
 				nieuweBestellingHasArtikel.getId();
 				
 				logger.info("id van nieuweBestellingHasArtikel is" + nieuweBestellingHasArtikel.getId());
-						
+					
+				bestellingHasArtikelService.persist(nieuweBestellingHasArtikel);
+				
 				nieuweBestelling.bestellingHasArtikelen.add(nieuweBestellingHasArtikel);
 				
 				logger.info("de set bestellingHasArtikelen bevat: " + nieuweBestelling.getBestellingHasArtikelen());
