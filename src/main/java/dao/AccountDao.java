@@ -100,7 +100,7 @@ public class AccountDao implements AccountDaoInterface<Account, Long> {
 		}
 	
 		public void persist(Account entity) {
-			getCurrentSession().save(entity);
+			getCurrentSession().saveOrUpdate(entity);
 		}
 
 	    public void update(Account entity) {

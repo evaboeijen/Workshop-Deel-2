@@ -18,7 +18,7 @@ public class Account implements Serializable {
 	@Column(name = "accountnaam")
 	private String accountNaam;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.ALL, targetEntity = Klant.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "klant_id")
 	private Klant klant;
 	
@@ -56,8 +56,8 @@ public class Account implements Serializable {
 		return dateCreated;
 	}
 	
-	public void setDateCreated(Date dateCreated){
-		this.dateCreated = dateCreated;
+	public void setDateCreated(){
+		this.dateCreated = new Date();
 	}
 	
 	@Override
@@ -94,8 +94,8 @@ public class Account implements Serializable {
 		int hash = 7;
 		//hash = 89 * hash + (this.name != null ? this.name.hashCode() : 0);
 		hash = 89 * hash + (int) (this.id ^ (this.id >>> 32));
-		hash = 89 * hash + Objects.hashCode(this.accountNaam);
-		hash = 89 * hash + Objects.hashCode(this.klant);
+		hash = 89 * hash + ((accountNaam == null) ? 0 : Objects.hashCode(this.accountNaam));
+		hash = 89 * hash + ((klant == null) ? 0 : Objects.hashCode(this.klant));
 		
 		return hash;
 	}
