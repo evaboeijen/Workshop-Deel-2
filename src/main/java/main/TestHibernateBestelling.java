@@ -57,7 +57,7 @@ public class TestHibernateBestelling {
 											
 				nieuweBestelling.setKlant(klantService.findById(klant_id));
 				
-				//System.out.print("Klant :" + nieuweBestelling.getKlant());
+				logger.info("Klant :" + nieuweBestelling.getKlant());
 			
 				
 				System.out.print("Voer ID van artikel in die je wil bestellen: ");
@@ -73,12 +73,19 @@ public class TestHibernateBestelling {
 				nieuweBestellingHasArtikel.setBestelling(nieuweBestelling);
 				
 				nieuweBestellingHasArtikel.getId();
+				
+				logger.info("id van nieuweBestellingHasArtikel is" + nieuweBestellingHasArtikel.getId());
 						
 				nieuweBestelling.bestellingHasArtikelen.add(nieuweBestellingHasArtikel);
+				
+				logger.info("de set bestellingHasArtikelen bevat: " + nieuweBestelling.getBestellingHasArtikelen());
 				
 				nieuweFactuur.setFactuurDatum();
 				nieuweFactuur.setFactuurNummer();
 				nieuweFactuur.setBestelling(nieuweBestelling);
+				
+				//logger.info("de inhoud van object nieuweBestelling is: " + nieuweBestelling);
+				
 				nieuweFactuur.betalingSet.add(nieuweBetaling);
 				
 				
