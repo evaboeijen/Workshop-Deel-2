@@ -39,13 +39,13 @@ public class Klant implements Serializable{
 	@Column
 	private String email;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="klant", orphanRemoval=true, fetch = FetchType.EAGER)
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="id", orphanRemoval=true, fetch = FetchType.EAGER)
 	private Set<Bestelling> bestellingSet ;
 	
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="id", orphanRemoval=true, fetch = FetchType.EAGER)
 	private Set<Factuur> factuurSet;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="klant", orphanRemoval=true, fetch = FetchType.EAGER)
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="id", orphanRemoval=true, fetch = FetchType.EAGER)
 	private Set<Account> accountSet ;
 	
 	
