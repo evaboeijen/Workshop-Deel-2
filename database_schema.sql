@@ -4,11 +4,10 @@ CREATE DATABASE workshopdeel2;
 
 USE workshopdeel2;
 
-CREATE TABLE `adrestype` (
-  `adrestype_id` bigint(20) NOT NULL,
-  `adrestype` varchar(45) NOT NULL,
-  PRIMARY KEY (`adrestype_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+--  `adrestype_id` bigint(20) NOT NULL,
+--  `adrestype` varchar(45) NOT NULL,
+--  PRIMARY KEY (`adrestype_id`)
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `artikel` (
   `artikel_id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -19,11 +18,11 @@ CREATE TABLE `artikel` (
   PRIMARY KEY (`artikel_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `betaalwijze` (
-  `betaalwijze_id` bigint(20) NOT NULL,
-  `betaalwijze` varchar(45) NOT NULL,
-  PRIMARY KEY (`betaalwijze_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- CREATE TABLE `betaalwijze` (
+--   `betaalwijze_id` bigint(20) NOT NULL,
+--   `betaalwijze` varchar(45) NOT NULL,
+--   PRIMARY KEY (`betaalwijze_id`)
+--  ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `klant` (
   `klant_id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -59,7 +58,7 @@ CREATE TABLE `adres` (
   `toevoeging` varchar(6) DEFAULT NULL,
   `huisnummer` varchar(6) DEFAULT NULL,
   `woonplaats` varchar(26) DEFAULT NULL,
-  `adrestype_id` bigint(20) DEFAULT NULL,
+  -- `adrestype_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`adres_id`),
   KEY `adrestype_fk` (`adrestype_id`),
   CONSTRAINT `adrestype_fk` FOREIGN KEY (`adrestype_id`) REFERENCES `adrestype` (`adrestype_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -70,8 +69,8 @@ CREATE TABLE `bestelling` (
   `bestelling_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `bestelnummer` varchar(45) NOT NULL,
   `besteldatum` date DEFAULT NULL,
-  `bestelartikel_id` bigint(20) DEFAULT NULL,
-  `factuur_id` bigint(20) DEFAULT NULL,
+  -- `bestelartikel_id` bigint(20) DEFAULT NULL,
+  -- `factuur_id` bigint(20) DEFAULT NULL,
   `klant_id` bigint(20) NOT NULL,
   PRIMARY KEY (`bestelling_id`),
   UNIQUE KEY `bestelling_id` (`bestelling_id`),
@@ -96,7 +95,7 @@ CREATE TABLE `factuur` (
   `factuur_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `factuurnummer` varchar(45) NOT NULL,
   `factuurdatum` date NOT NULL,
-  `betaling_id` bigint(20) DEFAULT NULL,
+  -- `betaling_id` bigint(20) DEFAULT NULL,
   `bestelling_id` bigint(20) NOT NULL,
   PRIMARY KEY (`factuur_id`),
   UNIQUE KEY `factuur_id_UNIQUE` (`factuur_id`),
@@ -107,10 +106,11 @@ CREATE TABLE `factuur` (
 CREATE TABLE `betaling` (
   `betaling_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `betaaldatum` date NOT NULL,
-  `betaalwijze_id` bigint(20) NOT NULL,
+  -- `betaalwijze_id` bigint(20) NOT NULL,
   `klant_id` bigint(20) NOT NULL,
   `factuur_id` bigint(20) DEFAULT NULL,
   `betalingsgegevens` varchar(50) DEFAULT NULL,
+  `betaalwijze` varchar(45) NOT NULL,
   PRIMARY KEY (`betaling_id`),
   UNIQUE KEY `betaling_id_UNIQUE` (`betaling_id`),
   KEY `factuur_id_fk` (`factuur_id`),
@@ -138,9 +138,9 @@ CREATE TABLE `klant_adres` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-INSERT INTO `betaalwijze` (
-`betaalwijze_id`, `betaalwijze`) VALUES ('1', 'Contant'), ('2', 'Pinbetaling'), ('3', 'IDeal'),('4', 'Creditcard');
+-- INSERT INTO `betaalwijze` (
+-- `betaalwijze_id`, `betaalwijze`) VALUES ('1', 'Contant'), ('2', 'Pinbetaling'), ('3', 'IDeal'),('4', 'Creditcard');
 
-INSERT INTO `adrestype` (
-`adrestype_id`, `adrestype`) VALUES ('1', 'Postadres'), ('2', 'Factuuradres'), ('3', 'Bezoekadres');
+-- INSERT INTO `adrestype` (
+-- `adrestype_id`, `adrestype`) VALUES ('1', 'Postadres'), ('2', 'Factuuradres'), ('3', 'Bezoekadres');
 

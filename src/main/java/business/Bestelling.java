@@ -27,12 +27,12 @@ public class Bestelling {
 	@Column(name = "besteldatum")
 	private Date bestelDatum;
 
-	@OneToMany(mappedBy = "bestelling",targetEntity = BestelArtikel.class, orphanRemoval=true, 
+	@OneToMany(mappedBy = "bestelling",targetEntity = BestelArtikel.class,  
 			fetch = FetchType.EAGER) 
 	@Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
 	public Set<BestelArtikel> bestellingHasArtikelen = new HashSet<>();
 
-	@OneToMany(mappedBy = "bestelling", targetEntity = Factuur.class, orphanRemoval=true, 
+	@OneToMany(mappedBy = "bestelling", targetEntity = Factuur.class, 
 			fetch = FetchType.EAGER)
 	@Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
 	private Set<Factuur> facturen = new HashSet<>();
@@ -118,8 +118,9 @@ public class Bestelling {
 				"\tArtikelen: " + bestellingHasArtikelen +  
 				"\n\n";
 
-	}
-
+	} 
+	
+	/*
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -131,7 +132,7 @@ public class Bestelling {
 		result = prime * result + (int) (id ^ (id >>> 32));
 		result = prime * result + ((klant == null) ? 0 : klant.hashCode());
 		return result;
-	}
+	} 
 
 	@Override
 	public boolean equals(Object obj) {
@@ -170,7 +171,7 @@ public class Bestelling {
 		} else if (!klant.equals(other.klant))
 			return false;
 		return true;
-	} 
+	} */
 
 	
 }

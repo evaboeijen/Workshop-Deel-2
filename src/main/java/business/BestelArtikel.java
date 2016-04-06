@@ -61,13 +61,18 @@ public class BestelArtikel implements Serializable {
 		this.aantal = aantal;
 	}
 	
+	
+	/*
+	
 	@Override
 	public String toString(){
 		return "/nBestellingArtikel id: " + id +
 			   "/n van bestelling: " + bestelling + 
 			   "/n met artikel: " + artikel + 
-			   "/n met aantal: " + aantal;
+			   "/n met aantal: " + aantal;   
 	}
+	
+	
 	
 	@Override
 	public int hashCode(){
@@ -78,7 +83,7 @@ public class BestelArtikel implements Serializable {
 	        hash = 67 * hash + Objects.hashCode(this.artikel);
 	        hash = 67 * hash + this.aantal;
 	        return hash;
-	}
+	}  
 	
 	@Override
 	public boolean equals(Object obj){
@@ -99,16 +104,6 @@ public class BestelArtikel implements Serializable {
            return false;
         }
         return true;
-	}
-}
+	} */
+} 
 
-/*Omdat de Set interface gebruik wordt in Bestelling kun je niet 
-meerdere Artikel van hetzelfde erin kwijt en daar aantallen mee 
-bijhouden. Het is ook beknopter om een specifiek BestelArtikel 
-op te nemen met de aantallen voor de bestelling, anders zou je 
-honderden van een bepaald artikel in een lijst kunnen hebben. 
-Op deze manier houd je de verantwoordelijkheden ook 
-gescheiden van Artikel en BestelArtikel. De 
-verantwoordelijkheid is van Artikel, de informatie betreffende 
-het artikel verschaffen, van BestelArtikel de informatie nodig 
-voor een bestelling te verschaffen.*/

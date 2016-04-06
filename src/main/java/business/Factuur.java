@@ -1,12 +1,15 @@
 package business;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
 
 import javax.persistence.*;
+
+import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table
@@ -22,11 +25,13 @@ public class Factuur implements Serializable {
 	
 	@Column
 	private Date factuurDatum;
+
+	@OneToMany(mappedBy = "factuur", targetEntity = Betaling.class,  
+			fetch = FetchType.EAGER) 
+	@Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+	public Set<Betaling> betalingSet = new HashSet<>();
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy= "factuur")
-	public Set<Betaling> betalingSet;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "bestelling_id") 
 	private Bestelling bestelling;
 	

@@ -10,6 +10,13 @@ import javax.persistence.*;
 @Table
 public class Betaling implements Serializable{
 	
+	public enum Betaalwijze {
+		Contant,
+		Pinbetaling,
+		IDeal,
+		Creditcard
+	}	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "betaling_id")
@@ -18,8 +25,8 @@ public class Betaling implements Serializable{
 	@Column
 	private Date betaalDatum;
 	
-	@OneToOne
-	@JoinColumn(name = "betaalwijze_id")
+	@Enumerated(EnumType.STRING)
+	@Column(name = "betaalwijze")
 	private Betaalwijze betaalwijze;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -49,8 +56,11 @@ public class Betaling implements Serializable{
 		return betaalDatum;
 	}
 	
-	public void setBetaalDatum(Date betaalDatum){
-		this.betaalDatum = betaalDatum;
+	public void setBetaalDatum(){
+		Date tempBetaalDatum = new Date() ;
+		betaalDatum = new Date() ;
+		betaalDatum.setTime(tempBetaalDatum.getTime() + 7 * 24 * 60 * 60 * 1000);	          
+		System.out.println("betaalDatum is: " + betaalDatum);
 	}
 	
 	public Betaalwijze getBetaalwijze(){
@@ -76,7 +86,15 @@ public class Betaling implements Serializable{
 	public void setBetalingsGegevens(String betalingsGegevens){
 		this.betalingsGegevens = betalingsGegevens;
 	}
-	
+
+	public Factuur getFactuur() {
+		return factuur;
+	}
+
+	public void setFactuur(Factuur factuur) {
+		this.factuur = factuur;
+	}
+
 	@Override
 	public String toString(){
 		return "\n betaling id: " + id +
@@ -85,39 +103,54 @@ public class Betaling implements Serializable{
 			   "\n van klant: " + klant +
 			   "\n met betalinggegevens: " + betalingsGegevens;
 	}
-	
+
 	@Override
-	public int hashCode(){
-			int hash = 7;
-	       //hash = 89  hash + (this.name != null ? this.name.hashCode() : 0);
-	        hash = 67 * hash + (int) (this.id ^ (this.id >>> 32));
-	        hash = 67 * hash + Objects.hashCode(this.betaalwijze);
-	        hash = 67 * hash + Objects.hashCode(this.klant);
-	        hash = 67 * hash + Objects.hashCode(this.betalingsGegevens);
-	        return hash;
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((betaalDatum == null) ? 0 : betaalDatum.hashCode());
+		result = prime * result + ((betaalwijze == null) ? 0 : betaalwijze.hashCode());
+		result = prime * result + ((betalingsGegevens == null) ? 0 : betalingsGegevens.hashCode());
+		result = prime * result + ((factuur == null) ? 0 : factuur.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((klant == null) ? 0 : klant.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Betaling other = (Betaling) obj;
+		if (betaalDatum == null) {
+			if (other.betaalDatum != null)
+				return false;
+		} else if (!betaalDatum.equals(other.betaalDatum))
+			return false;
+		if (betaalwijze != other.betaalwijze)
+			return false;
+		if (betalingsGegevens == null) {
+			if (other.betalingsGegevens != null)
+				return false;
+		} else if (!betalingsGegevens.equals(other.betalingsGegevens))
+			return false;
+		if (factuur == null) {
+			if (other.factuur != null)
+				return false;
+		} else if (!factuur.equals(other.factuur))
+			return false;
+		if (id != other.id)
+			return false;
+		if (klant == null) {
+			if (other.klant != null)
+				return false;
+		} else if (!klant.equals(other.klant))
+			return false;
+		return true;
 	}
 	
-	@Override
-	public boolean equals(Object obj){
-		if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Betaling other = (Betaling) obj;
-        if (!Objects.equals(this.betaalwijze, other.betaalwijze)) {
-            return false;
-        }
-        if (!Objects.equals(this.klant, other.klant)) {
-            return false;
-        }
-        if (!Objects.equals(this.betalingsGegevens, other.betalingsGegevens)) {
-           return false;
-        }
-        if (!Objects.equals(this.betaalDatum, other.betaalDatum)){
-        	return false;
-        }
-        return true;
-	}
 }

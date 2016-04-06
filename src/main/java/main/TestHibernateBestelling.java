@@ -5,6 +5,7 @@ import business.*;
 
 import service.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -24,6 +25,7 @@ public class TestHibernateBestelling {
 		KlantDaoService klantService = new KlantDaoService();
 		ArtikelDaoService artikelService = new ArtikelDaoService();
 		FactuurDaoService factuurService = new FactuurDaoService();
+		BetalingDaoService betalingService = new BetalingDaoService();
 
 		System.out.println("\t-------------------------");
 		System.out.println("\t Test Bestelling Domain  ");
@@ -43,115 +45,134 @@ public class TestHibernateBestelling {
 
 			switch (keuze) {
 			case 1:
-				System.out.println("*** Persist - start ***");
+
+				logger.info("*** Persist - start ***");
+
 				Bestelling nieuweBestelling = new Bestelling();
 				BestelArtikel nieuweBestellingHasArtikel = new BestelArtikel();
 				Factuur nieuweFactuur = new Factuur();
 				Betaling nieuweBetaling = new Betaling();
+
 				input.nextLine();
 				System.out.print("Voer ID van klant in waarvoor je een bestelling wil plaatsen: ");
 				long klant_id = input.nextInt();		
 
 				nieuweBestelling.setBestelNummer();				
 				nieuweBestelling.setBestelDatum();
-											
 				nieuweBestelling.setKlant(klantService.findById(klant_id));
-				
+
 				logger.info("Klant :" + nieuweBestelling.getKlant());
-			
-				
+				logger.info("bestelling_id: " + nieuweBestelling.getId());
+
+				bestellingService.persist(nieuweBestelling);
+
 				System.out.print("Voer ID van artikel in die je wil bestellen: ");
 				long artikel_id = input.nextInt();	
-												
+
 				nieuweBestellingHasArtikel.setArtikel(artikelService.findById(artikel_id));
-				
+
 				System.out.print("Hoeveel wil je er van bestellen?: ");
 				int aantal = input.nextInt();	
-				
+
 				nieuweBestellingHasArtikel.setAantal(aantal);
-				
 				nieuweBestellingHasArtikel.setBestelling(nieuweBestelling);
-							
 				nieuweBestellingHasArtikel.getId();
-				
+
+				logger.info("bestelartikel_id: " + nieuweBestellingHasArtikel.getId());
 				logger.info("id van nieuweBestellingHasArtikel is" + nieuweBestellingHasArtikel.getId());
-					
-				bestellingHasArtikelService.persist(nieuweBestellingHasArtikel);
-				
+
 				nieuweBestelling.bestellingHasArtikelen.add(nieuweBestellingHasArtikel);
-				
+				bestellingHasArtikelService.persist(nieuweBestellingHasArtikel);
+
+				logger.info("bestelartikel_id wordt toegevoegd aan het bestelling object");
+
+				nieuweBestelling.setBestellingHasArtikelen(nieuweBestelling.bestellingHasArtikelen);
+
+				logger.info("object nieuweBestelling bevat nu: " + nieuweBestelling);
+				logger.info("bestelling object wordt geupdate met bestelartikel_id en geupdate in bestelling tabel");
+
+				bestellingService.update(nieuweBestelling);
+
 				logger.info("de set bestellingHasArtikelen bevat: " + nieuweBestelling.getBestellingHasArtikelen());
-				
+
 				nieuweFactuur.setFactuurDatum();
 				nieuweFactuur.setFactuurNummer();
-				nieuweFactuur.setBestelling(nieuweBestelling);
-				
-				//logger.info("de inhoud van object nieuweBestelling is: " + nieuweBestelling);
-				
-				nieuweFactuur.betalingSet.add(nieuweBetaling);
-				
-				
-				
-				
 
-				System.out.println("Toe te voegen nieuwe Bestelling: " + nieuweBestelling);
-				//logger.info("Bestelling is: " + nieuweBestelling);
-				bestellingService.persist(nieuweBestelling);
-				bestellingHasArtikelService.persist(nieuweBestellingHasArtikel);
-				System.out.println("Bestelling toegevoegd: " + nieuweBestelling);
-				
-				
+				logger.info("object nieuweFactuur " + nieuweFactuur);
+
+				nieuweFactuur.setBestelling(nieuweBestelling);
+
+				logger.info("object nieuweFactuur na  \"nieuweFactuur.setBestelling(nieuweBestelling) \" " + nieuweFactuur);
+
+				nieuweBestellingHasArtikel.setArtikel(artikelService.findById(artikel_id));
+				nieuweBetaling.setBetaalDatum();
+
+
+				System.out.print("Hoe wil je betalen? 1 = Contant, 2 = Pinbetaling, 3 = IDeal, 4 = Creditcard : ");
+				int betaalwijze = input.nextInt();
+
+				switch (betaalwijze) {
+				case 1:
+					nieuweBetaling.setBetaalwijze(nieuweBetaling.getBetaalwijze().Contant);
+					break;
+				case 2:
+					nieuweBetaling.setBetaalwijze(nieuweBetaling.getBetaalwijze().Pinbetaling);
+					break;
+				case 3:
+					nieuweBetaling.setBetaalwijze(nieuweBetaling.getBetaalwijze().IDeal);
+					break;
+				case 4:
+					nieuweBetaling.setBetaalwijze(nieuweBetaling.getBetaalwijze().Creditcard);
+					break;				
+				default:
+					nieuweBetaling.setBetaalwijze(nieuweBetaling.getBetaalwijze().Pinbetaling);
+				} 
+
+
+
+				System.out.print("Voer overige betalingsgegevens in c.q. een beschrijving: ");
+				input.nextLine();
+				String betalingsGegevens = input.nextLine();
+
+				nieuweBetaling.setBetalingsGegevens(betalingsGegevens);
+				nieuweBetaling.setKlant(klantService.findById(klant_id));			
+				nieuweBetaling.setFactuur(nieuweFactuur);
+
+				betalingService.persist(nieuweBetaling);
+
+				logger.info("object nieuweBetaling bevat:" + nieuweBetaling);									
+				logger.info("object nieuweFactuur VOOR  \"nieuweFactuur.betalingSet.add(nieuweBetaling) \" " + nieuweFactuur);
+
+				nieuweFactuur.betalingSet.add(nieuweBetaling);
+
+				logger.info("object nieuweFactuur NA  \"nieuweFactuur.betalingSet.add(nieuweBetaling) \" " + nieuweFactuur);
+
+				//factuurService.persist(nieuweFactuur);	
+
+				logger.info("*** Persist - end ***");
+
 				break;
 
+
 			case 2:
-				
-				System.out.println("*** Update - start ***");
-				Bestelling bestaandeBestelling = new Bestelling();	
-				Scanner input2 = new Scanner(System.in);
-				System.out.print("Voer het ID in van de Bestelling die je wil aanpassen: ");				
-				int id = input2.nextInt();
-				input2.nextLine();
 
-
-				logger.info("Bestelling is: " + bestaandeBestelling);
-				//service.update(bestaandeBestelling); 
-				
-				
+				System.out.println("COMING SOON");
 				break;
 
 			case 3:
-				System.out.println("*** findById - start ***");			
-				//bestaandeBestelling = new Bestelling();				
-				Scanner input3 = new Scanner(System.in);
-				System.out.print("Voer het ID in van de Bestelling die je wil zoeken: ");
-				Long id2 = input3.nextLong();
-				//bestaandeBestelling.setId(id2);
-				//System.out.println(service.findById(id2));				
+				System.out.println("COMING SOON");				
 				break;
 
 			case 4:
-				System.out.println("*** Delete - start ***");
-				bestaandeBestelling = new Bestelling();	
-				System.out.print("Voer het ID in van de Bestelling die je wil deleten: ");				
-				id2 = input.nextLong();				
-				//service.delete(id2);
+				System.out.println("COMING SOON");
 				break;
 
 			case 5:
-				logger.info("findAll Bestellingen aangeroepen");
-				//List<Bestelling> Bestellingen = service.findAll();
-
-				System.out.println("De volgende Bestellingen staan in de Bestelling tabel :");
-
-				/* for (Bestelling k : Bestellingen) {
-					System.out.println("-" + k.toString());
-				} */
-
+				System.out.println("COMING SOON");
 				break;
-				
+
 			case 6:
-				System.out.println("*** DeleteAll - start ***");
-				// service.deleteAll();
+				System.out.println("COMING SOON");
 				break;
 
 			default:
