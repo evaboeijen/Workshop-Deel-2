@@ -42,7 +42,6 @@ public class TestHibernateArtikel {
 				System.out.println("*** Persist - start ***");
 				Artikel nieuweArtikel = new Artikel();
 				
-				input.nextLine();
 				System.out.println("Voer het artikelnaam in wat in het assortiment geplaatst wordt: ");
 				String artikelNaam = input.nextLine();		
 				
@@ -67,30 +66,31 @@ public class TestHibernateArtikel {
 
 			case 2:
 				
-				System.out.println("*** Update - start ***");
-				Artikel bestaandeArtikel = new Artikel();	
+				System.out.println("*** Update - start ***");	
 				
 				System.out.print("Voer het ID in van het artikel die u wilt aanpassen: ");				
 				long artikelId = input.nextLong();
+				input.nextLine();
 				
+				Artikel bestaandeArtikel = artikelService.findById(artikelId);
 				
 				System.out.println("Voer de naam van het artikel in: ");
-				System.out.println();
-				artikelNaam = input.nextLine();
+				String nieuwArtikelNaam = input.nextLine();
 				
-				System.out.println("Bepaal de prijs van het artikel: ");
-				artikelPrijs = input.nextDouble();
-				
-				bestaandeArtikel.setArtikel_naam(artikelNaam);
-				System.out.println("het artikelnummer blijft: ");
-				System.out.println(artikelService.findById(artikelId));
+				bestaandeArtikel.setArtikel_naam(nieuwArtikelNaam);
 				
 				System.out.println("Voer de artikel omschrijving in: ");
-				artikelOmschrijving = input.nextLine();
+				String nieuwArtikelOmschrijving = input.nextLine();
 				
-				bestaandeArtikel.setOmschrijving(artikelOmschrijving);
+				bestaandeArtikel.setOmschrijving(nieuwArtikelOmschrijving);	
 				
-				bestaandeArtikel.setArtikel_prijs(artikelPrijs);
+				System.out.println("Bepaal de prijs van het artikel: ");
+				double nieuwArtikelPrijs = input.nextDouble();
+				
+				bestaandeArtikel.setArtikel_prijs(nieuwArtikelPrijs);
+				
+				System.out.println("het artikelnummer blijft hetzelfde");
+				//System.out.println(artikelService.findById(artikelId));			
 
 				logger.info("Artikel is: " + bestaandeArtikel);
 				artikelService.update(bestaandeArtikel); 

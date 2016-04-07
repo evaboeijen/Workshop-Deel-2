@@ -59,9 +59,9 @@ CREATE TABLE `adres` (
   `huisnummer` varchar(6) DEFAULT NULL,
   `woonplaats` varchar(26) DEFAULT NULL,
   -- `adrestype_id` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`adres_id`),
-  KEY `adrestype_fk` (`adrestype_id`),
-  CONSTRAINT `adrestype_fk` FOREIGN KEY (`adrestype_id`) REFERENCES `adrestype` (`adrestype_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  PRIMARY KEY (`adres_id`)
+ --  KEY `adrestype_fk` (`adrestype_id`),
+ -- CONSTRAINT `adrestype_fk` FOREIGN KEY (`adrestype_id`) REFERENCES `adrestype` (`adrestype_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -115,8 +115,8 @@ CREATE TABLE `betaling` (
   UNIQUE KEY `betaling_id_UNIQUE` (`betaling_id`),
   KEY `factuur_id_fk` (`factuur_id`),
   KEY `klant_id_fk_` (`klant_id`),
-  KEY `betaalwijze_if_fk` (`betaalwijze_id`),
-  CONSTRAINT `betaalwijze_if_fk` FOREIGN KEY (`betaalwijze_id`) REFERENCES `betaalwijze` (`betaalwijze_id`),
+ -- KEY `betaalwijze_if_fk` (`betaalwijze_id`),
+ -- CONSTRAINT `betaalwijze_if_fk` FOREIGN KEY (`betaalwijze_id`) REFERENCES `betaalwijze` (`betaalwijze_id`),
   CONSTRAINT `factuur_id_fk` FOREIGN KEY (`factuur_id`) REFERENCES `factuur` (`factuur_id`),
   CONSTRAINT `klant_id_fk_` FOREIGN KEY (`klant_id`) REFERENCES `klant` (`klant_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -131,8 +131,8 @@ CREATE TABLE `klant_adres` (
   UNIQUE KEY `klant_id_UNIQUE` (`klant_id`),
   KEY `adres_id_fk` (`adres_id`),
   KEY `klant_ka_id_fk` (`klant_id`),
-  KEY `adrestype_id_fk_idx` (`adrestype_id`),
-  CONSTRAINT `adrestype_fk_id` FOREIGN KEY (`adrestype_id`) REFERENCES `adrestype` (`adrestype_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  -- KEY `adrestype_id_fk_idx` (`adrestype_id`),
+  -- CONSTRAINT `adrestype_fk_id` FOREIGN KEY (`adrestype_id`) REFERENCES `adrestype` (`adrestype_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_adres_id` FOREIGN KEY (`adres_id`) REFERENCES `adres` (`adres_id`),
   CONSTRAINT `klant_id_fk` FOREIGN KEY (`klant_id`) REFERENCES `klant` (`klant_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
