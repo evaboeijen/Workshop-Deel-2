@@ -4,10 +4,19 @@ CREATE DATABASE workshopdeel2;
 
 USE workshopdeel2;
 
---  `adrestype_id` bigint(20) NOT NULL,
---  `adrestype` varchar(45) NOT NULL,
---  PRIMARY KEY (`adrestype_id`)
--- ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- weer teruggezet 08/04/16 AU
+CREATE TABLE `adrestype` (		
+  `adrestype_id` bigint(20) NOT NULL,
+ `adrestype` varchar(45) NOT NULL,
+ PRIMARY KEY (`adrestype_id`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ 
+-- weer teruggezet 08/04/16 AU
+ CREATE TABLE `betaalwijze` (
+   `betaalwijze_id` bigint(20) NOT NULL,
+  `betaalwijze` varchar(45) NOT NULL,
+  PRIMARY KEY (`betaalwijze_id`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `artikel` (
   `artikel_id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -18,11 +27,7 @@ CREATE TABLE `artikel` (
   PRIMARY KEY (`artikel_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- CREATE TABLE `betaalwijze` (
---   `betaalwijze_id` bigint(20) NOT NULL,
---   `betaalwijze` varchar(45) NOT NULL,
---   PRIMARY KEY (`betaalwijze_id`)
---  ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 CREATE TABLE `klant` (
   `klant_id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -58,7 +63,7 @@ CREATE TABLE `adres` (
   `toevoeging` varchar(6) DEFAULT NULL,
   `huisnummer` varchar(6) DEFAULT NULL,
   `woonplaats` varchar(26) DEFAULT NULL,
-  -- `adrestype_id` bigint(20) DEFAULT NULL,
+  `adrestype_id` bigint(20) DEFAULT NULL, -- weer teruggezet 08/04/16 AU
   PRIMARY KEY (`adres_id`)
  --  KEY `adrestype_fk` (`adrestype_id`),
  -- CONSTRAINT `adrestype_fk` FOREIGN KEY (`adrestype_id`) REFERENCES `adrestype` (`adrestype_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -134,10 +139,29 @@ CREATE TABLE `klant_adres` (
   CONSTRAINT `klant_id_fk` FOREIGN KEY (`klant_id`) REFERENCES `klant` (`klant_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- weer teruggezet 08/04/16 AU
+ INSERT INTO `betaalwijze` (
+ `betaalwijze_id`, `betaalwijze`) VALUES ('1', 'Contant'), ('2', 'Pinbetaling'), ('3', 'IDeal'),('4', 'Creditcard');
 
--- INSERT INTO `betaalwijze` (
--- `betaalwijze_id`, `betaalwijze`) VALUES ('1', 'Contant'), ('2', 'Pinbetaling'), ('3', 'IDeal'),('4', 'Creditcard');
+ INSERT INTO `adrestype` (
+ `adrestype_id`, `adrestype`) VALUES ('1', 'Postadres'), ('2', 'Factuuradres'), ('3', 'Bezoekadres');
 
--- INSERT INTO `adrestype` (
--- `adrestype_id`, `adrestype`) VALUES ('1', 'Postadres'), ('2', 'Factuuradres'), ('3', 'Bezoekadres');
 
+-- insert statements voor testdata toegevoegd 08/04/16 AU
+ INSERT INTO `klant` (
+`klant_id`, `voornaam`, `achternaam`, `tussenvoegsel`, `email`) VALUES ('1', 'testvoornaam', 'testachternaam', 'test', 'test@test.com'),
+																		('2', 'test2voornaam', 'test2achternaam', 'test2', 'test2@test.com');
+
+INSERT INTO `account` (
+`account_id`, `accountnaam`, `klant_id`, `datecreated` ) VALUES ('1', 'testaccountnaam', '1', null),
+																('2', 'test2accountnaam', '2', null);
+
+INSERT INTO `adres` (
+`adres_id`, `straatnaam`, `postcode`, `toevoeging`, `huisnummer`, `woonplaats`) VALUES ('1', 'teststraat', '90210', 'E', '69', 'Lutjebroek');
+
+INSERT INTO `artikel` (
+`artikel_id`, `artikel_naam`, `artikel_prijs`, `artikel_nummer`, `omschrijving`) VALUES ('1', 'testartikel', '12.99', '12345AB', 'mooi test artikel');
+
+INSERT INTO `klant_adres` (
+`klant_id`, `adres_id`, `adrestype`) VALUES ('1', '1','Postadres'),
+											('2', '1','Factuuradres')
