@@ -51,8 +51,8 @@ public class AdresDaoService {
 			adresDaoImpl.deleteAll();
 			adresDaoImpl.closeCurrentSessionwithTransaction();
 		}
-
-		public AdresDao klantDaoImpl() {
+		
+		public AdresDao adresDaoImpl() {
 			return adresDaoImpl;
 		}
 }

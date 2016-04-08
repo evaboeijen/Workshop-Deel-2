@@ -62,6 +62,14 @@ public class Klant implements Serializable{
     @MapKeyJoinColumn(name = "adres_id", table = "klant_adres")
 	private Map<Adres, AdresType> adresMap = new HashMap <Adres, AdresType>();
 	
+	public void addToAdresMap(Adres adres, AdresType adresType){
+        if(adres != null && adresType != null){
+            this.adresMap.put(adres, adresType);
+        }
+    }
+public void removeFromAdresMap(Adres adres, AdresType adresType){
+        this.adresMap.remove(adres, adresType);
+    } 	
 	
 	public Klant() {}
 	
@@ -145,6 +153,15 @@ public class Klant implements Serializable{
 	public Map<Adres, AdresType> getAdresMap(){
 		return adresMap;
 	}
+	
+	 public void addToAdressen(Adres adres, AdresType adresType){
+	        if(adres != null && adresType != null){
+	            this.adresMap.put(adres, adresType);
+	        }
+	    }
+	    public void removeFromAdressen(Adres adres, AdresType adresType){
+	        this.adresMap.remove(adres, adresType);
+	    } 
 	
 	@Override 
 	public String toString(){
