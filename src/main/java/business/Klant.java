@@ -22,6 +22,12 @@ import javax.persistence.*;
 @Table
 public class Klant implements Serializable{
 	
+	public enum Adrestype {
+		  Postadres,
+		  Factuuradres,
+		  Bezoekadres
+		 }
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "klant_id")
@@ -48,7 +54,8 @@ public class Klant implements Serializable{
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="id", orphanRemoval=true, fetch = FetchType.EAGER)
 	private Set<Account> accountSet ;
 	
-	
+	private Adrestype adrestype;
+	 
 	/* @ManyToMany
 	@JoinTable(name = "klant_adres")
 	@JoinColumns({
@@ -58,21 +65,21 @@ public class Klant implements Serializable{
 	@ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name="klant_adres",
     joinColumns=@JoinColumn(name="klant_id"),
-    inverseJoinColumns=@JoinColumn(name="adrestype_id"))
+    inverseJoinColumns=@JoinColumn(name="adrestype"))
     @MapKeyJoinColumn(name = "adres_id", table = "klant_adres")
-	private Map<Adres, AdresType> adresMap = new HashMap <Adres, AdresType>();
+	private Map<Adres, Adrestype> adresMap = new HashMap <Adres, Adrestype>();
 	
-	public void addToAdresMap(Adres adres, AdresType adresType){
-        if(adres != null && adresType != null){
-            this.adresMap.put(adres, adresType);
+	public void addToAdresMap(Adres adres, Adrestype adrestype){
+        if(adres != null && adrestype != null){
+            this.adresMap.put(adres, adrestype);
         }
     }
-public void removeFromAdresMap(Adres adres, AdresType adresType){
-        this.adresMap.remove(adres, adresType);
+	
+	public void removeFromAdresMap(Adres adres, Adrestype adrestype){
+        this.adresMap.remove(adres, adrestype);
     } 	
 	
 	public Klant() {}
-	
 	
 	public long getId() {
 		return id;
@@ -122,6 +129,14 @@ public void removeFromAdresMap(Adres adres, AdresType adresType){
 		this.email = email;
 	}
 
+	public Adrestype getAdrestype(){
+		  return adrestype;
+		 }
+	
+	public void setAdrestype(Adrestype adrestype){
+		  this.adrestype = adrestype;
+		 }
+	
 	public void setBestellingSet(Set<Bestelling> bestellingSet){
 		this.bestellingSet = bestellingSet;
 	}
@@ -146,22 +161,14 @@ public void removeFromAdresMap(Adres adres, AdresType adresType){
 		return factuurSet;
 	}
 	
-	public void setAdresMap(Map<Adres, AdresType> adresMap){
+	public void setAdresMap(Map<Adres, Adrestype> adresMap){
 		this.adresMap = adresMap;
 	}
 	
-	public Map<Adres, AdresType> getAdresMap(){
+	public Map<Adres, Adrestype> getAdresMap(){
 		return adresMap;
 	}
 	
-	 public void addToAdressen(Adres adres, AdresType adresType){
-	        if(adres != null && adresType != null){
-	            this.adresMap.put(adres, adresType);
-	        }
-	    }
-	    public void removeFromAdressen(Adres adres, AdresType adresType){
-	        this.adresMap.remove(adres, adresType);
-	    } 
 	
 	@Override 
 	public String toString(){

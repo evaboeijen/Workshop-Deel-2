@@ -8,14 +8,15 @@ import org.slf4j.LoggerFactory;
 
 import business.Adres;
 import business.Klant;
+import business.Klant.Adrestype;
 import business.AdresType;
 import service.AdresDaoService;
 import service.KlantDaoService;
 
 public class TestHibernateAdres {
 	private static final Logger logger =  LoggerFactory.getLogger(TestHibernateAdres.class);
-	static AdresDaoService AdresService = new AdresDaoService();
-	static KlantDaoService KlantService = new KlantDaoService();
+	static AdresDaoService adresService = new AdresDaoService();
+	static KlantDaoService klantService = new KlantDaoService();
 	
 	public static Adres CreateAdres(){
 	Scanner input = new Scanner(System.in);
@@ -43,7 +44,7 @@ public class TestHibernateAdres {
 	return adres;
 	}
 	
-	public static long AdresTypeKeuze(){
+	public static void adrestypeKeuze(Klant klant){
 		Scanner input = new Scanner(System.in);
 		
 		System.out.println("Kies een adrestype ");
@@ -51,8 +52,21 @@ public class TestHibernateAdres {
 		System.out.println("2. Factuuradres");
 		System.out.println("3. Bezoekadres");
 		
-		long adresType = input.nextLong();
-		return adresType;
+		int keuze = input.nextInt();
+		
+		switch (keuze) {
+		case 1:
+			klant.setAdrestype(klant.getAdrestype().Postadres);
+			break;
+		case 2:
+			klant.setAdrestype(klant.getAdrestype().Factuuradres);
+			break;
+		case 3:
+			klant.setAdrestype(klant.getAdrestype().Bezoekadres);
+			break;			
+		default:
+			klant.setAdrestype(klant.getAdrestype().Postadres);
+		} 
 	}
 	
 	public static void toonAdresMenu(){
@@ -70,8 +84,8 @@ public class TestHibernateAdres {
 		System.out.println("\t7.  Koppel adres aan klant");
 		System.out.println("\t8.  Ontkoppel adres van klant");
 		System.out.println("\t9.  Vind alle adressen van een klant");
-		System.out.println("\t10. Vind alle klanten op een adres\n");		
-		System.out.println("\t11. Ken een adrestype toe");
+				
+		System.out.println("\t11. Ken een adrestype toe aan een adres van een klant");
 		System.out.println("\t12. Verwijder adrestype");		
 		System.out.print("\nVoer optie in en druk op Enter:");
 		
@@ -79,8 +93,9 @@ public class TestHibernateAdres {
 			int keuze = input.nextInt();
 			long adres_id;
 			long klant_id;
-			long adresTypeKeuze;
-			AdresType adresType= null;
+			Adres adres= null;
+			Klant klant = null;
+			Adrestype adrestype= null;
 			
 			
 			switch (keuze) {
@@ -88,9 +103,8 @@ public class TestHibernateAdres {
 				System.out.println("\n*** Persist Adres - Start ***");
 					Adres nieuwAdres = CreateAdres();
 				System.out.println("Toe te voegen nieuw adres: " + nieuwAdres);
-				AdresService.persist(nieuwAdres);
+				adresService.persist(nieuwAdres);
 				System.out.println("Adres toegevoegd: " + nieuwAdres);
-				
 				toonAdresMenu();				
 				break;
 
@@ -101,8 +115,7 @@ public class TestHibernateAdres {
 					Adres bestaandAdres = CreateAdres();	
 					bestaandAdres.setId(adres_id);	
 						logger.info("Adres is: " + bestaandAdres);
-						AdresService.update(bestaandAdres); 
-				
+						adresService.update(bestaandAdres); 				
 				toonAdresMenu();				
 				break;
 
@@ -110,8 +123,7 @@ public class TestHibernateAdres {
 				System.out.println("\n*** FindById Adres- Start ***");						
 				System.out.print("Voer het ID in van het adres dat je wil zoeken: ");
 					adres_id = input.nextLong();
-				System.out.println(AdresService.findById(adres_id));				
-				
+				System.out.println(adresService.findById(adres_id));					
 				toonAdresMenu();				
 				break;
 
@@ -120,15 +132,14 @@ public class TestHibernateAdres {
 					bestaandAdres= new Adres();	
 				System.out.print("Voer het ID in van het adres die je wil deleten: ");				
 					adres_id = input.nextLong();				
-					AdresService.delete(adres_id);
-				
+					adresService.delete(adres_id);				
 				toonAdresMenu();
 				break;
 
 			case 5:// FindAll
 				System.out.println("\n*** FindAll Adresses - Start ***");
 				logger.info("findAll adressen aangeroepen");
-				List<Adres> adressen = AdresService.findAll();
+				List<Adres> adressen = adresService.findAll();
 
 				System.out.println("De volgende adressen staan in de Adres tabel :");
 					for (Adres k : adressen) {
@@ -139,8 +150,7 @@ public class TestHibernateAdres {
 				
 			case 6:// DeleteAll
 				System.out.println("\n*** DeleteAll Adresses - Start ***");
-				AdresService.deleteAll();				
-				
+				adresService.deleteAll();				
 				toonAdresMenu();
 				break;
 				
@@ -148,47 +158,70 @@ public class TestHibernateAdres {
 				System.out.println("Geef het klantnummer op: ");
 				klant_id = input.nextLong();
 				System.out.println("Geef het adresnummer op: ");
-				adres_id = input.nextLong();
-				
+				adres_id = input.nextLong();			
+				klant.addToAdresMap(adres,adrestype);
+				klantService.update(klant);
 				toonAdresMenu();
 				break;
 				
 			case 8:// Ontkoppel adres van klant
-				//To Do
+				System.out.println("Geef het klantnummer op: ");
+				klant_id = input.nextLong();
+				klant = new Klant();
+				klant.setId(klant_id);
+				System.out.println("Geef het adresnummer op: ");
+				adres_id = input.nextLong();
+				adres = new Adres();
+				adres.setId(adres_id);
+				
+				klant.removeFromAdresMap(adres,adrestype);
+				klantService.update(klant);
 				toonAdresMenu();
 				break;
 				
 			case 9://Vind alle adressen van een klant	
-				//To Do
+				System.out.println("Geeft het klantnummer op: ");
+				klant_id = input.nextLong();
+				klant = new Klant();
+				klant.setId(klant_id);
+				System.out.println(klant.getAdresMap());
 				toonAdresMenu();
 				break;
 				
-			case 10://Vind alle kalnten op een adres
-				//To Do
-				toonAdresMenu();
-				break;
+			case 11://Ken een adrestype toe aan een adres van een klant
+				System.out.println("Geef het klantnummer op: ");
+				klant_id=input.nextLong();
+				klant= new Klant();
+				klant.setId(klant_id);
 				
-			case 11://Ken een adrestype toe
+				System.out.println(klant = klantService.findById(klant_id));
+				
 				System.out.println("Geef het adresnummer op: ");
 				adres_id=input.nextLong();
-				adresType= new AdresType();
-				adresTypeKeuze = AdresTypeKeuze();
-				adresType.setId(adresTypeKeuze);
-				Adres adres = AdresService.findById(adres_id);
+				adres = new Adres();
+				adres.setId(adres_id);
 				
-				KlantDaoService.addToAdresMap(adres,adresType);
+				adrestypeKeuze(klant);
+
+				klant.addToAdresMap(adres,adrestype);
+				klantService.update(klant);
 				toonAdresMenu();
 				break;
 				
 			case 12://Verwijder adrestype
 				System.out.println("Geef het adresnummer op: ");
 				adres_id=input.nextLong();
+				adres = new Adres();
+				adres.setId(adres_id);				
 				
+				System.out.println("Geef het klantnummer op: ");
+				klant_id = input.nextLong();
+				klant = new Klant();
+				klant.setId(klant_id);
 				
-				
-				adresType= new AdresType();
-				adresTypeKeuze = AdresTypeKeuze();
-				adresType.setId(adresTypeKeuze);
+				adrestypeKeuze(klant);
+				klant.removeFromAdresMap(adres,adrestype);
+				klantService.update(klant);
 				toonAdresMenu();
 				break;
 				
