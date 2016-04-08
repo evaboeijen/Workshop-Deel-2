@@ -126,12 +126,10 @@ CREATE TABLE `betaling` (
 CREATE TABLE `klant_adres` (
   `klant_id` bigint(20) NOT NULL,
   `adres_id` bigint(20) NOT NULL,
-  `adrestype_id` bigint(20) NOT NULL,
+  `adrestype` varchar(45) NOT NULL,
   PRIMARY KEY (`klant_id`,`adres_id`),
   KEY `adres_id_fk` (`adres_id`),
   KEY `klant_ka_id_fk` (`klant_id`),
-  KEY `adrestype_id_fk_idx` (`adrestype_id`),
-  CONSTRAINT `adrestype_fk_id` FOREIGN KEY (`adrestype_id`) REFERENCES `adrestype` (`adrestype_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_adres_id` FOREIGN KEY (`adres_id`) REFERENCES `adres` (`adres_id`),
   CONSTRAINT `klant_id_fk` FOREIGN KEY (`klant_id`) REFERENCES `klant` (`klant_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
