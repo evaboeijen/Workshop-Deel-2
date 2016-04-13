@@ -8,10 +8,10 @@ import dao.GenericDao;
 
 public class GenericDaoService<T> {
 	
-	private static GenericDao genericDao;
+	private GenericDao<T> genericDao;
 
 	public GenericDaoService() {
-		genericDao = new GenericDao();
+		genericDao = new GenericDao<T>();
 	}
 
 	public void saveOrUpdate(T entity) {
@@ -20,9 +20,9 @@ public class GenericDaoService<T> {
 		genericDao.closeCurrentSessionwithTransaction();
 	}
 
-	public T findById(Long id) {
+	public T findById(T entity, Long id) {
 		genericDao.openCurrentSession();
-		T entity = (T)genericDao.findById(id);
+		entity = genericDao.findById(id);
 		genericDao.closeCurrentSession();
 		return entity;
 	}
@@ -49,7 +49,7 @@ public class GenericDaoService<T> {
 		genericDao.closeCurrentSessionwithTransaction();
 	}
 
-	public GenericDao klantDao() {
+	public GenericDao<T> genericDao() {
 		return genericDao;
 	}
 }

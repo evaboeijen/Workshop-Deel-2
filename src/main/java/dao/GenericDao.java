@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.*;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import business.*;
 
 import org.hibernate.Session;
@@ -23,34 +24,40 @@ public class GenericDao<T> implements GenericDaoInterface<T, Long> {
 	private Transaction currentTransaction;
 	private Class<T> clazz;
 
-	public GenericDao() {
-		this.clazz =(Class<T>)((ParameterizedType)this.getClass()
-				.getGenericSuperclass())
-				.getActualTypeArguments()[0];
-	}
+	@SuppressWarnings("unchecked")
+    public GenericDao(){
+        this.clazz =(Class<T>)((ParameterizedType)this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+    }
 	
+	public GenericDao(Class<T> clazz){
+        this.clazz = clazz;
+    }
+	
+	/*public static void setClazz(Class<T> clazz){
+		this.clazz = clazz;
+	}*/
 
 	public Session openCurrentSession() {
 		currentSession = getSessionFactory().openSession();
 		return currentSession;
-		}
+	}
 
 	public Session openCurrentSessionwithTransaction() {
 		currentSession = getSessionFactory().openSession();
 		currentTransaction = currentSession.beginTransaction();
 		return currentSession;
-		}
+	}
 
-		public void closeCurrentSession() {
+	public void closeCurrentSession() {
 			currentSession.close();
-		}
+	}
 	
-		public void closeCurrentSessionwithTransaction() {
+	public void closeCurrentSessionwithTransaction() {
 			currentTransaction.commit();
 			currentSession.close();
-		}
+	}
 	
-		private static SessionFactory getSessionFactory() {
+	private static SessionFactory getSessionFactory() {
 			/*Properties properties = new Properties();
 			
 			properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
@@ -70,7 +77,7 @@ public class GenericDao<T> implements GenericDaoInterface<T, Long> {
 										.build()
 			);*/
 
-			Configuration configuration = new Configuration()
+		Configuration configuration = new Configuration()
 					.addAnnotatedClass(Klant.class)
 					.addAnnotatedClass(Account.class)
 					.addAnnotatedClass(Bestelling.class)
@@ -88,55 +95,55 @@ public class GenericDao<T> implements GenericDaoInterface<T, Long> {
 			
 			SessionFactory sessionFactory = configuration.buildSessionFactory(builder.build());
 			return sessionFactory;
-		}
+	}
 
-		public Session getCurrentSession() {
+	public Session getCurrentSession() {
 			return currentSession;
-		}
+	}
 	
-		public void setCurrentSession(Session currentSession) {
-			this.currentSession = currentSession;
-		}
+	public void setCurrentSession(Session currentSession) {
+		this.currentSession = currentSession;
+	}
 
-		public Transaction getCurrentTransaction() {
-			return currentTransaction;
-		}
+	public Transaction getCurrentTransaction() {
+		return currentTransaction;
+	}
 	
-		public void setCurrentTransaction(Transaction currentTransaction) {
-			this.currentTransaction = currentTransaction;
-		}
+	public void setCurrentTransaction(Transaction currentTransaction) {
+		this.currentTransaction = currentTransaction;
+	}
 	
-		public void createOrUpdate(T entity){
-			getCurrentSession().saveOrUpdate(entity);
-		}
+	public void createOrUpdate(T entity){
+		getCurrentSession().saveOrUpdate(entity);
+	}
 	
-		public T findById(Long id) {
-			logger.info(clazz.getName() + "findByID method starts");
-			String naam = clazz.getName();
-			T entity = (T)getCurrentSession().get(clazz, id);
-			logger.info(clazz.getName()+ "Klant.findByID method about to end");
-			return entity;
-		}
+	public T findById(Long id) {
+		//logger.info(clazz.getName() + "findByID method starts");
+		//String naam = clazz.getName();
+		T entity = (T)getCurrentSession().get(clazz, id);
+		logger.info(clazz + "Klant.findByID method about to end");
+		return entity;
+	}
 	
-		public void delete(T entity) {
-			getCurrentSession().delete(entity);
-		}
+	public void delete(T entity) {
+		getCurrentSession().delete(entity);
+	}
 
-		@SuppressWarnings("unchecked")
-		public List<T> findAll() {
-			List<T> entities = (List<T>) getCurrentSession().createQuery("from " + clazz.getName()).list();
-			return entities;
-		}
+	@SuppressWarnings("unchecked")
+	public List<T> findAll() {
+		List<T> entities = (List<T>) getCurrentSession().createCriteria(clazz).list();
+		return entities;
+	}
 	
-		public void deleteAll() {
-			List<T> entityList = findAll();
+	public void deleteAll() {
+		List<T> entityList = findAll();
 			
-			for (T entity : entityList) {
-				delete(entity);
-			}
+		for (T entity : entityList) {
+			delete(entity);
 		}
+	}
 
 
 		
-	}
+}
 
