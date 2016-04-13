@@ -27,6 +27,7 @@ public class TestHibernateBestelling {
 		FactuurDaoService factuurService = new FactuurDaoService();
 		BetalingDaoService betalingService = new BetalingDaoService();
 
+
 		System.out.println("\t-------------------------");
 		System.out.println("\t Test Bestelling Domain  ");
 		System.out.println("\t-------------------------");
@@ -66,34 +67,46 @@ public class TestHibernateBestelling {
 
 				bestellingService.persist(nieuweBestelling);
 
-				System.out.print("Voer ID van artikel in die je wil bestellen: ");
-				long artikel_id = input.nextInt();	
+				long artikel_id = 0;
+				
+				
+				System.out.print("Voer ID van artikel in die je wil bestellen (0 = stoppen met artikelen toevoegen): ");
+				artikel_id = input.nextLong();
+				
+				do {
+									
+					nieuweBestellingHasArtikel.setArtikel(artikelService.findById(artikel_id));
 
-				nieuweBestellingHasArtikel.setArtikel(artikelService.findById(artikel_id));
+					System.out.print("Hoeveel wil je er van bestellen?: ");
+					int aantal = input.nextInt();	
 
-				System.out.print("Hoeveel wil je er van bestellen?: ");
-				int aantal = input.nextInt();	
+					nieuweBestellingHasArtikel.setAantal(aantal);
+					nieuweBestellingHasArtikel.setBestelling(nieuweBestelling);
+					nieuweBestellingHasArtikel.getId();
 
-				nieuweBestellingHasArtikel.setAantal(aantal);
-				nieuweBestellingHasArtikel.setBestelling(nieuweBestelling);
-				nieuweBestellingHasArtikel.getId();
+					logger.info("bestelartikel_id: " + nieuweBestellingHasArtikel.getId());
+					logger.info("id van nieuweBestellingHasArtikel is" + nieuweBestellingHasArtikel.getId());
 
-				logger.info("bestelartikel_id: " + nieuweBestellingHasArtikel.getId());
-				logger.info("id van nieuweBestellingHasArtikel is" + nieuweBestellingHasArtikel.getId());
+					nieuweBestelling.bestellingHasArtikelen.add(nieuweBestellingHasArtikel);
+					bestellingHasArtikelService.persist(nieuweBestellingHasArtikel);
 
-				nieuweBestelling.bestellingHasArtikelen.add(nieuweBestellingHasArtikel);
-				bestellingHasArtikelService.persist(nieuweBestellingHasArtikel);
+					logger.info("bestelartikel_id wordt toegevoegd aan het bestelling object");
 
-				logger.info("bestelartikel_id wordt toegevoegd aan het bestelling object");
+					nieuweBestelling.setBestellingHasArtikelen(nieuweBestelling.bestellingHasArtikelen);
 
-				nieuweBestelling.setBestellingHasArtikelen(nieuweBestelling.bestellingHasArtikelen);
+					logger.info("object nieuweBestelling bevat nu: " + nieuweBestelling);
+					logger.info("bestelling object wordt geupdate met bestelartikel_id en geupdate in bestelling tabel");
 
-				logger.info("object nieuweBestelling bevat nu: " + nieuweBestelling);
-				logger.info("bestelling object wordt geupdate met bestelartikel_id en geupdate in bestelling tabel");
+					bestellingService.update(nieuweBestelling);
 
-				bestellingService.update(nieuweBestelling);
-
-				logger.info("de set bestellingHasArtikelen bevat: " + nieuweBestelling.getBestellingHasArtikelen());
+					logger.info("de set bestellingHasArtikelen bevat: " + nieuweBestelling.getBestellingHasArtikelen());
+				
+					System.out.print("Voer ID van artikel in die je wil bestellen (0 = stoppen met artikelen toevoegen): ");
+					artikel_id = input.nextLong();
+					
+				} while (artikel_id  != 0 )  ;
+				
+				
 
 				nieuweFactuur.setFactuurDatum();
 				nieuweFactuur.setFactuurNummer();
@@ -156,7 +169,22 @@ public class TestHibernateBestelling {
 
 			case 2:
 
-				System.out.println("COMING SOON");
+				logger.info("*** Update - start ***");
+
+
+				input.nextLine();
+				System.out.print("Voer ID van een bestelling in die je wil aanpassen: ");
+				long bestelling_id = input.nextInt();		
+
+				Bestelling bestaandeBestelling = bestellingService.findById(bestelling_id);
+
+				logger.info("bestaandeBestelling bevat " + bestaandeBestelling);
+
+				BestelArtikel bestaandeBestelArtikel = bestellingHasArtikelService.findById(bestelling_id);
+
+				logger.info("bestaandeBestelArtikel bevat " + bestaandeBestelArtikel);
+
+			
 				break;
 
 			case 3:
