@@ -42,6 +42,7 @@ public class TestHibernateArtikel {
 				System.out.println("*** Persist - start ***");
 				Artikel nieuweArtikel = new Artikel();
 				
+				input.nextLine();
 				System.out.println("Voer het artikelnaam in wat in het assortiment geplaatst wordt: ");
 				String artikelNaam = input.nextLine();		
 				
