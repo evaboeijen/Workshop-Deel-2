@@ -4,8 +4,7 @@ import business.Adres;
 import dao.AdresDao;
 import java.util.List;
 
-public class AdresDaoService {
-		
+public class AdresDaoService {		
 		private static AdresDao adresDaoImpl;
 
 		public AdresDaoService() {
