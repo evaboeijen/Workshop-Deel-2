@@ -89,7 +89,7 @@ CREATE TABLE `bestelartikel` (
   `aantal` int(11) NOT NULL,
   `bestelling_id` bigint(20) NOT NULL,
   PRIMARY KEY (`bestelartikel_id`),
-  UNIQUE KEY `bestelling_id_UNIQUE` (`bestelartikel_id`),
+  UNIQUE KEY `bestelartikel_id_UNIQUE` (`bestelartikel_id`),
   KEY `artikel_id_fk` (`artikel_id`),
   KEY `bestelling_id_fk` (`bestelling_id`),
   CONSTRAINT `artikel_id_fk` FOREIGN KEY (`artikel_id`) REFERENCES `artikel` (`artikel_id`),
@@ -126,13 +126,13 @@ CREATE TABLE `betaling` (
   CONSTRAINT `klant_id_fk_` FOREIGN KEY (`klant_id`) REFERENCES `klant` (`klant_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
-
 CREATE TABLE `klant_adres` (
+  `klantadres_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `klant_id` bigint(20) NOT NULL,
   `adres_id` bigint(20) NOT NULL,
   `adrestype` varchar(45) NOT NULL,
-  PRIMARY KEY (`klant_id`,`adres_id`),
+  PRIMARY KEY (`klantadres_id`),
+  UNIQUE KEY `klantadres_id_UNIQUE` (`klantadres_id`),
   KEY `adres_id_fk` (`adres_id`),
   KEY `klant_ka_id_fk` (`klant_id`),
   CONSTRAINT `fk_adres_id` FOREIGN KEY (`adres_id`) REFERENCES `adres` (`adres_id`),
@@ -163,5 +163,5 @@ INSERT INTO `artikel` (
 `artikel_id`, `artikel_naam`, `artikel_prijs`, `artikel_nummer`, `omschrijving`) VALUES ('1', 'testartikel', '12.99', '12345AB', 'mooi test artikel');
 
 INSERT INTO `klant_adres` (
-`klant_id`, `adres_id`, `adrestype`) VALUES ('1', '1','Postadres'),
-											('2', '1','Factuuradres')
+`klantadres_id`, `klant_id`, `adres_id`, `adrestype`) VALUES ('1', '1', '1','Postadres'),
+											('2', '2', '1','Factuuradres')
