@@ -9,14 +9,18 @@ import org.slf4j.LoggerFactory;
 import business.Adres;
 import business.Klant;
 import business.Klant.Adrestype;
+import business.KlantAdres;
 import business.AdresType;
+import business.AdresTypeType;
 import service.AdresDaoService;
+import service.KlantAdresDaoService;
 import service.KlantDaoService;
 
 public class TestHibernateAdres {
 	private static final Logger logger =  LoggerFactory.getLogger(TestHibernateAdres.class);
 	static AdresDaoService adresService = new AdresDaoService();
 	static KlantDaoService klantService = new KlantDaoService();
+	static KlantAdresDaoService klantAdresService = new KlantAdresDaoService();
 	
 	public static Adres CreateAdres(){
 	Scanner input = new Scanner(System.in);
@@ -44,10 +48,11 @@ public class TestHibernateAdres {
 	return adres;
 	}
 	
-	public static void adrestypeKeuze(Klant klant){
+	public static AdresTypeType adresTypeKeuze(KlantAdres klantAdres){
+		AdresTypeType adresTypeType = null;
 		Scanner input = new Scanner(System.in);
 		
-		System.out.println("Kies een adrestype ");
+		System.out.println("Geef het adrestype op: ");
 		System.out.println("1. Postadres");
 		System.out.println("2. Factuuradres");
 		System.out.println("3. Bezoekadres");
@@ -56,17 +61,18 @@ public class TestHibernateAdres {
 		
 		switch (keuze) {
 		case 1:
-			klant.setAdrestype(klant.getAdrestype().Postadres);
+			klantAdres.setAdresTypeType(klantAdres.getAdresTypeType().Postadres);
 			break;
 		case 2:
-			klant.setAdrestype(klant.getAdrestype().Factuuradres);
+			klantAdres.setAdresTypeType(klantAdres.getAdresTypeType().Factuuradres);
 			break;
 		case 3:
-			klant.setAdrestype(klant.getAdrestype().Bezoekadres);
+			klantAdres.setAdresTypeType(klantAdres.getAdresTypeType().Bezoekadres);
 			break;			
 		default:
-			klant.setAdrestype(klant.getAdrestype().Postadres);
+			klantAdres.setAdresTypeType(klantAdres.getAdresTypeType().Postadres);
 		} 
+		return adresTypeType;
 	}
 	
 	public static void toonAdresMenu(){
@@ -95,6 +101,7 @@ public class TestHibernateAdres {
 			long klant_id;
 			Adres adres= null;
 			Klant klant = null;
+			KlantAdres klantAdres =  null;
 			Adrestype adrestype= null;
 			
 			
@@ -155,12 +162,15 @@ public class TestHibernateAdres {
 				break;
 				
 			case 7://Koppel adres aan klant
+				klantAdres = new KlantAdres();
 				System.out.println("Geef het klantnummer op: ");
 				klant_id = input.nextLong();
+				klant.setKlant_id(klant_id);
 				System.out.println("Geef het adresnummer op: ");
-				adres_id = input.nextLong();			
-				klant.addToAdresMap(adres,adrestype);
-				klantService.update(klant);
+				adres_id = input.nextLong();
+				AdresTypeType adresTypeType  = adresTypeKeuze(klantAdres);
+				
+				klantAdresService.update(klantAdres);
 				toonAdresMenu();
 				break;
 				
@@ -201,7 +211,7 @@ public class TestHibernateAdres {
 				adres = new Adres();
 				adres.setId(adres_id);
 				
-				adrestypeKeuze(klant);
+				adresTypeKeuze(klant);
 
 				klant.addToAdresMap(adres,adrestype);
 				klantService.update(klant);
