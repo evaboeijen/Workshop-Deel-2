@@ -2,7 +2,9 @@ package business;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Scanner;
 
+import business.*;
 import javax.persistence.*;
 
 @Entity
@@ -99,5 +101,31 @@ public class KlantAdres implements Serializable {
 	           return false;
 	        }
 	        return true;
-		}	
+		}
+		
+		public static void setAdresTypeKeuzeMenu(){
+			AdresTypeType adresTypeType = null;
+			Scanner input = new Scanner(System.in);
+			
+			System.out.println("Geef het adrestype op: ");
+			System.out.println("1. Postadres");
+			System.out.println("2. Factuuradres");
+			System.out.println("3. Bezoekadres");
+			
+			int keuze = input.nextInt();
+			
+			switch (keuze) {
+			case 1:
+				adresTypeType = AdresTypeType.Postadres;
+				break;
+			case 2:
+				adresTypeType = AdresTypeType.Factuuradres;
+				break;
+			case 3:
+				adresTypeType = AdresTypeType.Bezoekadres;
+				break;			
+			default:
+				adresTypeType = AdresTypeType.Postadres;
+			} 
+		}
 }
