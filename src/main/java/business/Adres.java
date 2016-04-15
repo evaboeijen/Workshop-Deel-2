@@ -114,8 +114,63 @@ public class Adres implements Serializable {
 				"\nWoonplaats: " 	+ getWoonplaats() + 
 				"\n";
 	}
-	
+
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((adrestype == null) ? 0 : adrestype.hashCode());
+		result = prime * result + huisnummer;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((postcode == null) ? 0 : postcode.hashCode());
+		result = prime * result + ((straatnaam == null) ? 0 : straatnaam.hashCode());
+		result = prime * result + ((toevoeging == null) ? 0 : toevoeging.hashCode());
+		result = prime * result + ((woonplaats == null) ? 0 : woonplaats.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Adres other = (Adres) obj;
+		if (adrestype == null) {
+			if (other.adrestype != null)
+				return false;
+		} else if (!adrestype.equals(other.adrestype))
+			return false;
+		if (huisnummer != other.huisnummer)
+			return false;
+		if (id != other.id)
+			return false;
+		if (postcode == null) {
+			if (other.postcode != null)
+				return false;
+		} else if (!postcode.equals(other.postcode))
+			return false;
+		if (straatnaam == null) {
+			if (other.straatnaam != null)
+				return false;
+		} else if (!straatnaam.equals(other.straatnaam))
+			return false;
+		if (toevoeging == null) {
+			if (other.toevoeging != null)
+				return false;
+		} else if (!toevoeging.equals(other.toevoeging))
+			return false;
+		if (woonplaats == null) {
+			if (other.woonplaats != null)
+				return false;
+		} else if (!woonplaats.equals(other.woonplaats))
+			return false;
+		return true;
+	}
+	
+	/* @Override
 	public int hashCode(){
 			int hash = 7;
 	       //hash = 89  hash + (this.name != null ? this.name.hashCode() : 0);
@@ -153,5 +208,5 @@ public class Adres implements Serializable {
         	return false;
         }
         return true;
-	}
+	} */
 }

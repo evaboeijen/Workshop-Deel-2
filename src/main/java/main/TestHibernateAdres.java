@@ -185,7 +185,7 @@ public class TestHibernateAdres {
 				adres = new Adres();
 				adres.setId(adres_id);
 				
-				adresTypeKeuze(klantAdres);
+				klantAdres.setAdresTypeKeuzeMenu();
 
 				klant.addToAdresMap(adres,adrestype);
 				klantService.update(klant);
@@ -203,7 +203,7 @@ public class TestHibernateAdres {
 				klant = new Klant();
 				klant.setId(klant_id);
 				
-				adresTypeKeuze(klantAdres);
+				klantAdres.setAdresTypeKeuzeMenu();
 				klant.removeFromAdresMap(adres,adrestype);
 				klantService.update(klant);
 				toonAdresMenu();
