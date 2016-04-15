@@ -21,9 +21,10 @@ public class TestHibernateAdres {
 	static AdresDaoService adresService = new AdresDaoService();
 	static KlantDaoService klantService = new KlantDaoService();
 	static KlantAdresDaoService klantAdresService = new KlantAdresDaoService();
+	private static Scanner input;
 	
 	public static Adres CreateAdres(){
-	Scanner input = new Scanner(System.in);
+	input = new Scanner(System.in);
 	
 	Adres adres = new Adres();
 	System.out.print("Voer straatnaam in: ");
@@ -46,33 +47,6 @@ public class TestHibernateAdres {
 	adres.setWoonplaats(woonplaats);
 	
 	return adres;
-	}
-	
-	public static AdresTypeType adresTypeKeuze(KlantAdres klantAdres){
-		AdresTypeType adresTypeType = null;
-		Scanner input = new Scanner(System.in);
-		
-		System.out.println("Geef het adrestype op: ");
-		System.out.println("1. Postadres");
-		System.out.println("2. Factuuradres");
-		System.out.println("3. Bezoekadres");
-		
-		int keuze = input.nextInt();
-		
-		switch (keuze) {
-		case 1:
-			klantAdres.setAdresTypeType(klantAdres.getAdresTypeType().Postadres);
-			break;
-		case 2:
-			klantAdres.setAdresTypeType(klantAdres.getAdresTypeType().Factuuradres);
-			break;
-		case 3:
-			klantAdres.setAdresTypeType(klantAdres.getAdresTypeType().Bezoekadres);
-			break;			
-		default:
-			klantAdres.setAdresTypeType(klantAdres.getAdresTypeType().Postadres);
-		} 
-		return adresTypeType;
 	}
 	
 	public static void toonAdresMenu(){
@@ -164,11 +138,11 @@ public class TestHibernateAdres {
 			case 7://Koppel adres aan klant
 				klantAdres = new KlantAdres();
 				System.out.println("Geef het klantnummer op: ");
-				klant_id = input.nextLong();
-				klant.setKlant_id(klant_id);
+				klant_id = input.nextInt();
+				klant.setId(klant_id); 
 				System.out.println("Geef het adresnummer op: ");
 				adres_id = input.nextLong();
-				AdresTypeType adresTypeType  = adresTypeKeuze(klantAdres);
+				klantAdres.setAdresTypeKeuzeMenu();
 				
 				klantAdresService.update(klantAdres);
 				toonAdresMenu();
@@ -211,7 +185,7 @@ public class TestHibernateAdres {
 				adres = new Adres();
 				adres.setId(adres_id);
 				
-				adresTypeKeuze(klant);
+				adresTypeKeuze(klantAdres);
 
 				klant.addToAdresMap(adres,adrestype);
 				klantService.update(klant);
@@ -229,7 +203,7 @@ public class TestHibernateAdres {
 				klant = new Klant();
 				klant.setId(klant_id);
 				
-				adrestypeKeuze(klant);
+				adresTypeKeuze(klantAdres);
 				klant.removeFromAdresMap(adres,adrestype);
 				klantService.update(klant);
 				toonAdresMenu();
