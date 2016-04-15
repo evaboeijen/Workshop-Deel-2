@@ -170,19 +170,121 @@ public class TestHibernateBestelling {
 			case 2:
 
 				logger.info("*** Update - start ***");
-
-
+				
 				input.nextLine();
-				System.out.print("Voer ID van een bestelling in die je wil aanpassen: ");
-				long bestelling_id = input.nextInt();		
+				System.out.print("Voer uw Klant ID in: ");
+				klant_id = input.nextInt();		
+				
+				System.out.print("Voer het ID van de bestelling in die u wilt veranderen: ");
+				long bestelling_id = input.nextLong();
+				
+				Bestelling updateBestelling = bestellingService.findById(bestelling_id);			
+				updateBestelling.setBestelDatum();
+				updateBestelling.setKlant(klantService.findById(klant_id));
 
-				Bestelling bestaandeBestelling = bestellingService.findById(bestelling_id);
+				logger.info("Klant:" + updateBestelling.getKlant());
+				logger.info("bestelling_id: " + updateBestelling.getId());
+				
 
-				logger.info("bestaandeBestelling bevat " + bestaandeBestelling);
+				logger.info("bestaandeBestelling bevat " + updateBestelling);
 
-				BestelArtikel bestaandeBestelArtikel = bestellingHasArtikelService.findById(bestelling_id);
+				BestelArtikel updateBestelArtikel = bestellingHasArtikelService.findById(bestelling_id);
 
-				logger.info("bestaandeBestelArtikel bevat " + bestaandeBestelArtikel);
+				logger.info("bestaandeBestelArtikel bevat " + updateBestelArtikel);
+
+				bestellingService.persist(updateBestelling);
+
+				artikel_id = 0;
+				
+				System.out.print("Voer ID van artikel in die je wilt veranderen (0 = stoppen met artikelen toevoegen): ");
+				artikel_id = input.nextLong();
+				
+				do {
+					
+					updateBestelArtikel.setArtikel(artikelService.findById(artikel_id));
+
+					System.out.print("Hoeveel wil je er van bestellen?: ");
+					int aantal = input.nextInt();	
+
+					updateBestelArtikel.setAantal(aantal);
+					updateBestelArtikel.setBestelling(updateBestelling);
+				
+					updateBestelling.bestellingHasArtikelen.add(updateBestelArtikel);
+					bestellingHasArtikelService.update(updateBestelArtikel);
+
+					logger.info("bestelartikel wordt geupdate");
+
+					updateBestelling.setBestellingHasArtikelen(updateBestelling.bestellingHasArtikelen);
+
+					logger.info("object nieuweBestelling bevat nu: " + updateBestelling);
+					logger.info("bestelling object wordt geupdate met bestelartikel_id en geupdate in bestelling tabel");
+
+					bestellingService.update(updateBestelling);
+
+					logger.info("de set bestellingHasArtikelen bevat: " + updateBestelling.getBestellingHasArtikelen());
+				
+					System.out.print("Voer ID van artikel in die je wilt updaten (0 = stoppen met artikelen toevoegen): ");
+					artikel_id = input.nextLong();
+					
+				} while (artikel_id  != 0 )  ;
+				
+				Factuur updateFactuur = factuurService.findById(bestelling_id);
+				
+
+				logger.info("object bestaandeFactuur " + updateFactuur);
+
+				updateFactuur.setBestelling(updateBestelling);
+				updateFactuur.setFactuurDatum();
+				long factuur_id = updateFactuur.getId();
+
+				logger.info("object bestaandeFactuur na verandering bestelling " + updateBestelling);
+
+				updateBestelArtikel.setArtikel(artikelService.findById(artikel_id));
+				Betaling updateBetaling = betalingService.findById(factuur_id);
+				
+				updateBetaling.setBetaalDatum();
+
+
+				System.out.print("Hoe wil je betalen? 1 = Contant, 2 = Pinbetaling, 3 = IDeal, 4 = Creditcard : ");
+				betaalwijze = input.nextInt();
+
+				switch (betaalwijze) {
+				case 1:
+					updateBetaling.setBetaalwijze(updateBetaling.getBetaalwijze().Contant);
+					break;
+				case 2:
+					updateBetaling.setBetaalwijze(updateBetaling.getBetaalwijze().Pinbetaling);
+					break;
+				case 3:
+					updateBetaling.setBetaalwijze(updateBetaling.getBetaalwijze().IDeal);
+					break;
+				case 4:
+					updateBetaling.setBetaalwijze(updateBetaling.getBetaalwijze().Creditcard);
+					break;				
+				default:
+					updateBetaling.setBetaalwijze(updateBetaling.getBetaalwijze().Pinbetaling);
+				} 
+
+				System.out.print("Voer overige betalingsgegevens in c.q. een beschrijving: ");
+				input.nextLine();
+				betalingsGegevens = input.nextLine();
+
+				updateBetaling.setBetalingsGegevens(betalingsGegevens);
+				updateBetaling.setKlant(klantService.findById(klant_id));			
+				updateBetaling.setFactuur(updateFactuur);
+
+				betalingService.update(updateBetaling);
+
+				logger.info("object updateBetaling bevat:" + updateBetaling);									
+				logger.info("object updateFactuur VOOR  \"nieuweFactuur.betalingSet.add(nieuweBetaling) \" " + updateFactuur);
+
+				updateFactuur.betalingSet.add(updateBetaling);
+
+				logger.info("object updateFactuur NA  \"nieuweFactuur.betalingSet.add(nieuweBetaling) \" " + updateFactuur);
+
+				//factuurService.persist(nieuweFactuur);	
+
+				logger.info("*** Update - end ***");
 
 			
 				break;
