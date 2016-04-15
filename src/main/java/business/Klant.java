@@ -65,7 +65,7 @@ public class Klant implements Serializable{
 	
 	public Klant() {}
 	
-	
+
 	public long getId() {
 		return id;
 	}
