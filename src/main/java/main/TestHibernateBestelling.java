@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 public class TestHibernateBestelling { 
 
 	private static final Logger logger =  LoggerFactory.getLogger(TestHibernateBestelling.class);
-
+	
 	public static void main(String[] args){
 
 		BestellingDaoService bestellingService = new BestellingDaoService();
@@ -290,20 +290,49 @@ public class TestHibernateBestelling {
 				break;
 
 			case 3:
-				System.out.println("COMING SOON");				
+				System.out.println("*** findById - start ***");			
+				
+				System.out.print("Voer het bestelling id die u zoekt: ");
+				bestelling_id = input.nextLong();
+				
+				System.out.println(bestellingService.findById(bestelling_id));				
 				break;
 
 			case 4:
+				System.out.println("*** Delete - start ***");
+				
+				System.out.print("Voer de bestelling id in die je wilt deleten: ");				
+				bestelling_id = input.nextLong();				
+				bestellingService.delete(bestelling_id);
+				
 				System.out.println("COMING SOON");
 				break;
 
 			case 5:
-				System.out.println("COMING SOON");
+				logger.info("findAll bestellingen aangeroepen");
+				List<Bestelling> bestellingen = bestellingService.findAll();
+
+				System.out.println("De volgende bestellingen staan in het assortiment:");
+
+				for (Bestelling b: bestellingen) {
+					System.out.println("-" + b.toString());
+				}
+
 				break;
 
 			case 6:
-				System.out.println("COMING SOON");
-				break;
+				System.out.println("*** DeleteAll - start ***");
+				
+				System.out.println("Weet u zeker dat u al uw bestelling wilt verwijderen: ");
+				String antwoord = input.next();
+				
+				if(antwoord.equalsIgnoreCase("ja")){
+					artikelService.deleteAll();
+					break;
+					
+				} else {
+					break;
+				}
 
 			default:
 				System.out.println("\n! Ongeldige optie!\n");
