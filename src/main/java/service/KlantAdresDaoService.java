@@ -55,4 +55,11 @@ public class KlantAdresDaoService {
 			public KlantAdresDao adresDaoImpl() {
 				return klantAdresDaoImpl;
 			}
+
+			public List<KlantAdres> findByKlant_id(long klant_id) {
+				klantAdresDaoImpl.openCurrentSession();
+				List<KlantAdres> klantAdressen = klantAdresDaoImpl.findByKlant_Id(klant_id);
+				klantAdresDaoImpl.closeCurrentSession();
+				return null;
+			}
 }

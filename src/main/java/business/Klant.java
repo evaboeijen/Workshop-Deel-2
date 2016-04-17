@@ -22,12 +22,6 @@ import javax.persistence.*;
 @Table
 public class Klant implements Serializable{
 	
-	public enum Adrestype {
-		  Postadres,
-		  Factuuradres,
-		  Bezoekadres
-		 }
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "klant_id")
@@ -54,8 +48,7 @@ public class Klant implements Serializable{
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="id", orphanRemoval=true, fetch = FetchType.EAGER)
 	private Set<Account> accountSet ;
 	
-	private Adrestype adrestype;
-	 
+	
 	/* @ManyToMany
 	@JoinTable(name = "klant_adres")
 	@JoinColumns({
@@ -67,20 +60,12 @@ public class Klant implements Serializable{
     joinColumns=@JoinColumn(name="klant_id"),
     inverseJoinColumns=@JoinColumn(name="adrestype"))
     @MapKeyJoinColumn(name = "adres_id", table = "klant_adres")
-	private Map<Adres, Adrestype> adresMap = new HashMap <Adres, Adrestype>();
+	private Map<Adres, AdresType> adresMap = new HashMap <Adres, AdresType>();
 	
-	public void addToAdresMap(Adres adres, Adrestype adrestype){
-        if(adres != null && adrestype != null){
-            this.adresMap.put(adres, adrestype);
-        }
-    }
-	
-	public void removeFromAdresMap(Adres adres, Adrestype adrestype){
-        this.adresMap.remove(adres, adrestype);
-    } 	
 	
 	public Klant() {}
 	
+
 	public long getId() {
 		return id;
 	}
@@ -129,14 +114,6 @@ public class Klant implements Serializable{
 		this.email = email;
 	}
 
-	public Adrestype getAdrestype(){
-		  return adrestype;
-		 }
-	
-	public void setAdrestype(Adrestype adrestype){
-		  this.adrestype = adrestype;
-		 }
-	
 	public void setBestellingSet(Set<Bestelling> bestellingSet){
 		this.bestellingSet = bestellingSet;
 	}
@@ -161,14 +138,13 @@ public class Klant implements Serializable{
 		return factuurSet;
 	}
 	
-	public void setAdresMap(Map<Adres, Adrestype> adresMap){
+	public void setAdresMap(Map<Adres, AdresType> adresMap){
 		this.adresMap = adresMap;
 	}
 	
-	public Map<Adres, Adrestype> getAdresMap(){
+	public Map<Adres, AdresType> getAdresMap(){
 		return adresMap;
 	}
-	
 	
 	@Override 
 	public String toString(){
@@ -180,8 +156,8 @@ public class Klant implements Serializable{
 				"\n";
 	}
 
-
-	/*@Override
+/*
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -300,6 +276,3 @@ public class Klant implements Serializable{
         return true;
 	} */
 }
-
-
-

@@ -109,10 +109,26 @@ public class KlantAdresDao implements KlantAdresDaoInterface<KlantAdres, Long>{
 
 	@Override
 	public KlantAdres findById(Long id) {
-		logger.info("Adres.findByID method starts");
+		logger.info("KlantAdres.findByID method starts");
 		KlantAdres klantAdres = (KlantAdres) getCurrentSession().get(KlantAdres.class, id);
-		logger.info("Klant.findByID method about to end");
+		logger.info("KlantAdres.findByID method about to end");
 		return klantAdres;
+	}
+	
+	@Override
+	public List<KlantAdres> findByKlant_Id(Long klant_id) {
+		logger.info("KlantAdres.findByID method starts");
+		List<KlantAdres> klantAdressen = (List<KlantAdres>) getCurrentSession().get(KlantAdres.class, klant_id);
+		logger.info("KlantAdres.findByID method about to end");
+		//List<KlantAdres> klantAdressen = (List<KlantAdres>) getCurrentSession().createQuery("from KlantAdres").list();
+		return klantAdressen;
+	}
+	
+	public List<KlantAdres> findByAdres_Id(Long adres_id) {
+		logger.info("KlantAdres.findByID method starts");
+		List<KlantAdres> klantAdressen = (List<KlantAdres>) getCurrentSession().get(KlantAdres.class, adres_id);
+		logger.info("KlantAdres.findByID method about to end");
+		return klantAdressen;
 	}
 
 	@Override

@@ -6,12 +6,7 @@ import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import business.Adres;
-import business.Klant;
-import business.Klant.Adrestype;
-import business.KlantAdres;
-import business.AdresType;
-import business.AdresTypeType;
+import business.*;
 import service.AdresDaoService;
 import service.KlantAdresDaoService;
 import service.KlantDaoService;
@@ -73,10 +68,11 @@ public class TestHibernateAdres {
 			int keuze = input.nextInt();
 			long adres_id;
 			long klant_id;
-			Adres adres= null;
+			long klantAdres_id;
+			Adres adres = null;
 			Klant klant = null;
 			KlantAdres klantAdres =  null;
-			Adrestype adrestype= null;
+			AdresType adresType = null;
 			
 			
 			switch (keuze) {
@@ -110,7 +106,7 @@ public class TestHibernateAdres {
 
 			case 4:// Delete
 				System.out.println("\n*** Delete Adres - Start ***");
-					bestaandAdres= new Adres();	
+					bestaandAdres = new Adres();	
 				System.out.print("Voer het ID in van het adres die je wil deleten: ");				
 					adres_id = input.nextLong();				
 					adresService.delete(adres_id);				
@@ -121,7 +117,6 @@ public class TestHibernateAdres {
 				System.out.println("\n*** FindAll Adresses - Start ***");
 				logger.info("findAll adressen aangeroepen");
 				List<Adres> adressen = adresService.findAll();
-
 				System.out.println("De volgende adressen staan in de Adres tabel :");
 					for (Adres k : adressen) {
 						System.out.println("-" + k.toString());
@@ -143,68 +138,49 @@ public class TestHibernateAdres {
 				System.out.println("Geef het adresnummer op: ");
 				adres_id = input.nextLong();
 				klantAdres.setAdresTypeKeuzeMenu();
-				
 				klantAdresService.update(klantAdres);
 				toonAdresMenu();
 				break;
 				
-			case 8:// Ontkoppel adres van klant
-				System.out.println("Geef het klantnummer op: ");
-				klant_id = input.nextLong();
-				klant = new Klant();
-				klant.setId(klant_id);
-				System.out.println("Geef het adresnummer op: ");
-				adres_id = input.nextLong();
-				adres = new Adres();
-				adres.setId(adres_id);
-				
-				klant.removeFromAdresMap(adres,adrestype);
-				klantService.update(klant);
+			case 8:// Ontkoppel adres van klant				
+				System.out.println(klantAdresService.findAll());
+				System.out.println("Geef het klant - adres nummer op");
+				klantAdres_id = input.nextLong();
+				klantAdresService.delete(klantAdres_id);
 				toonAdresMenu();
 				break;
 				
 			case 9://Vind alle adressen van een klant	
 				System.out.println("Geeft het klantnummer op: ");
 				klant_id = input.nextLong();
-				klant = new Klant();
-				klant.setId(klant_id);
-				System.out.println(klant.getAdresMap());
+				System.out.println(klantAdresService.findByKlant_id(klant_id));
 				toonAdresMenu();
 				break;
 				
 			case 11://Ken een adrestype toe aan een adres van een klant
 				System.out.println("Geef het klantnummer op: ");
-				klant_id=input.nextLong();
-				klant= new Klant();
-				klant.setId(klant_id);
-				
-				System.out.println(klant = klantService.findById(klant_id));
-				
-				System.out.println("Geef het adresnummer op: ");
-				adres_id=input.nextLong();
-				adres = new Adres();
-				adres.setId(adres_id);
-				
-				adresTypeKeuze(klantAdres);
-
-				klant.addToAdresMap(adres,adrestype);
-				klantService.update(klant);
+				klant_id = input.nextLong();				
+				System.out.println(klantAdresService.findByKlant_id(klant_id));
+				System.out.println("Geef het klantAdres_id op");
+				klantAdres_id = input.nextLong();
+				klantAdres =  new KlantAdres();
+				klantAdres.setAdresTypeKeuzeMenu();
+				klantAdresService.update(klantAdres);
 				toonAdresMenu();
 				break;
 				
 			case 12://Verwijder adrestype
-				System.out.println("Geef het adresnummer op: ");
-				adres_id=input.nextLong();
-				adres = new Adres();
-				adres.setId(adres_id);				
-				
+				System.out.println("Geef het klantAdres_id op: ");
+				klantAdres_id = input.nextLong();			
+				klantAdres = new KlantAdres();
+				klantAdres.setId(klantAdres_id);
 				System.out.println("Geef het klantnummer op: ");
 				klant_id = input.nextLong();
 				klant = new Klant();
 				klant.setId(klant_id);
 				
-				adresTypeKeuze(klantAdres);
-				klant.removeFromAdresMap(adres,adrestype);
+				klantAdres.setAdresTypeKeuzeMenu();
+				//klant.removeFromAdresMap(adres,adresType);
 				klantService.update(klant);
 				toonAdresMenu();
 				break;
