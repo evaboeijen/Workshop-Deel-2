@@ -26,6 +26,7 @@ public class TestHibernateBestelling {
 		ArtikelDaoService artikelService = new ArtikelDaoService();
 		FactuurDaoService factuurService = new FactuurDaoService();
 		BetalingDaoService betalingService = new BetalingDaoService();
+		CheckExistenceInDatabase checkExistenceInDatabase = new CheckExistenceInDatabase();
 
 
 		System.out.println("\t-------------------------");
@@ -56,7 +57,13 @@ public class TestHibernateBestelling {
 
 				input.nextLine();
 				System.out.print("Voer ID van klant in waarvoor je een bestelling wil plaatsen: ");
-				long klant_id = input.nextInt();		
+				long klant_id = input.nextInt();	
+				
+				while (checkExistenceInDatabase.checkKlant_id(klant_id)!= true) { 
+            		System.out.print("\nVoer een ander klant ID in: ");
+            		klant_id = input.nextLong();
+            		System.out.println();
+            	}    
 
 				nieuweBestelling.setBestelNummer();				
 				nieuweBestelling.setBestelDatum();
@@ -177,6 +184,13 @@ public class TestHibernateBestelling {
 				
 				System.out.print("Voer het ID van de bestelling in die u wilt veranderen: ");
 				long bestelling_id = input.nextLong();
+				
+				while (checkExistenceInDatabase.checkBestelling_id(bestelling_id)!= true) { 
+            		System.out.print("\nVoer een ander bestelling ID in: ");
+            		bestelling_id = input.nextLong();
+            		System.out.println();
+            	}    
+				
 				
 				Bestelling updateBestelling = bestellingService.findById(bestelling_id);			
 				updateBestelling.setBestelDatum();
@@ -305,7 +319,15 @@ public class TestHibernateBestelling {
 				System.out.println("*** Delete - start ***");
 				
 				System.out.print("Voer de bestelling id in die je wilt deleten: ");				
-				bestelling_id = input.nextLong();				
+				bestelling_id = input.nextLong();		
+				
+				
+				while (checkExistenceInDatabase.checkBestelling_id(bestelling_id)!= true) { 
+            		System.out.print("\nVoer een ander bestelling ID in: ");
+            		bestelling_id = input.nextLong();
+            		System.out.println();
+            	}    
+							
 				bestellingService.delete(bestelling_id);
 				
 				
