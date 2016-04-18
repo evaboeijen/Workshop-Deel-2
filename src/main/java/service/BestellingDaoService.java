@@ -1,12 +1,19 @@
 package service;
 
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import business.*;
 import dao.BestellingDao;
+import main.TestHibernateBestelling;
 
  
 
 public class BestellingDaoService {
+	
+	private static final Logger logger =  LoggerFactory.getLogger(BestellingDaoService.class);
 	
 	private static BestellingDao bestellingDao;
 
@@ -37,17 +44,17 @@ public class BestellingDaoService {
 	//public void delete(String id) {
 	public void delete(Long id) {
 		bestellingDao.openCurrentSessionwithTransaction();
-		Bestelling Bestelling = bestellingDao.findById(id);
-		System.out.println(Bestelling + "will be deleted.");
-		bestellingDao.delete(Bestelling);
+		Bestelling bestelling = bestellingDao.findById(id);
+		System.out.println(bestelling + "will be deleted.");
+		bestellingDao.delete(bestelling);
 		bestellingDao.closeCurrentSessionwithTransaction();
 	}
 	
 	public List<Bestelling> findAll() {
 		bestellingDao.openCurrentSession();
-		List<Bestelling> Bestellingen = bestellingDao.findAll();
+		List<Bestelling> bestellingen = bestellingDao.findAll();
 		bestellingDao.closeCurrentSession();
-		return Bestellingen;
+		return bestellingen;
 	}
 
 	public void deleteAll() {

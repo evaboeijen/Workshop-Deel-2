@@ -28,10 +28,10 @@ public class Factuur implements Serializable {
 
 	@OneToMany(mappedBy = "factuur", targetEntity = Betaling.class,  
 			fetch = FetchType.EAGER) 
-	@Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+	@Cascade({org.hibernate.annotations.CascadeType.ALL})
 	public Set<Betaling> betalingSet = new HashSet<>();
 	
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne
 	@JoinColumn(name = "bestelling_id") 
 	private Bestelling bestelling;
 	
@@ -108,7 +108,7 @@ public class Factuur implements Serializable {
             			    			   			
     }      
     
-    @Override
+    /* @Override
 	public int hashCode(){
 			int hash = 7;
 	       //hash = 89  hash + (this.name != null ? this.name.hashCode() : 0);
@@ -141,7 +141,7 @@ public class Factuur implements Serializable {
         	return false;
         }
         return true;
-	}
+	} */
 }
 
 /*De servicelaag berekent de totaalprijs, inc/ex btw en per artikel 

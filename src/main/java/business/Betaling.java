@@ -104,7 +104,7 @@ public class Betaling implements Serializable{
 			   "\n met betalinggegevens: " + betalingsGegevens;
 	}
 
-	@Override
+	/* @Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -151,6 +151,6 @@ public class Betaling implements Serializable{
 		} else if (!klant.equals(other.klant))
 			return false;
 		return true;
-	}
+	} */
 	
 }

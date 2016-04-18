@@ -171,16 +171,16 @@ public class TestHibernateBestelling {
 
 				logger.info("*** Update - start ***");
 				
-				input.nextLine();
+				/* input.nextLine();
 				System.out.print("Voer uw Klant ID in: ");
-				klant_id = input.nextInt();		
+				klant_id = input.nextInt();		*/
 				
 				System.out.print("Voer het ID van de bestelling in die u wilt veranderen: ");
 				long bestelling_id = input.nextLong();
 				
 				Bestelling updateBestelling = bestellingService.findById(bestelling_id);			
 				updateBestelling.setBestelDatum();
-				updateBestelling.setKlant(klantService.findById(klant_id));
+				// updateBestelling.setKlant(klantService.findById(klant_id));
 
 				logger.info("Klant:" + updateBestelling.getKlant());
 				logger.info("bestelling_id: " + updateBestelling.getId());
@@ -192,16 +192,19 @@ public class TestHibernateBestelling {
 
 				logger.info("bestaandeBestelArtikel bevat " + updateBestelArtikel);
 
-				bestellingService.persist(updateBestelling);
+				bestellingService.update(updateBestelling);
 
 				artikel_id = 0;
 				
-				System.out.print("Voer ID van artikel in die je wilt veranderen (0 = stoppen met artikelen toevoegen): ");
+				
+				System.out.print("Voer ID van artikel in die je wil toevoegen (0 = stoppen met artikelen toevoegen): ");
 				artikel_id = input.nextLong();
 				
 				do {
 					
 					updateBestelArtikel.setArtikel(artikelService.findById(artikel_id));
+					
+					logger.info("updateBestelArtikel bevat: " + updateBestelArtikel);
 
 					System.out.print("Hoeveel wil je er van bestellen?: ");
 					int aantal = input.nextInt();	
@@ -210,7 +213,7 @@ public class TestHibernateBestelling {
 					updateBestelArtikel.setBestelling(updateBestelling);
 				
 					updateBestelling.bestellingHasArtikelen.add(updateBestelArtikel);
-					bestellingHasArtikelService.update(updateBestelArtikel);
+					bestellingHasArtikelService.persist(updateBestelArtikel);
 
 					logger.info("bestelartikel wordt geupdate");
 
@@ -223,12 +226,12 @@ public class TestHibernateBestelling {
 
 					logger.info("de set bestellingHasArtikelen bevat: " + updateBestelling.getBestellingHasArtikelen());
 				
-					System.out.print("Voer ID van artikel in die je wilt updaten (0 = stoppen met artikelen toevoegen): ");
+					System.out.print("Voer ID van artikel in die je wilt toevoegen (0 = stoppen met artikelen toevoegen): ");
 					artikel_id = input.nextLong();
 					
 				} while (artikel_id  != 0 )  ;
 				
-				Factuur updateFactuur = factuurService.findById(bestelling_id);
+				/* Factuur updateFactuur = factuurService.findById(bestelling_id);
 				
 
 				logger.info("object bestaandeFactuur " + updateFactuur);
@@ -270,7 +273,7 @@ public class TestHibernateBestelling {
 				betalingsGegevens = input.nextLine();
 
 				updateBetaling.setBetalingsGegevens(betalingsGegevens);
-				updateBetaling.setKlant(klantService.findById(klant_id));			
+				// updateBetaling.setKlant(klantService.findById(klant_id));			
 				updateBetaling.setFactuur(updateFactuur);
 
 				betalingService.update(updateBetaling);
@@ -282,9 +285,9 @@ public class TestHibernateBestelling {
 
 				logger.info("object updateFactuur NA  \"nieuweFactuur.betalingSet.add(nieuweBetaling) \" " + updateFactuur);
 
-				//factuurService.persist(nieuweFactuur);	
+				//factuurService.persist(nieuweFactuur);	 */
 
-				logger.info("*** Update - end ***");
+				logger.info("*** Update - end ***"); 
 
 			
 				break;
@@ -305,7 +308,7 @@ public class TestHibernateBestelling {
 				bestelling_id = input.nextLong();				
 				bestellingService.delete(bestelling_id);
 				
-				System.out.println("COMING SOON");
+				
 				break;
 
 			case 5:

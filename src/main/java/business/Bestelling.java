@@ -29,15 +29,15 @@ public class Bestelling {
 
 	@OneToMany(mappedBy = "bestelling",targetEntity = BestelArtikel.class,  
 			fetch = FetchType.EAGER) 
-	@Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+	@Cascade({org.hibernate.annotations.CascadeType.ALL})
 	public Set<BestelArtikel> bestellingHasArtikelen = new HashSet<>();
 
 	@OneToMany(mappedBy = "bestelling", targetEntity = Factuur.class, 
 			fetch = FetchType.EAGER)
-	@Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+	@Cascade({org.hibernate.annotations.CascadeType.ALL})
 	private Set<Factuur> facturen = new HashSet<>();
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.ALL, targetEntity = Klant.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "klant_id")
 	private Klant klant;
 
@@ -115,7 +115,8 @@ public class Bestelling {
 				"\nBestelling id : " + id + ". Bestellingnummer : " + bestelNummer + 
 				"\n-----------------------------------------------------------------" +
 				"\nBestel datum: " + bestelDatum + 
-				"\tArtikelen: " + bestellingHasArtikelen +  
+				"\tArtikelen: " + this.getBestellingHasArtikelen() +  
+				"\nKlant " + this.getKlant() +
 				"\n\n";
 
 	} 
