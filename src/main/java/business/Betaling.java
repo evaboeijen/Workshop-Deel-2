@@ -75,8 +75,7 @@ public class Betaling implements Serializable{
 		return klant;
 	}
 	
-	public void setKlant(Klant klant){
-		this.klant = klant;
+	public void setKlant(Klant klant){		this.klant = klant;
 	}
 	
 	public String getBetalingsGegevens(){

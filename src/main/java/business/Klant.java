@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.util.Objects;
 import java.util.Scanner;
 import org.apache.commons.validator.routines.EmailValidator;
+import org.hibernate.annotations.Cascade;
 
 import java.util.Set;
 
@@ -55,13 +56,16 @@ public class Klant implements Serializable{
 			@JoinColumn(name = "klant_id", referencedColumnName = "klant_id"), 
 			@JoinColumn(name = "adrestype_id", referencedColumnName = "adrestype_id"), 
 			@JoinColumn(name = "adres_id", referencedColumnName = "adres_id")}) */
-	@ManyToMany(fetch = FetchType.EAGER)
+	/*@ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name="klant_adres",
     joinColumns=@JoinColumn(name="klant_id"),
     inverseJoinColumns=@JoinColumn(name="adrestype"))
     @MapKeyJoinColumn(name = "adres_id", table = "klant_adres")
-	private Map<Adres, AdresType> adresMap = new HashMap <Adres, AdresType>();
-	
+	private Map<Adres, AdresType> adresMap = new HashMap <Adres, AdresType>();*/
+	@OneToMany(mappedBy = "klantAdres",targetEntity = KlantAdres.class,  
+			fetch = FetchType.EAGER) 
+	@Cascade({org.hibernate.annotations.CascadeType.ALL})
+	public Set<KlantAdres> klantAdres = new HashSet<>();
 	
 	public Klant() {}
 	
@@ -138,13 +142,13 @@ public class Klant implements Serializable{
 		return factuurSet;
 	}
 	
-	public void setAdresMap(Map<Adres, AdresType> adresMap){
+	/*public void setAdresMap(Map<Adres, AdresType> adresMap){
 		this.adresMap = adresMap;
 	}
 	
 	public Map<Adres, AdresType> getAdresMap(){
 		return adresMap;
-	}
+	}*/
 	
 	@Override 
 	public String toString(){

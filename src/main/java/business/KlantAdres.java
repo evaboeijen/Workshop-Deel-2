@@ -7,6 +7,8 @@ import java.util.Scanner;
 import business.*;
 import javax.persistence.*;
 
+import org.hibernate.annotations.Cascade;
+
 @Entity
 @Table
 public class KlantAdres implements Serializable {
@@ -18,6 +20,7 @@ public class KlantAdres implements Serializable {
 		
 		@ManyToOne(cascade = CascadeType.ALL)
 		@JoinColumn(name = "klant_id")
+		@Cascade({org.hibernate.annotations.CascadeType.ALL})
 		private Klant klant;
 
 		@ManyToOne(cascade = CascadeType.ALL)
@@ -26,7 +29,7 @@ public class KlantAdres implements Serializable {
 		
 		@Enumerated(EnumType.STRING)
 		@JoinColumn(name  = "adrestype")
-		private AdresTypeType adresTypeType;
+		private AdresType adresType;
 		
 		public KlantAdres(){}
 		
@@ -54,12 +57,12 @@ public class KlantAdres implements Serializable {
 			this.adres = adres;
 		}
 
-		public AdresTypeType getAdresTypeType() {
-			return adresTypeType;
+		public AdresType getAdresType() {
+			return adresType;
 		}
 
-		public void setAdresTypeType(AdresTypeType adresTypeType) {
-			this.adresTypeType = adresTypeType;
+		public void setAdresType(AdresType adresType) {
+			this.adresType = adresType;
 		}
 
 		@Override
@@ -67,7 +70,7 @@ public class KlantAdres implements Serializable {
 			return  "\nKlantAdres id: " + getId() +
 					"\nKlantnummer: " 	+ getKlant() +
 					"\nAdresnummer: " 	+ getAdres() + 
-					"\nAdrestype: " 	+ getAdresTypeType() + 
+					"\nAdrestype: " 	+ getAdresType() + 
 					"\n";
 		}
 		
@@ -78,7 +81,7 @@ public class KlantAdres implements Serializable {
 		        hash = 67 * hash + (int) (this.id ^ (this.id >>> 32));
 		        hash = 67 * hash + Objects.hashCode(this.klant);
 		        hash = 67 * hash + Objects.hashCode(this.adres);
-		        hash = 67 * hash + Objects.hashCode(this.adresTypeType);
+		        hash = 67 * hash + Objects.hashCode(this.adresType);
 	        return hash;
 		}
 		
@@ -97,7 +100,7 @@ public class KlantAdres implements Serializable {
 	        if (!Objects.equals(this.adres, other.adres)) {
 	            return false;
 	        }
-	        if (!Objects.equals(this.adresTypeType, other.adresTypeType)) {
+	        if (!Objects.equals(this.adresType, other.adresType)) {
 	           return false;
 	        }
 	        return true;

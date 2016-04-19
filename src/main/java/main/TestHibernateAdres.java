@@ -134,6 +134,7 @@ public class TestHibernateAdres {
 				klantAdres = new KlantAdres();
 				System.out.println("Geef het klantnummer op: ");
 				klant_id = input.nextInt();
+				klant = new Klant();
 				klant.setId(klant_id); 
 				System.out.println("Geef het adresnummer op: ");
 				adres_id = input.nextLong();
