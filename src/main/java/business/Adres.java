@@ -1,8 +1,12 @@
 package business;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.*;
+
+import org.hibernate.annotations.Cascade;
 
 import java.io.Serializable;
 
@@ -32,8 +36,13 @@ public class Adres implements Serializable {
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "adrestype_id")
-	private AdresType adrestype;
+	private AdresType adresType;
 
+	@OneToMany(mappedBy = "adres",targetEntity = KlantAdres.class,  
+			fetch = FetchType.EAGER) 
+	@Cascade({org.hibernate.annotations.CascadeType.ALL})
+	public Set<BestelArtikel> bestellingHasArtikelen = new HashSet<>();
+	
 	public Adres(){}
 	
 	/*public Adres(String straatnaam, String postcode, String toevoeging, int huisnummer, String woonplaats ){
@@ -97,11 +106,11 @@ public class Adres implements Serializable {
 	
 	
 	public AdresType getAdresType(){
-		return adrestype;
+		return adresType;
 	}
 	
 	public void setAdresType(AdresType adrestype){
-		this.adrestype = adrestype;
+		this.adresType = adrestype;
 	}
 
 	@Override
@@ -119,7 +128,7 @@ public class Adres implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((adrestype == null) ? 0 : adrestype.hashCode());
+		result = prime * result + ((adresType == null) ? 0 : adresType.hashCode());
 		result = prime * result + huisnummer;
 		result = prime * result + (int) (id ^ (id >>> 32));
 		result = prime * result + ((postcode == null) ? 0 : postcode.hashCode());

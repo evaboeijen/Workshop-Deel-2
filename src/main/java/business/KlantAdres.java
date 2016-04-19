@@ -25,11 +25,12 @@ public class KlantAdres implements Serializable {
 
 		@ManyToOne(cascade = CascadeType.ALL)
 		@JoinColumn(name = "adres_id")
+		@Cascade({org.hibernate.annotations.CascadeType.ALL})
 		private Adres adres;
 		
 		@Enumerated(EnumType.STRING)
 		@JoinColumn(name  = "adrestype")
-		private AdresType adresType;
+		private AdresTypeType adresTypeType;
 		
 		public KlantAdres(){}
 		
@@ -57,20 +58,13 @@ public class KlantAdres implements Serializable {
 			this.adres = adres;
 		}
 
-		public AdresType getAdresType() {
-			return adresType;
-		}
-
-		public void setAdresType(AdresType adresType) {
-			this.adresType = adresType;
-		}
 
 		@Override
 		public String toString() {
 			return  "\nKlantAdres id: " + getId() +
 					"\nKlantnummer: " 	+ getKlant() +
 					"\nAdresnummer: " 	+ getAdres() + 
-					"\nAdrestype: " 	+ getAdresType() + 
+					"\nAdrestype: " 	+ getAdresTypeType() + 
 					"\n";
 		}
 		
@@ -81,7 +75,7 @@ public class KlantAdres implements Serializable {
 		        hash = 67 * hash + (int) (this.id ^ (this.id >>> 32));
 		        hash = 67 * hash + Objects.hashCode(this.klant);
 		        hash = 67 * hash + Objects.hashCode(this.adres);
-		        hash = 67 * hash + Objects.hashCode(this.adresType);
+		        hash = 67 * hash + Objects.hashCode(this.adresTypeType);
 	        return hash;
 		}
 		
@@ -100,12 +94,20 @@ public class KlantAdres implements Serializable {
 	        if (!Objects.equals(this.adres, other.adres)) {
 	            return false;
 	        }
-	        if (!Objects.equals(this.adresType, other.adresType)) {
+	        if (!Objects.equals(this.adresTypeType, other.adresTypeType)) {
 	           return false;
 	        }
 	        return true;
 		}
 		
+		public AdresTypeType getAdresTypeType() {
+			return adresTypeType;
+		}
+
+		public void setAdresTypeType(AdresTypeType adresTypeType) {
+			this.adresTypeType = adresTypeType;
+		}
+
 		public static void setAdresTypeKeuzeMenu(){
 			AdresTypeType adresTypeType = null;
 			Scanner input = new Scanner(System.in);
