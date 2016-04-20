@@ -29,11 +29,11 @@ public class Betaling implements Serializable{
 	@Column(name = "betaalwijze")
 	private Betaalwijze betaalwijze;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "klant_id")
 	private Klant klant;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "factuur_id")
 	private Factuur factuur;
 	

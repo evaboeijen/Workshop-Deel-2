@@ -18,7 +18,7 @@ public class Account implements Serializable {
 	@Column(name = "accountnaam")
 	private String accountNaam;
 	
-	@ManyToOne(cascade=CascadeType.ALL, targetEntity = Klant.class, fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name = "klant_id")
 	private Klant klant;
 	

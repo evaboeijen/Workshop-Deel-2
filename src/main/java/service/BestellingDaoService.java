@@ -50,6 +50,16 @@ public class BestellingDaoService {
 		bestellingDao.closeCurrentSessionwithTransaction();
 	}
 	
+	public void delete(Bestelling bestelling) {
+		bestellingDao.openCurrentSessionwithTransaction();
+		
+		Long id = bestelling.getId();
+		bestellingDao.findById(id);
+		System.out.println(bestelling + "will be deleted.");
+		bestellingDao.delete(bestelling);
+		bestellingDao.closeCurrentSessionwithTransaction();
+	}
+	
 	public List<Bestelling> findAll() {
 		bestellingDao.openCurrentSession();
 		List<Bestelling> bestellingen = bestellingDao.findAll();

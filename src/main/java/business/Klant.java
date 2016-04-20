@@ -40,13 +40,13 @@ public class Klant implements Serializable{
 	@Column
 	private String email;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="id", orphanRemoval=true, fetch = FetchType.EAGER)
+	@OneToMany(cascade=CascadeType.ALL, mappedBy = "klant")
 	private Set<Bestelling> bestellingSet ;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="id", orphanRemoval=true, fetch = FetchType.EAGER)
+	@OneToMany(cascade=CascadeType.ALL, targetEntity = Factuur.class, mappedBy="klant", orphanRemoval=true, fetch = FetchType.EAGER)
 	private Set<Factuur> factuurSet;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="id", orphanRemoval=true, fetch = FetchType.EAGER)
+	@OneToMany(cascade=CascadeType.ALL, targetEntity = Account.class, mappedBy="klant", orphanRemoval=true, fetch = FetchType.EAGER)
 	private Set<Account> accountSet ;
 	
 	
@@ -230,9 +230,9 @@ public class Klant implements Serializable{
 		} else if (!voornaam.equals(other.voornaam))
 			return false;
 		return true;
-	}
+	}*/
 	
-	/* @Override
+ 	@Override
 	public int hashCode(){
 			int hash = 7;
 	       //hash = 89  hash + (this.name != null ? this.name.hashCode() : 0);
@@ -241,9 +241,9 @@ public class Klant implements Serializable{
 	        hash = 67 * hash + Objects.hashCode(this.tussenvoegsel);
 	        hash = 67 * hash + Objects.hashCode(this.achternaam);
 	        hash = 67 * hash + Objects.hashCode(this.email);
-	        hash = 67 * hash + Objects.hashCode(this.accountSet);
-	        hash = 67 * hash + Objects.hashCode(this.bestellingSet);
-	        hash = 67 * hash + Objects.hashCode(this.factuurSet);
+	       // hash = 67 * hash + Objects.hashCode(this.accountSet);
+	       // hash = 67 * hash + Objects.hashCode(this.bestellingSet);
+	       // hash = 67 * hash + Objects.hashCode(this.factuurSet);
 	        return hash;
 	}
 	
@@ -268,7 +268,7 @@ public class Klant implements Serializable{
         if (!Objects.equals(this.email, other.email)){
         	return false;
         }
-        if (!Objects.equals(this.factuurSet, other.factuurSet)) {
+       /* if (!Objects.equals(this.factuurSet, other.factuurSet)) {
             return false;
         }
         if (!Objects.equals(this.bestellingSet, other.bestellingSet)) {
@@ -276,7 +276,7 @@ public class Klant implements Serializable{
         }
         if (!Objects.equals(this.accountSet, other.accountSet)){
         	return false;
-        }
+        }*/
         return true;
-	} */
+	} 
 }

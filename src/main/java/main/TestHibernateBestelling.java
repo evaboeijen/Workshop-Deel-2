@@ -64,10 +64,11 @@ public class TestHibernateBestelling {
 					klant_id = input.nextLong();
 					System.out.println();
 				}    
-
+				Klant klant = klantService.findById(klant_id);
+				
 				nieuweBestelling.setBestelNummer();				
 				nieuweBestelling.setBestelDatum();
-				nieuweBestelling.setKlant(klantService.findById(klant_id));
+				nieuweBestelling.setKlant(klant);
 
 				logger.info("Klant :" + nieuweBestelling.getKlant());
 				logger.info("bestelling_id: " + nieuweBestelling.getId());
@@ -117,6 +118,7 @@ public class TestHibernateBestelling {
 
 				nieuweFactuur.setFactuurDatum();
 				nieuweFactuur.setFactuurNummer();
+				nieuweFactuur.setKlant(klant);
 
 				logger.info("object nieuweFactuur " + nieuweFactuur);
 
@@ -155,7 +157,7 @@ public class TestHibernateBestelling {
 				String betalingsGegevens = input.nextLine();
 
 				nieuweBetaling.setBetalingsGegevens(betalingsGegevens);
-				nieuweBetaling.setKlant(klantService.findById(klant_id));			
+				nieuweBetaling.setKlant(klant);			
 				nieuweBetaling.setFactuur(nieuweFactuur);
 
 				betalingService.persist(nieuweBetaling);
@@ -327,6 +329,8 @@ public class TestHibernateBestelling {
 					bestelling_id = input.nextLong();
 					System.out.println();
 				}    
+				
+				//Bestelling deleteBestelling = bestellingService.findById(bestelling_id);
 
 				bestellingService.delete(bestelling_id);
 

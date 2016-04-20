@@ -23,7 +23,6 @@ public class BestelArtikel implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "bestelling_id")
-	@Cascade({org.hibernate.annotations.CascadeType.ALL})
 	private Bestelling bestelling;
 	
 	@Column

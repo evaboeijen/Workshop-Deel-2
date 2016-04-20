@@ -35,6 +35,10 @@ public class Factuur implements Serializable {
 	@JoinColumn(name = "bestelling_id") 
 	private Bestelling bestelling;
 	
+	@ManyToOne
+	@JoinColumn(name = "klant_id")
+	private Klant klant;
+	
 	public Factuur(){
 	}
 	
@@ -95,6 +99,15 @@ public class Factuur implements Serializable {
     public void setBestelling(Bestelling bestelling) {
     	this.bestelling = bestelling;
     }
+    
+    public Klant getKlant() {
+		return klant;
+	}
+
+
+	public void setKlant(Klant klant) {
+		this.klant = klant;
+	} 
     
     @Override
     public String toString(){

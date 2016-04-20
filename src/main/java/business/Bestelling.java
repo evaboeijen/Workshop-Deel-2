@@ -37,8 +37,8 @@ public class Bestelling {
 	@Cascade({org.hibernate.annotations.CascadeType.ALL})
 	private Set<Factuur> facturen = new HashSet<>();
 
-	@ManyToOne(cascade=CascadeType.ALL, targetEntity = Klant.class, fetch = FetchType.EAGER)
-	@JoinColumn(name = "klant_id")
+	@ManyToOne
+    @JoinColumn(name = "klant_id")
 	private Klant klant;
 
 	public Bestelling() {		
@@ -121,19 +121,34 @@ public class Bestelling {
 
 	} 
 	
-	/*
-	@Override
+	
+	/*@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((bestelDatum == null) ? 0 : bestelDatum.hashCode());
 		result = prime * result + ((bestelNummer == null) ? 0 : bestelNummer.hashCode());
-		result = prime * result + ((bestellingHasArtikelen == null) ? 0 : bestellingHasArtikelen.hashCode());
+		//result = prime * result + ((bestellingHasArtikelen == null) ? 0 : bestellingHasArtikelen.hashCode());
 		result = prime * result + ((facturen == null) ? 0 : facturen.hashCode());
 		result = prime * result + (int) (id ^ (id >>> 32));
 		result = prime * result + ((klant == null) ? 0 : klant.hashCode());
 		return result;
-	} 
+	} */
+	
+ 	@Override
+	public int hashCode(){
+			int hash = 7;
+	       //hash = 89  hash + (this.name != null ? this.name.hashCode() : 0);
+	        hash = 67 * hash + (int) (this.id ^ (this.id >>> 32));
+	        hash = 67 * hash + Objects.hashCode(this.bestelDatum);
+	        hash = 67 * hash + Objects.hashCode(this.bestelNummer);
+	        //hash = 67 * hash + Objects.hashCode(this.facturen);
+	        hash = 67 * hash + Objects.hashCode(this.klant);
+	       // hash = 67 * hash + Objects.hashCode(this.accountSet);
+	       // hash = 67 * hash + Objects.hashCode(this.bestellingSet);
+	       // hash = 67 * hash + Objects.hashCode(this.factuurSet);
+	        return hash;
+	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -154,11 +169,11 @@ public class Bestelling {
 				return false;
 		} else if (!bestelNummer.equals(other.bestelNummer))
 			return false;
-		if (bestellingHasArtikelen == null) {
+		/*if (bestellingHasArtikelen == null) {
 			if (other.bestellingHasArtikelen != null)
 				return false;
 		} else if (!bestellingHasArtikelen.equals(other.bestellingHasArtikelen))
-			return false;
+			return false;*/
 		if (facturen == null) {
 			if (other.facturen != null)
 				return false;
@@ -172,7 +187,7 @@ public class Bestelling {
 		} else if (!klant.equals(other.klant))
 			return false;
 		return true;
-	} */
+	} 
 
 	
 }
