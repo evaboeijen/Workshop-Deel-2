@@ -78,17 +78,18 @@ public class GenericDao<T> implements GenericDaoInterface<T, Long> {
 			);*/
 
 		Configuration configuration = new Configuration()
-					.addAnnotatedClass(Klant.class)
-					.addAnnotatedClass(Account.class)
-					.addAnnotatedClass(Bestelling.class)
-					.addAnnotatedClass(Factuur.class)
-					.addAnnotatedClass(Adres.class)
-					.addAnnotatedClass(AdresType.class)
-					.addAnnotatedClass(BestelArtikel.class)
-					.addAnnotatedClass(Betaalwijze.class)
-					.addAnnotatedClass(Betaling.class)
-					.addAnnotatedClass(Artikel.class)
-					.configure();
+				.addAnnotatedClass(Klant.class)
+				.addAnnotatedClass(Account.class)
+				.addAnnotatedClass(Bestelling.class)
+				.addAnnotatedClass(Factuur.class)
+				.addAnnotatedClass(Adres.class)
+				.addAnnotatedClass(AdresType.class)
+				.addAnnotatedClass(BestelArtikel.class)
+				.addAnnotatedClass(Betaalwijze.class)
+				.addAnnotatedClass(Betaling.class)
+				.addAnnotatedClass(Artikel.class)
+				.addAnnotatedClass(KlantAdres.class)
+				.configure();
 			
 			StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
 				.applySettings(configuration.getProperties());

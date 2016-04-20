@@ -126,7 +126,7 @@ CREATE TABLE IF NOT EXISTS `betaling` (
   CONSTRAINT `klant_id_fk_` FOREIGN KEY (`klant_id`) REFERENCES `klant` (`klant_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `klant_adres` (
+CREATE TABLE IF NOT EXISTS `klantadres` (
   `klantadres_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `klant_id` bigint(20) NOT NULL,
   `adres_id` bigint(20) NOT NULL,
@@ -166,7 +166,7 @@ INSERT INTO `artikel` (
 																						('2', 'testartikel2', '69.99', '6969AB', 'tweede test artikel'),
                                                                                         ('3', 'testartikel3', '6969.99', '90210BH', 'derde test artikel');
 
-INSERT INTO `klant_adres` (
+INSERT INTO `klantadres` (
 `klantadres_id`, `klant_id`, `adres_id`, `adrestype`) VALUES ('1', '1', '1','Postadres'),
 											('2', '2', '1','Factuuradres'),
                                             ('3', '3', '1','Bezoekadres');

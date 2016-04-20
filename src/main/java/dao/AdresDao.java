@@ -20,6 +20,7 @@ import business.Betaalwijze;
 import business.Betaling;
 import business.Factuur;
 import business.Klant;
+import business.KlantAdres;
 
 
 public class AdresDao implements AdresDaoInterface<Adres, Long> {
@@ -80,6 +81,7 @@ private static SessionFactory getSessionFactory() {
 			.addAnnotatedClass(Betaalwijze.class)
 			.addAnnotatedClass(Betaling.class)
 			.addAnnotatedClass(Artikel.class)
+			.addAnnotatedClass(KlantAdres.class)
 			.configure();
 	
 	StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()

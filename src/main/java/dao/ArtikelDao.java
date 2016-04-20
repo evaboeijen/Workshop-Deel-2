@@ -74,6 +74,7 @@ public class ArtikelDao implements AccountDaoInterface<Artikel, Long> {
 					.addAnnotatedClass(Betaalwijze.class)
 					.addAnnotatedClass(Betaling.class)
 					.addAnnotatedClass(Artikel.class)
+					.addAnnotatedClass(KlantAdres.class)
 					.configure();
 			
 			StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()

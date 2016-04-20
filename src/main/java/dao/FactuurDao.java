@@ -51,13 +51,14 @@ public class FactuurDao implements FactuurDaoInterface<Factuur, Long> {
 					.addAnnotatedClass(Klant.class)
 					.addAnnotatedClass(Account.class)
 					.addAnnotatedClass(Bestelling.class)
-					.addAnnotatedClass(BestelArtikel.class)
+					.addAnnotatedClass(Factuur.class)
 					.addAnnotatedClass(Adres.class)
 					.addAnnotatedClass(AdresType.class)
-					.addAnnotatedClass(Factuur.class)
+					.addAnnotatedClass(BestelArtikel.class)
 					.addAnnotatedClass(Betaalwijze.class)
 					.addAnnotatedClass(Betaling.class)
 					.addAnnotatedClass(Artikel.class)
+					.addAnnotatedClass(KlantAdres.class)
 					.configure();
 			
 			StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()

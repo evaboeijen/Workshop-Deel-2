@@ -77,6 +77,7 @@ public class KlantDao implements KlantDaoInterface<Klant, Long> {
 					.addAnnotatedClass(Betaalwijze.class)
 					.addAnnotatedClass(Betaling.class)
 					.addAnnotatedClass(Artikel.class)
+					.addAnnotatedClass(KlantAdres.class)
 					.configure();
 			
 			StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()

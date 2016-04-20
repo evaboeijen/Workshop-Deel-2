@@ -147,10 +147,10 @@ public class Adres implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Adres other = (Adres) obj;
-		if (adrestype == null) {
-			if (other.adrestype != null)
+		if (adresType == null) {
+			if (other.adresType != null)
 				return false;
-		} else if (!adrestype.equals(other.adrestype))
+		} else if (!adresType.equals(other.adresType))
 			return false;
 		if (huisnummer != other.huisnummer)
 			return false;

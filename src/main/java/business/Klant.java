@@ -62,7 +62,7 @@ public class Klant implements Serializable{
     inverseJoinColumns=@JoinColumn(name="adrestype"))
     @MapKeyJoinColumn(name = "adres_id", table = "klant_adres")
 	private Map<Adres, AdresType> adresMap = new HashMap <Adres, AdresType>();*/
-	@OneToMany(mappedBy = "klantAdres",targetEntity = KlantAdres.class,  
+	@OneToMany(mappedBy = "id",targetEntity = KlantAdres.class,  
 			fetch = FetchType.EAGER) 
 	@Cascade({org.hibernate.annotations.CascadeType.ALL})
 	public Set<KlantAdres> klantAdres = new HashSet<>();

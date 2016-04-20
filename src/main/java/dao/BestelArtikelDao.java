@@ -58,6 +58,7 @@ public class BestelArtikelDao implements BestelArtikelDaoInterface<BestelArtikel
 					.addAnnotatedClass(Betaalwijze.class)
 					.addAnnotatedClass(Betaling.class)
 					.addAnnotatedClass(Artikel.class)
+					.addAnnotatedClass(KlantAdres.class)
 					.configure();
 			
 			StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()

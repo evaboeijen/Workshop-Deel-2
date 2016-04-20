@@ -58,6 +58,7 @@ public class BestellingDao implements BestellingDaoInterface<Bestelling, Long> {
 					.addAnnotatedClass(Betaalwijze.class)
 					.addAnnotatedClass(Betaling.class)
 					.addAnnotatedClass(Artikel.class)
+					.addAnnotatedClass(KlantAdres.class)
 					.configure();
 			
 			StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
