@@ -44,6 +44,33 @@ public class TestHibernateAdres {
 	return adres;
 	}
 	
+	public static void setAdresTypeKeuzeMenu(KlantAdres klantAdres){
+		
+		AdresTypeType adresTypeType = null;
+		Scanner input = new Scanner(System.in);
+		
+		System.out.println("Geef het adrestype op: ");
+		System.out.println("1. Postadres");
+		System.out.println("2. Factuuradres");
+		System.out.println("3. Bezoekadres");
+		
+		int keuze = input.nextInt();
+
+		switch (keuze) {
+		case 1:
+			klantAdres.setAdresType(klantAdres.getAdresType().Postadres);
+			break;
+		case 2:
+			klantAdres.setAdresType(klantAdres.getAdresType().Factuuradres);
+			break;
+		case 3:
+			klantAdres.setAdresType(klantAdres.getAdresType().Bezoekadres);
+			break;			
+		default:
+			klantAdres.setAdresType(klantAdres.getAdresType().Postadres);
+		}
+	}	
+	
 	public static void toonAdresMenu(){
 		Scanner input = new Scanner(System.in);		     
 		
@@ -57,11 +84,8 @@ public class TestHibernateAdres {
 		System.out.println("\t5.  FindAll adresses");
 		System.out.println("\t6.  DeleteAll adresses\n");		
 		System.out.println("\t7.  Koppel adres aan klant");
-		System.out.println("\t8.  Ontkoppel adres van klant");
-		System.out.println("\t9.  Vind alle adressen van een klant");
-				
-		System.out.println("\t11. Ken een adrestype toe aan een adres van een klant");
-		System.out.println("\t12. Verwijder adrestype");		
+		System.out.println("\t8.  Pas klantAdres aan");
+		System.out.println("\t9.  Ontkoppel adres van klant");		
 		System.out.print("\nVoer optie in en druk op Enter:");
 		
 		try{
@@ -104,19 +128,19 @@ public class TestHibernateAdres {
 				toonAdresMenu();				
 				break;
 
-			case 4:// Delete
+			case 4:// Delete						FOUTMELDING: constraint violation foreign key constraint fail
 				System.out.println("\n*** Delete Adres - Start ***");
 					bestaandAdres = new Adres();	
 				System.out.print("Voer het ID in van het adres die je wil deleten: ");				
-					adres_id = input.nextLong();				
-					adresService.delete(adres_id);				
+					adres_id = input.nextLong();								
+				adresService.delete(adres_id);
 				toonAdresMenu();
 				break;
 
 			case 5:// FindAll
 				System.out.println("\n*** FindAll Adresses - Start ***");
 				logger.info("findAll adressen aangeroepen");
-				List<Adres> adressen = adresService.findAll();
+					List<Adres> adressen = adresService.findAll();
 				System.out.println("De volgende adressen staan in de Adres tabel :");
 					for (Adres k : adressen) {
 						System.out.println("-" + k.toString());
@@ -124,7 +148,7 @@ public class TestHibernateAdres {
 				toonAdresMenu();
 				break;
 				
-			case 6:// DeleteAll
+			case 6:// DeleteAll						FOUTMELDING: constraint violation foreign key constraint fail
 				System.out.println("\n*** DeleteAll Adresses - Start ***");
 				adresService.deleteAll();				
 				toonAdresMenu();
@@ -134,88 +158,44 @@ public class TestHibernateAdres {
 				klantAdres = new KlantAdres();			
 				System.out.println("Geef het klant ID op: ");
 				klant_id = input.nextInt();
-				
 				klant = klantService.findById(klant_id);
-
 				System.out.println("Geef het adres ID op: ");
 				adres_id = input.nextLong();
-							
-				System.out.println("Geef het adrestype op: ");
-				System.out.println("1. Postadres");
-				System.out.println("2. Factuuradres");
-				System.out.println("3. Bezoekadres");
-				
-				keuze = input.nextInt();
-				
-				switch (keuze) {
-				case 1:
-					klantAdres.setAdresType(klantAdres.getAdresType().Postadres);
-					break;
-				case 2:
-					klantAdres.setAdresType(klantAdres.getAdresType().Factuuradres);
-					break;
-				case 3:
-					klantAdres.setAdresType(klantAdres.getAdresType().Bezoekadres);
-					break;			
-				default:
-					klantAdres.setAdresType(klantAdres.getAdresType().Postadres);
-				} 
-		
+				setAdresTypeKeuzeMenu(klantAdres);				
 				bestaandAdres = adresService.findById(adres_id);
-				
 				klantAdres.setAdres(bestaandAdres);
-				//klantAdres.setId(klant_id);	
 				klantAdres.setKlant(klant);
-				
-				logger.info("klantAdres bevat nu: " + klantAdres);
-				logger.info("klant bevat nu: " + klant);
-		
-				klantAdresService.persist(klantAdres);
-				
-				
+				//logger.info("klantAdres bevat nu: " + klantAdres);
+				//logger.info("klant bevat nu: " + klant);		
+				klantAdresService.persist(klantAdres);				
 				toonAdresMenu();
 				break;
 				
-			case 8:// Ontkoppel adres van klant				
+			case 8://Pas klantAdres aan				FOUTMELDING: constraint violation klant_id may not be null				
 				System.out.println(klantAdresService.findAll());
 				System.out.println("Geef het klant - adres nummer op");
 				klantAdres_id = input.nextLong();
-				klantAdresService.delete(klantAdres_id);
-				toonAdresMenu();
-				break;
-				
-			case 9://Vind alle adressen van een klant	
-				System.out.println("Geeft het klantnummer op: ");
+				klantAdres = new KlantAdres();
+				klantAdres.setId(klantAdres_id);
+				System.out.println("Geef klantnummer op: ");
 				klant_id = input.nextLong();
-				System.out.println(klantAdresService.findByKlant_id(klant_id));
-				toonAdresMenu();
-				break;
-				
-			case 11://Ken een adrestype toe aan een adres van een klant
-				System.out.println("Geef het klantnummer op: ");
-				klant_id = input.nextLong();				
-				System.out.println(klantAdresService.findByKlant_id(klant_id));
-				System.out.println("Geef het klantAdres_id op");
-				klantAdres_id = input.nextLong();
-				klantAdres =  new KlantAdres();
-				// klantAdres.setAdresTypeKeuzeMenu();
+				klant = new Klant();
+				klant = klantService.findById(klant_id);
+				klantAdres.setKlant(klant);
+				System.out.println("Geef adresnummer op: ");
+				adres_id = input.nextLong();
+				adres = adresService.findById(adres_id);
+				klantAdres.setAdres(adres);
+				setAdresTypeKeuzeMenu(klantAdres);
 				klantAdresService.update(klantAdres);
 				toonAdresMenu();
 				break;
 				
-			case 12://Verwijder adrestype
-				System.out.println("Geef het klantAdres_id op: ");
-				klantAdres_id = input.nextLong();			
-				klantAdres = new KlantAdres();
-				klantAdres.setId(klantAdres_id);
-				System.out.println("Geef het klantnummer op: ");
-				klant_id = input.nextLong();
-				klant = new Klant();
-				klant.setId(klant_id);
-				
-				//klantAdres.setAdresTypeKeuzeMenu();
-				//klant.removeFromAdresMap(adres,adresType);
-				klantService.update(klant);
+			case 9:// Ontkoppel adres van klant				
+				System.out.println(klantAdresService.findAll());
+				System.out.println("Geef het klant - adres nummer op");
+				klantAdres_id = input.nextLong();
+				klantAdresService.delete(klantAdres_id);
 				toonAdresMenu();
 				break;
 				

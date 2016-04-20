@@ -12,6 +12,4 @@ public interface KlantAdresDaoInterface <T, Id extends Serializable>  {
 	    public void delete(T entity);
 	    public List<T> findAll();
 	    public void deleteAll();
-		public List<KlantAdres> findByKlant_Id(Long klant_id);
-		public List<KlantAdres> findByAdres_Id(Long adres_id);
 }

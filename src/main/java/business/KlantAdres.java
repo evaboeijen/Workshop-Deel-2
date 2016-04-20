@@ -82,32 +82,6 @@ public class KlantAdres implements Serializable {
 		public void setAdresType(AdresType adrestype) {
 			this.adrestype = adrestype;
 		}
-
-		/* public static void setAdresTypeKeuzeMenu(){
-			AdresTypeType adresTypeType = null;
-			Scanner input = new Scanner(System.in);
-			
-			System.out.println("Geef het adrestype op: ");
-			System.out.println("1. Postadres");
-			System.out.println("2. Factuuradres");
-			System.out.println("3. Bezoekadres");
-			
-			int keuze = input.nextInt();
-			
-			switch (keuze) {
-			case 1:
-				adresTypeType = AdresTypeType.Postadres;
-				break;
-			case 2:
-				adresTypeType = AdresTypeType.Factuuradres;
-				break;
-			case 3:
-				adresTypeType = AdresTypeType.Bezoekadres;
-				break;			
-			default:
-				adresTypeType = AdresTypeType.Postadres;
-			} 
-		} */
 		
 		
 		/* @Override
