@@ -131,15 +131,48 @@ public class TestHibernateAdres {
 				break;
 				
 			case 7://Koppel adres aan klant
-				klantAdres = new KlantAdres();
-				System.out.println("Geef het klantnummer op: ");
+				klantAdres = new KlantAdres();			
+				System.out.println("Geef het klant ID op: ");
 				klant_id = input.nextInt();
-				klant = new Klant();
-				klant.setId(klant_id); 
-				System.out.println("Geef het adresnummer op: ");
+				
+				klant = klantService.findById(klant_id);
+
+				System.out.println("Geef het adres ID op: ");
 				adres_id = input.nextLong();
-				klantAdres.setAdresTypeKeuzeMenu();
-				klantAdresService.update(klantAdres);
+							
+				System.out.println("Geef het adrestype op: ");
+				System.out.println("1. Postadres");
+				System.out.println("2. Factuuradres");
+				System.out.println("3. Bezoekadres");
+				
+				keuze = input.nextInt();
+				
+				switch (keuze) {
+				case 1:
+					klantAdres.setAdresType(klantAdres.getAdresType().Postadres);
+					break;
+				case 2:
+					klantAdres.setAdresType(klantAdres.getAdresType().Factuuradres);
+					break;
+				case 3:
+					klantAdres.setAdresType(klantAdres.getAdresType().Bezoekadres);
+					break;			
+				default:
+					klantAdres.setAdresType(klantAdres.getAdresType().Postadres);
+				} 
+		
+				bestaandAdres = adresService.findById(adres_id);
+				
+				klantAdres.setAdres(bestaandAdres);
+				//klantAdres.setId(klant_id);	
+				klantAdres.setKlant(klant);
+				
+				logger.info("klantAdres bevat nu: " + klantAdres);
+				logger.info("klant bevat nu: " + klant);
+		
+				klantAdresService.persist(klantAdres);
+				
+				
 				toonAdresMenu();
 				break;
 				
@@ -165,7 +198,7 @@ public class TestHibernateAdres {
 				System.out.println("Geef het klantAdres_id op");
 				klantAdres_id = input.nextLong();
 				klantAdres =  new KlantAdres();
-				klantAdres.setAdresTypeKeuzeMenu();
+				// klantAdres.setAdresTypeKeuzeMenu();
 				klantAdresService.update(klantAdres);
 				toonAdresMenu();
 				break;
@@ -180,7 +213,7 @@ public class TestHibernateAdres {
 				klant = new Klant();
 				klant.setId(klant_id);
 				
-				klantAdres.setAdresTypeKeuzeMenu();
+				//klantAdres.setAdresTypeKeuzeMenu();
 				//klant.removeFromAdresMap(adres,adresType);
 				klantService.update(klant);
 				toonAdresMenu();

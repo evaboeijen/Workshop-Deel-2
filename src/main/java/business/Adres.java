@@ -34,14 +34,14 @@ public class Adres implements Serializable {
 	@Column
 	private String woonplaats;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	/* @OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "adrestype_id")
-	private AdresType adresType;
+	private AdresType adresType; 
 
 	@OneToMany(mappedBy = "adres",targetEntity = KlantAdres.class,  
 			fetch = FetchType.EAGER) 
 	@Cascade({org.hibernate.annotations.CascadeType.ALL})
-	public Set<BestelArtikel> bestellingHasArtikelen = new HashSet<>();
+	public Set<BestelArtikel> bestellingHasArtikelen = new HashSet<>(); */
 	
 	public Adres(){}
 	
@@ -105,13 +105,13 @@ public class Adres implements Serializable {
 	}
 	
 	
-	public AdresType getAdresType(){
+	/*public AdresType getAdresType(){
 		return adresType;
 	}
 	
 	public void setAdresType(AdresType adrestype){
 		this.adresType = adrestype;
-	}
+	} */
 
 	@Override
 	public String toString() {
@@ -128,7 +128,7 @@ public class Adres implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((adresType == null) ? 0 : adresType.hashCode());
+		//result = prime * result + ((adresType == null) ? 0 : adresType.hashCode());
 		result = prime * result + huisnummer;
 		result = prime * result + (int) (id ^ (id >>> 32));
 		result = prime * result + ((postcode == null) ? 0 : postcode.hashCode());
@@ -147,11 +147,11 @@ public class Adres implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Adres other = (Adres) obj;
-		if (adresType == null) {
+		/* if (adresType == null) {
 			if (other.adresType != null)
 				return false;
 		} else if (!adresType.equals(other.adresType))
-			return false;
+			return false; */
 		if (huisnummer != other.huisnummer)
 			return false;
 		if (id != other.id)
