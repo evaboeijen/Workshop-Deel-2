@@ -159,7 +159,8 @@ public class TestHibernateBestelling {
 				nieuweBetaling.setBetalingsGegevens(betalingsGegevens);
 				nieuweBetaling.setKlant(klant);			
 				nieuweBetaling.setFactuur(nieuweFactuur);
-
+				
+				factuurService.persist(nieuweFactuur);	
 				betalingService.persist(nieuweBetaling);
 
 				logger.info("object nieuweBetaling bevat:" + nieuweBetaling);									
@@ -169,7 +170,7 @@ public class TestHibernateBestelling {
 
 				logger.info("object nieuweFactuur NA  \"nieuweFactuur.betalingSet.add(nieuweBetaling) \" " + nieuweFactuur);
 
-				//factuurService.persist(nieuweFactuur);	
+				
 
 				logger.info("*** Persist - end ***");
 
