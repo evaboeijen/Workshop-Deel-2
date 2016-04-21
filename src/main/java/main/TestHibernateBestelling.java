@@ -37,6 +37,7 @@ public class TestHibernateBestelling {
 		System.out.println("3. findById");
 		System.out.println("4. delete");
 		System.out.println("5. findAll");
+		System.out.println("6. deleteAll");
 		System.out.print("Voer optie in en druk op Enter:");
 
 
@@ -367,6 +368,12 @@ public class TestHibernateBestelling {
 				for (Bestelling b: bestellingen) {
 					System.out.println("-" + b.toString());
 				}
+
+				break;
+				
+			case 6:
+
+					bestellingService.deleteAll();
 
 				break;
 

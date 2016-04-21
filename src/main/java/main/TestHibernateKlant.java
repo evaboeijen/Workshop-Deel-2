@@ -29,6 +29,7 @@ public class TestHibernateKlant {
 		System.out.println("3. findById");
 		System.out.println("4. delete");
 		System.out.println("5. findAll");
+		System.out.println("6. deleteAll");
 		System.out.print("Voer optie in en druk op Enter:");
 
 
@@ -144,8 +145,16 @@ public class TestHibernateKlant {
 				for (Klant k : klanten) {
 					System.out.println("-" + k.toString());
 				}
-
+				
 				break;
+				
+			case 6:
+
+				service.deleteAll();
+
+			break;
+			
+				
 				
 			default:
 				System.out.println("\n! Ongeldige optie!\n");
