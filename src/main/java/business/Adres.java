@@ -34,29 +34,14 @@ public class Adres implements Serializable {
 	@Column
 	private String woonplaats;
 	
-	/* @OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "adrestype_id")
-	private AdresType adresType; 
-
-	@OneToMany(mappedBy = "adres",targetEntity = KlantAdres.class,  
-			fetch = FetchType.EAGER) 
-	@Cascade({org.hibernate.annotations.CascadeType.ALL})
-	public Set<BestelArtikel> bestellingHasArtikelen = new HashSet<>(); */
+	//begin recent uitprobeersel
+	//@OneToMany(mappedBy = "klant",targetEntity = KlantAdres.class,  
+	//		fetch = FetchType.EAGER) 
+	//@Cascade({org.hibernate.annotations.CascadeType.ALL})
+	//public Set<KlantAdres> klantAdres = new HashSet<>();
+	//einde recent uitprobeersel
 	
 	public Adres(){}
-	
-	/*public Adres(String straatnaam, String postcode, String toevoeging, int huisnummer, String woonplaats ){
-	//this.klant_id   = klant_id;
-	this.straatnaam = straatnaam;
-	this.postcode   = postcode;
-	this.toevoeging = toevoeging;
-	this.huisnummer = huisnummer;
-	this.woonplaats = woonplaats;
-	}
-	
-	public Adres(long id) {
-		
-	}*/
 	
 	public long getId() {
 		return id;

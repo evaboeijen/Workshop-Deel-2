@@ -107,9 +107,8 @@ public void setCurrentTransaction(Transaction currentTransaction) {
 	this.currentTransaction = currentTransaction;
 }
 
-
 @Override
- public void persist(Adres entity) {
+public void persist(Adres entity) {
 	getCurrentSession().save(entity);
 	
 }

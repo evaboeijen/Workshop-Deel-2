@@ -24,13 +24,13 @@ public class KlantAdres implements Serializable {
 		@Column(name = "klantadres_id")
 		private long id;
 		
-		@ManyToOne(cascade = CascadeType.ALL)	
+		@ManyToOne//(cascade = CascadeType.ALL)	
 		@JoinColumn(name = "klant_id")
 		//@Cascade({org.hibernate.annotations.CascadeType.ALL})
 		private Klant klant;
 
-		//@ManyToOne(cascade = CascadeType.ALL)
-		@ManyToOne
+		
+		@ManyToOne//cascade = CascadeType.ALL)
 		@JoinColumn(name = "adres_id")
 		//@Cascade({org.hibernate.annotations.CascadeType.ALL})
 		private Adres adres;
