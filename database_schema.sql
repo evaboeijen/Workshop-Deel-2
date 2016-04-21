@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `bestelling` (
   PRIMARY KEY (`bestelling_id`),
   UNIQUE KEY `bestelling_id` (`bestelling_id`),
   -- KEY `fk_klant_id` (`klant_id`),
-  CONSTRAINT `fk_klant_id` FOREIGN KEY (`klant_id`) REFERENCES `klant` (`klant_id`) ON DELETE no action ON UPDATE no action
+  CONSTRAINT `fk_klant_id` FOREIGN KEY (`klant_id`) REFERENCES `klant` (`klant_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `bestelartikel` (

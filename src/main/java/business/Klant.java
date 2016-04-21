@@ -40,7 +40,7 @@ public class Klant implements Serializable{
 	@Column
 	private String email;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy = "klant")
+	@OneToMany(cascade=CascadeType.ALL, targetEntity = Factuur.class, mappedBy="klant", orphanRemoval=true, fetch = FetchType.LAZY)
 	private Set<Bestelling> bestellingSet ;
 	
 	@OneToMany(cascade=CascadeType.ALL, targetEntity = Factuur.class, mappedBy="klant", orphanRemoval=true, fetch = FetchType.LAZY)

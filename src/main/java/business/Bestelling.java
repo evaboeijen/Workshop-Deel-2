@@ -28,7 +28,7 @@ public class Bestelling {
 	private Date bestelDatum;
 
 	@OneToMany(mappedBy = "bestelling",targetEntity = BestelArtikel.class,  
-			fetch = FetchType.LAZY) 
+			fetch = FetchType.EAGER) 
 	//@Cascade({org.hibernate.annotations.CascadeType.ALL})
 	public Set<BestelArtikel> bestellingHasArtikelen = new HashSet<>();
 
