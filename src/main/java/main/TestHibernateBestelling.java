@@ -80,9 +80,20 @@ public class TestHibernateBestelling {
 
 				System.out.print("Voer ID van artikel in die je wil bestellen (0 = stoppen met artikelen toevoegen): ");
 				artikel_id = input.nextLong();
+				
+				while (checkExistenceInDatabase.checkArtikel_id(artikel_id)!= true) { 
+					System.out.print("\nVoer een ander artikel ID in: ");
+					artikel_id = input.nextLong();
+					System.out.println();
+				}    
+				
+				logger.info("artikel_id BEFORE DO LOOP is: " + artikel_id);
+				
 
 				do {
 
+					logger.info("artikel_id INSIDE DO LOOP is: " + artikel_id);
+					
 					nieuweBestellingHasArtikel.setArtikel(artikelService.findById(artikel_id));
 
 					System.out.print("Hoeveel wil je er van bestellen?: ");
@@ -213,12 +224,22 @@ public class TestHibernateBestelling {
 
 				artikel_id = 0;
 
-
+				input.nextLine();
 				System.out.print("Voer ID van artikel in die je wil toevoegen (0 = stoppen met artikelen toevoegen): ");
 				artikel_id = input.nextLong();
+				
+				while (checkExistenceInDatabase.checkArtikel_id(artikel_id)!= true) { 
+					System.out.print("\nVoer een ander artikel ID in: ");
+					artikel_id = input.nextLong();
+					System.out.println();
+				}    
+				
+				logger.info("artikel_id BEFORE DO LOOP is: " + artikel_id);
 
 				do {
 
+					logger.info("artikel_id INSIDE DO LOOP is: " + artikel_id);
+					
 					updateBestelArtikel.setArtikel(artikelService.findById(artikel_id));
 
 					logger.info("updateBestelArtikel bevat: " + updateBestelArtikel);

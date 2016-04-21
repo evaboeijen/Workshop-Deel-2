@@ -29,12 +29,12 @@ public class Bestelling {
 
 	@OneToMany(mappedBy = "bestelling",targetEntity = BestelArtikel.class,  
 			fetch = FetchType.EAGER) 
-	@Cascade({org.hibernate.annotations.CascadeType.ALL})
+	//@Cascade({org.hibernate.annotations.CascadeType.ALL})
 	public Set<BestelArtikel> bestellingHasArtikelen = new HashSet<>();
 
 	@OneToMany(mappedBy = "bestelling", targetEntity = Factuur.class, 
 			fetch = FetchType.EAGER)
-	@Cascade({org.hibernate.annotations.CascadeType.ALL})
+	//@Cascade({org.hibernate.annotations.CascadeType.ALL})
 	private Set<Factuur> facturen = new HashSet<>();
 
 	@ManyToOne
