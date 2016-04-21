@@ -43,10 +43,10 @@ public class Klant implements Serializable{
 	@OneToMany(cascade=CascadeType.ALL, mappedBy = "klant")
 	private Set<Bestelling> bestellingSet ;
 	
-	@OneToMany(cascade=CascadeType.ALL, targetEntity = Factuur.class, mappedBy="klant", orphanRemoval=true, fetch = FetchType.EAGER)
+	@OneToMany(cascade=CascadeType.ALL, targetEntity = Factuur.class, mappedBy="klant", orphanRemoval=true, fetch = FetchType.LAZY)
 	private Set<Factuur> factuurSet;
 	
-	@OneToMany(cascade=CascadeType.ALL, targetEntity = Account.class, mappedBy="klant", orphanRemoval=true, fetch = FetchType.EAGER)
+	@OneToMany(cascade=CascadeType.ALL, targetEntity = Account.class, mappedBy="klant", orphanRemoval=true, fetch = FetchType.LAZY)
 	private Set<Account> accountSet ;
 	
 	
@@ -62,10 +62,8 @@ public class Klant implements Serializable{
     inverseJoinColumns=@JoinColumn(name="adrestype"))
     @MapKeyJoinColumn(name = "adres_id", table = "klant_adres")
 	private Map<Adres, AdresType> adresMap = new HashMap <Adres, AdresType>();*/
-	@OneToMany(mappedBy = "klant",targetEntity = KlantAdres.class,  
-			fetch = FetchType.EAGER) 
-	@Cascade({org.hibernate.annotations.CascadeType.ALL})
-	public Set<KlantAdres> klantAdres = new HashSet<>();
+	@OneToMany(cascade=CascadeType.ALL, targetEntity = KlantAdres.class, mappedBy="klant", orphanRemoval=true, fetch = FetchType.LAZY)
+	private Set<KlantAdres> klantAdresSet;
 	
 	public Klant() {}
 	
@@ -142,6 +140,13 @@ public class Klant implements Serializable{
 		return factuurSet;
 	}
 	
+	public void setKlantAdres(Set<KlantAdres> klantAdresSet){
+		this.klantAdresSet = klantAdresSet;
+	}
+
+	public Set<KlantAdres> getKlantAdresSet(){
+		return klantAdresSet;
+	}
 	/*public void setAdresMap(Map<Adres, AdresType> adresMap){
 		this.adresMap = adresMap;
 	}

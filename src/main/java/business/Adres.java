@@ -34,14 +34,32 @@ public class Adres implements Serializable {
 	@Column
 	private String woonplaats;
 	
-	//begin recent uitprobeersel
-	//@OneToMany(mappedBy = "klant",targetEntity = KlantAdres.class,  
-	//		fetch = FetchType.EAGER) 
-	//@Cascade({org.hibernate.annotations.CascadeType.ALL})
-	//public Set<KlantAdres> klantAdres = new HashSet<>();
-	//einde recent uitprobeersel
+	@OneToMany(cascade=CascadeType.ALL, targetEntity = KlantAdres.class, mappedBy="adres", orphanRemoval=true, fetch = FetchType.LAZY)
+	private Set<KlantAdres> klantAdresSet;
+	
+	/* @OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "adrestype_id")
+	private AdresType adresType; 
+
+	@OneToMany(mappedBy = "adres",targetEntity = KlantAdres.class,  
+			fetch = FetchType.EAGER) 
+	@Cascade({org.hibernate.annotations.CascadeType.ALL})
+	public Set<BestelArtikel> bestellingHasArtikelen = new HashSet<>(); */
 	
 	public Adres(){}
+	
+	/*public Adres(String straatnaam, String postcode, String toevoeging, int huisnummer, String woonplaats ){
+	//this.klant_id   = klant_id;
+	this.straatnaam = straatnaam;
+	this.postcode   = postcode;
+	this.toevoeging = toevoeging;
+	this.huisnummer = huisnummer;
+	this.woonplaats = woonplaats;
+	}
+	
+	public Adres(long id) {
+		
+	}*/
 	
 	public long getId() {
 		return id;
@@ -89,6 +107,13 @@ public class Adres implements Serializable {
 		this.woonplaats = woonplaats;
 	}
 	
+	public void setKlantAdres(Set<KlantAdres> klantAdresSet){
+		this.klantAdresSet = klantAdresSet;
+	}
+
+	public Set<KlantAdres> getKlantAdresSet(){
+		return klantAdresSet;
+	}
 	
 	/*public AdresType getAdresType(){
 		return adresType;

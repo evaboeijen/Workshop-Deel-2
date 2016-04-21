@@ -27,7 +27,7 @@ public class Factuur implements Serializable {
 	private Date factuurDatum;
 
 	@OneToMany(mappedBy = "factuur", targetEntity = Betaling.class,  
-			fetch = FetchType.EAGER) 
+			fetch = FetchType.LAZY) 
 	@Cascade({org.hibernate.annotations.CascadeType.ALL})
 	public Set<Betaling> betalingSet = new HashSet<>();
 	

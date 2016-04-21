@@ -28,12 +28,12 @@ public class Bestelling {
 	private Date bestelDatum;
 
 	@OneToMany(mappedBy = "bestelling",targetEntity = BestelArtikel.class,  
-			fetch = FetchType.EAGER) 
+			fetch = FetchType.LAZY) 
 	//@Cascade({org.hibernate.annotations.CascadeType.ALL})
 	public Set<BestelArtikel> bestellingHasArtikelen = new HashSet<>();
 
 	@OneToMany(mappedBy = "bestelling", targetEntity = Factuur.class, 
-			fetch = FetchType.EAGER)
+			fetch = FetchType.LAZY)
 	//@Cascade({org.hibernate.annotations.CascadeType.ALL})
 	private Set<Factuur> facturen = new HashSet<>();
 
