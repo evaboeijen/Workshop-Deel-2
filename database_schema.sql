@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `account` (
   UNIQUE KEY `account_id_UNIQUE` (`account_id`),
   UNIQUE KEY `accountnaam_UNIQUE` (`accountnaam`),
   KEY `klant_id` (`klant_id`),
-  CONSTRAINT `klant_id` FOREIGN KEY (`klant_id`) REFERENCES `klant` (`klant_id`)
+  CONSTRAINT `klant_id` FOREIGN KEY (`klant_id`) REFERENCES `klant` (`klant_id`) ON DELETE no action ON UPDATE no action
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `adres` (
@@ -123,7 +123,7 @@ CREATE TABLE IF NOT EXISTS `betaling` (
  -- KEY `betaalwijze_if_fk` (`betaalwijze_id`),
  -- CONSTRAINT `betaalwijze_if_fk` FOREIGN KEY (`betaalwijze_id`) REFERENCES `betaalwijze` (`betaalwijze_id`),
   CONSTRAINT `factuur_id_fk` FOREIGN KEY (`factuur_id`) REFERENCES `factuur` (`factuur_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `klant_id_fk_` FOREIGN KEY (`klant_id`) REFERENCES `klant` (`klant_id`)
+  CONSTRAINT `klant_id_fk_` FOREIGN KEY (`klant_id`) REFERENCES `klant` (`klant_id`) ON DELETE no action ON UPDATE no action
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `klantadres` (
@@ -135,8 +135,8 @@ CREATE TABLE IF NOT EXISTS `klantadres` (
   UNIQUE KEY `klantadres_id_UNIQUE` (`klantadres_id`),
   KEY `adres_id_fk` (`adres_id`),
   KEY `klant_ka_id_fk` (`klant_id`),
-  CONSTRAINT `fk_adres_id` FOREIGN KEY (`adres_id`) REFERENCES `adres` (`adres_id`),
-  CONSTRAINT `klant_id_fk` FOREIGN KEY (`klant_id`) REFERENCES `klant` (`klant_id`)
+  CONSTRAINT `fk_adres_id` FOREIGN KEY (`adres_id`) REFERENCES `adres` (`adres_id`) ON DELETE no action ON UPDATE no action,
+  CONSTRAINT `klant_id_fk` FOREIGN KEY (`klant_id`) REFERENCES `klant` (`klant_id`) ON DELETE no action ON UPDATE no action
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- weer teruggezet 08/04/16 AU
