@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `klant` (
 
 
 CREATE TABLE IF NOT EXISTS `account` (
-  `account_id` bigint(20) NOT NULL,
+  `account_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `accountnaam` varchar(45) NOT NULL,
   `klant_id` bigint(20) DEFAULT NULL,
   `datecreated` date DEFAULT NULL,
