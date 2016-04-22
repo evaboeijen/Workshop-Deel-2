@@ -1,5 +1,13 @@
 package jUnit;
 
+import static org.junit.Assert.*;
+
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
 import business.*;
 import service.*;
 
@@ -144,6 +152,7 @@ public class BestellingTest {
 	
 	
 		assertEquals((int)bestelling.getId() + 1, (int)nieuweBestelling.getId());
+	}
 		
 		
 		@Test
